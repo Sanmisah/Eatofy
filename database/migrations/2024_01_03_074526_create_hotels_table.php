@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('owner_name',50)->nullable();
             $table->string('owner_contact_no',20)->nullable();  
             $table->string('gstin',20)->nullable();  
+            $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
             $table->timestamps();
         });
     }

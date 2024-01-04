@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Traits\CreatedUpdatedBy;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use App\Models\Hotel;
 
 class User extends Authenticatable
 {
@@ -29,9 +30,9 @@ class User extends Authenticatable
     ];
 
       //hasOne relationship
-      public function Employee()
+      public function Hotel()
       {
-          return $this->hasOne(Employee::class, 'id');
+          return $this->hasOne(Hotel::class, 'id');
       }
 
     /**

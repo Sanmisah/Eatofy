@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CreatedUpdatedBy;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,8 +17,9 @@ class Hotel extends Model
         'city',
         'contact_no',
         'website_url',
-        'onwer_name',
-        'onwner_contact_no',
+        'owner_name',
+        'email',
+        'owner_contact_no',
         'gstin',
     ];
 }

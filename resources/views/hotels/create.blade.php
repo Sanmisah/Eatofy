@@ -29,7 +29,7 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                     
                     <div>
                         <label>State:</label>
-                        <select class="form-input" name="state_name">
+                        <select class="form-input" name="state">
                             <option value="">Select state</option>
                             <template x-for="state in states" :key="state.code">
                                 <option :value="state.name" x-text="state.name"></option>
