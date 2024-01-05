@@ -23,6 +23,7 @@
             </div>
             <ul class="perfect-scrollbar relative font-semibold space-y-0.5 h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden  p-4 py-0"
                 x-data="{ activeDropdown: null }">
+                @role(['Admin', 'Root', 'User'])
                 <li class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'dashboard' }"
                         @click="activeDropdown === 'dashboard' ? activeDropdown = null : activeDropdown = 'dashboard'">
@@ -48,7 +49,8 @@
                         </div>
                     </button>
                 </li>
-                @role(['Root'])
+                @endrole
+                @role(['Root', 'User'])
                 <li class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'master' }"
                         @click="activeDropdown === 'master' ? activeDropdown = null : activeDropdown = 'master'">
@@ -77,10 +79,12 @@
                         </div>
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
-                        <li><a href="/hotels">Hotels</a></li>                 
+                        <li><a href="/hotels">Hotels</a></li>
+                        <li><a href="/menu_categories">Menu Category</a></li>
+                        <li><a href="/menus">Menus</a></li>
                     </ul>
-                </li>
-                @endrole              
+                </li> 
+                @endrole
                 @role(['Root'])
                 <li class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'users' }"
@@ -115,7 +119,7 @@
                         <li><a href="/users">Users</a></li>
                     </ul>
                 </li> 
-                @endrole 
+                @endrole
             </ul>
         </div>
     </nav>

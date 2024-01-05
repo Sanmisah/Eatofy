@@ -3,6 +3,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
+use App\Http\Controllers\MenuCategoriesController;
+use App\Http\Controllers\MenusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +54,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Masters Route
          */   
         Route::resource('hotels', HotelsController::class);
+        Route::resource('menu_categories', MenuCategoriesController::class);
+        Route::resource('menus', MenusController::class);
     });
 
     Route::group(['middleware' => ['auth']], function() {  

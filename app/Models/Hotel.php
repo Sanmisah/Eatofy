@@ -6,7 +6,7 @@ use App\Traits\CreatedUpdatedBy;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\User;
 class Hotel extends Model
 {
     use HasFactory, CreatedUpdatedBy;
@@ -22,4 +22,8 @@ class Hotel extends Model
         'owner_contact_no',
         'gstin',
     ];
+    public function User()
+    {
+        return $this->hasOne(User::class, 'id');
+    }
 }

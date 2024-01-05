@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hotel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class HotelsController extends Controller
@@ -28,12 +29,14 @@ class HotelsController extends Controller
         ]);     
          
         $input = $request->all();    
-        dd($input);
+        
         $input['name'] = $request->owner_name;
         $input['password'] = Hash::make($request->new_password);
         $input['active'] = true;      
         $input['role'] = 'User';   
         $user = User::create($input); 
+        $user->syncRoles('User');
+        // dd($user);
         $hotel = $user->Hotel()->create($input);
         $request->session()->flash('success', 'Form saved successfully!');
         return redirect()->route('hotels.index');         
@@ -47,12 +50,16 @@ class HotelsController extends Controller
 
     public function update(Hotel $hotel, Request $request) 
     {
+        $request->validate([
+            'hotel_name' => 'required',
+        ]); 
         $input = $request->all();
         $user = User::find($hotel->id);
         $hotel->update($request->all());        
         $new_password = Hash::make($request->new_password);
         if ($user === null)
         {
+            
             $user = new User;
             $user->name = $request->owner_name;
             $user->email = $request->email;
@@ -60,10 +67,11 @@ class HotelsController extends Controller
                 $user->password = $new_password;
             }
             $user->active = true;
-            $employee->users()->save($user);
+            $hotel->User()->save($user);
         }
         else
         {
+           
             $user->update([
                 'name' => $request->owner_name,
                 'email' => $request->email,
@@ -71,6 +79,7 @@ class HotelsController extends Controller
                 'active' => true,
             ]);
         }
+        $user->syncRoles('User');
         $request->session()->flash('success', 'Hotel updated successfully!');
         return redirect()->route('hotels.index');
     }

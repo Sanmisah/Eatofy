@@ -29,7 +29,7 @@
                 </div>  
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                     
                     <div>
-                    <label>State:<span style="color: red">*</span></label>
+                    <label>State:</label>
                         <select class="form-input" name="state">
                             <option value="">Select state</option>
                             <template x-for="state in states" :key="state.code">
