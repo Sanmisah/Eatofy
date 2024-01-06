@@ -72,6 +72,6 @@ class MenusController extends Controller
     {
         $menu->delete();
         $request->session()->flash('success', 'Category deleted successfully!');
-        return redirect()->route('menu_categories.index');
+        return redirect()->route('menus.index');
     }    
 }

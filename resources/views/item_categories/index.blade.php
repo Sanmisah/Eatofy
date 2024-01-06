@@ -1,21 +1,21 @@
 <x-layout.default>
     <div x-data="multicolumn">        
-        <x-add-button :link="route('menu_categories.create')" />
+        <x-add-button :link="route('item_categories.create')" />
         <div class="panel mt-6 table-responsive">
-            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Menu category
+            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Item categories
             </h5>
             <table id="myTable" class="whitespace-nowrap table-hover">
-                @foreach ($menu_categories as $category)
+                @foreach ($item_categories as $category)
                 <tr>                    
-                    <td>{{ ($category->menu_category_name) }}</td>
+                    <td>{{ ($category->item_category_name) }}</td>
                    
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-edit-button :link=" route('menu_categories.edit', $category->id)" />                               
+                                <x-edit-button :link=" route('item_categories.edit', $category->id)" />                               
                             </li>
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-delete-button :link=" route('menu_categories.destroy',$category->id)" />  
+                                <x-delete-button :link=" route('item_categories.destroy',$category->id)" />  
                             </li>   
                         </ul>
                     </td>

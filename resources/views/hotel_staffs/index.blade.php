@@ -1,21 +1,23 @@
 <x-layout.default>
     <div x-data="multicolumn">        
-        <x-add-button :link="route('menu_categories.create')" />
+        <x-add-button :link="route('hotel_staffs.create')" />
         <div class="panel mt-6 table-responsive">
-            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Menu category
+            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Staffs
             </h5>
             <table id="myTable" class="whitespace-nowrap table-hover">
-                @foreach ($menu_categories as $category)
+                @foreach ($staffs as $staff)
                 <tr>                    
-                    <td>{{ ($category->menu_category_name) }}</td>
-                   
+                    <td>{{ $staff->staff_name }}</td>
+                    <td>{{ $staff->contact_no }}</td>
+                    <td>{{ $staff->type }}</td>
+                    <td>{{ $staff->salary }}</td>
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-edit-button :link=" route('menu_categories.edit', $category->id)" />                               
+                                <x-edit-button :link=" route('hotel_staffs.edit', $staff->id)" />                               
                             </li>
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-delete-button :link=" route('menu_categories.destroy',$category->id)" />  
+                                <x-delete-button :link=" route('hotel_staffs.destroy',$staff->id)" />  
                             </li>   
                         </ul>
                     </td>
@@ -31,7 +33,7 @@
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ["Category Name", "Action"],
+                        headings: ["Staff Name",  "Contact No",  "Type", "Salary", "Action"],
                     },
                     searchable: true,
                     perPage: 30,

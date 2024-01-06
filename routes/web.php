@@ -5,6 +5,10 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\MenuCategoriesController;
 use App\Http\Controllers\MenusController;
+use App\Http\Controllers\ItemCategoriesController;
+use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\HotelStaffsController;
+use App\Http\Controllers\SuppliersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +60,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('hotels', HotelsController::class);
         Route::resource('menu_categories', MenuCategoriesController::class);
         Route::resource('menus', MenusController::class);
+        Route::resource('item_categories', ItemCategoriesController::class);
+        Route::resource('items', ItemsController::class);
+        Route::resource('hotel_staffs', HotelStaffsController::class);
+        Route::resource('suppliers', SuppliersController::class);
     });
 
     Route::group(['middleware' => ['auth']], function() {  

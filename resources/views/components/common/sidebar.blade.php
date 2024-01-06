@@ -49,8 +49,7 @@
                         </div>
                     </button>
                 </li>
-                @endrole
-                @role(['Root', 'User'])
+                @endrole                
                 <li class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'master' }"
                         @click="activeDropdown === 'master' ? activeDropdown = null : activeDropdown = 'master'">
@@ -79,12 +78,20 @@
                         </div>
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
-                        <li><a href="/hotels">Hotels</a></li>
-                        <li><a href="/menu_categories">Menu Category</a></li>
-                        <li><a href="/menus">Menus</a></li>
+                        @role(['Root'])
+                            <li><a href="/hotels">Hotels</a></li>
+                            <li><a href="/menu_categories">Menu Category</a></li>
+                            <li><a href="/menus">Menus</a></li>
+                            <li><a href="/item_categories">Item Category</a></li>
+                            <li><a href="/items">Items</a></li>
+                        @endrole
+                        @role(['User'])
+                            <li><a href="/hotel_staffs">Staffs</a></li>
+                            <li><a href="/suppliers">Suppliers</a></li>
+                        @endrole
                     </ul>
                 </li> 
-                @endrole
+                
                 @role(['Root'])
                 <li class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'users' }"

@@ -2,7 +2,7 @@
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
             <li>
-                <a href="{{ route('menu_categories.index') }}" class="text-primary hover:underline">Users</a>
+                <a href="{{ route('menu_categories.index') }}" class="text-primary hover:underline">Item Categories</a>
             </li>
             <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
                 <span>Edit</span>
