@@ -20,10 +20,10 @@ class MenusController extends Controller
         }  
         $menus = Menu::join('menu_categories', 'menu_categories.id', '=', 'menus.menu_category_id')  
             ->where('menu_categories.hotel_id',auth()->user()->id)          
-            ->select('menus.*', 'menu_categories.*')
+            ->select('menus.*', 'menu_categories.menu_category_name')
             ->orderBy('menus.id', 'desc')
             ->get();
-        
+        // dd($menus);
         return view('menus.index', ['menus' => $menus]);
     }
 

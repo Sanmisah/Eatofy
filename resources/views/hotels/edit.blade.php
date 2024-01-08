@@ -40,26 +40,25 @@
                     </div>
                     <x-text-input name="city" value="{{ old('city', $hotel->city) }}" :label="__('City')" :messages="$errors->get('city')" />
                 </div>
-            </div>
-            <div class="panel">
-                <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Add Owner Data</h5>
-                </div>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="owner_name" value="{{ old('owner_name', $hotel->owner_name) }}" :label="__('Owner Name')" :messages="$errors->get('owner_name')"/>          
-                    <x-text-input name="owner_contact_no" value="{{ old('owner_contact_no', $hotel->owner_contact_no) }}" :label="__('Owner Contact No')" :messages="$errors->get('owner_contact_no')"/> 
-                    <x-combo-input name="email" type="email" value="{{ old('email', $hotel->email) }}" :email="true" :label="__('Email')" :messages="$errors->get('email')"/>
-                    <x-text-input name="new_password" type="password" :label="__('Password')" :messages="$errors->get('new_password')"/>
-                </div>         
                 <div class="flex justify-end mt-4">
-                    <x-success-button>
-                        {{ __('Submit') }}
-                    </x-success-button>
-                    &nbsp;&nbsp;
                     <x-cancel-button :link="route('hotels.index')">
                         {{ __('Cancel') }}
                     </x-cancel-button>
-                </div>       
+                    &nbsp;&nbsp;
+                    <x-success-button>
+                        {{ __('Submit') }}
+                    </x-success-button>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="flex items-center justify-between mb-5">
+                    <h5 class="font-semibold text-lg dark:text-white-light">Owner Data</h5>
+                </div>
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
+                    <x-text-input name="owner_name" value="{{ old('owner_name', $hotel->owner_name) }}" :label="__('Owner Name')" :messages="$errors->get('owner_name')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>          
+                    <x-text-input name="owner_contact_no" value="{{ old('owner_contact_no', $hotel->owner_contact_no) }}" :label="__('Owner Contact No')" :messages="$errors->get('owner_contact_no')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/> 
+                    <x-combo-input name="email" type="email" value="{{ old('email', $hotel->email) }}" :email="true" :label="__('Email')" :messages="$errors->get('email')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
+                </div>   
             </div>
         </form> 
     </div>

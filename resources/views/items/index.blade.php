@@ -7,6 +7,7 @@
             <table id="myTable" class="whitespace-nowrap table-hover">
                 @foreach ($items as $item)
                 <tr>                    
+                    <td>{{ $item->item_category_name }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->unit }}</td>
                     <td>{{ $item->opening_qty }}</td>
@@ -33,7 +34,7 @@
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ["Name",  "Unit",  "Opening Qty", "Closing Qty", "Action"],
+                        headings: ["Category", "Name",  "Unit",  "Opening Qty", "Closing Qty", "Action"],
                     },
                     searchable: true,
                     perPage: 30,

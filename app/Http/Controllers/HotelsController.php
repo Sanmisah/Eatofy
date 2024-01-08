@@ -57,32 +57,8 @@ class HotelsController extends Controller
     {
         $request->validate([
             'hotel_name' => 'required',
-        ]); 
-        $input = $request->all();
-        $user = User::find($hotel->id);
-        $hotel->update($request->all());        
-        $new_password = Hash::make($request->new_password);
-        if ($user === null)
-        {           
-            $user = new User;
-            $user->name = $request->owner_name;
-            $user->email = $request->email;
-            if($new_password){
-                $user->password = $new_password;
-            }
-            $user->active = true;
-            $hotel->User()->save($user);
-        }
-        else
-        {           
-            $user->update([
-                'name' => $request->owner_name,
-                'email' => $request->email,
-                'password' => ($new_password ? $new_password : ''),
-                'active' => true,
-            ]);
-        }
-        $user->syncRoles('Owner');
+        ]);         
+        $hotel->update($request->all());    
         $request->session()->flash('success', 'Hotel updated successfully!');
         return redirect()->route('hotels.index');
     }

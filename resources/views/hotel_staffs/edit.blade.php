@@ -51,11 +51,10 @@
             <br />
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Login details</h5>
+                    <h5 class="font-semibold text-lg dark:text-white-light">Staff Data</h5>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                    
-                    <x-combo-input name="email" class="bg-gray-100 dark:bg-gray-700" type="email" readonly="true" :email="true" value="{{ old('email', $hotel_staff->email) }}"  :label="__('Email')" :messages="$errors->get('email')"/>
-                    <x-text-input name="new_password" class="bg-gray-100 dark:bg-gray-700" readonly="true" type="password" :label="__('Password')" :messages="$errors->get('new_password')"/>
+                    <x-combo-input name="email" class="bg-gray-100 dark:bg-gray-700" type="email" readonly="true" :email="true" value="{{ old('email', $hotel_staff->email) }}"  :label="__('Email')" :messages="$errors->get('email')"/>                    
                 </div>                 
             </div>
             </form>

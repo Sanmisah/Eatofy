@@ -15,7 +15,12 @@ class ItemsController extends Controller
         if($authUser == 'Owner'){                       
             $conditions[] = ['hotel_id', auth()->user()->id];
         }         
-        $items = Item::where($conditions)->orderBy('id', 'desc')->get();
+        // $items = Item::where($conditions)->orderBy('id', 'desc')->get();
+        $items = Item::join('item_categories', 'item_categories.id', '=', 'items.item_category_id')  
+            ->where('item_categories.hotel_id',auth()->user()->id)          
+            ->select('items.*', 'item_categories.item_category_name')
+            ->orderBy('items.id', 'desc')
+            ->get();
         return view('items.index', ['items' => $items]);
     }
 
@@ -48,7 +53,7 @@ class ItemsController extends Controller
   
     public function show(Item $item)
     {
-        //
+        return $item->unit;
     }
 
     public function edit(Item $item)

@@ -9,6 +9,7 @@ use App\Http\Controllers\ItemCategoriesController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\HotelStaffsController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\PurchasesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +65,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('items', ItemsController::class);
         Route::resource('hotel_staffs', HotelStaffsController::class);
         Route::resource('suppliers', SuppliersController::class);
+        Route::resource('purchases', PurchasesController::class);
     });
 
     Route::group(['middleware' => ['auth']], function() {  
