@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('staff_name',100)->nullable();
             $table->string('contact_no',20)->nullable();
             $table->string('address',255)->nullable();
-            $table->string('type',20)->nullable();
+            $table->string('role',20)->nullable();
             $table->string('salary',20)->nullable();
+            $table->string('email',255)->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

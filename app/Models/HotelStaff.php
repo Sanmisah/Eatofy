@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class HotelStaff extends Model
 {
@@ -13,7 +14,12 @@ class HotelStaff extends Model
         'staff_name',
         'address',
         'contact_no',
-        'type',
+        'role',
         'salary',
+        'email'
     ];
+    public function User()
+    {
+        return $this->hasOne(User::class, 'id');
+    }
 }

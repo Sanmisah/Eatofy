@@ -9,6 +9,7 @@ class MenuCategory extends Model
 {
     use HasFactory, CreatedUpdatedBy;
     protected $fillable = [
+        'hotel_id',
         'menu_category_name',
     ];
 }

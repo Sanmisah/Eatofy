@@ -15,17 +15,12 @@
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Add Item</h5>
                 </div>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4"> 
-                    <div>
-                        <label>Hotels:<span style="color: red">*</span></label>
-                        <select class="form-input" name="hotel_id" required="true">
-                            <option>Select Hotels</option>
-                            @foreach ($hotels as $id => $hotel)
-                                <option value="{{$id}}">{{ $hotel }}</option>
-                            @endforeach
-                        </select> 
-                        <x-input-error :messages="$errors->get('hotel')" class="mt-2" /> 
-                    </div> 
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
+                    @foreach ($hotels as $id => $hotel)
+                    <input type="hidden" value="{{ $id }}" name="hotel_id"/>
+                    @endforeach
+                </div>  
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                     
                     <div>
                         <label>Item Categories:<span style="color: red">*</span></label>
                         <select class="form-input" name="item_category_id" required="true">

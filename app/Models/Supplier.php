@@ -12,9 +12,11 @@ class Supplier extends Model
         'hotel_id',
         'supplier_name',
         'supplier_contact_no',
-        'customer_name',
-        'customer_contact_no',
-        'customer_address',
         'gstin',
+        'address_line_1',
+        'address_line_2',
+        'state',
+        'city',
+        'pincode'
     ];
 }

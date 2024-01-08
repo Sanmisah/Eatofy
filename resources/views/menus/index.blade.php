@@ -7,6 +7,7 @@
             <table id="myTable" class="whitespace-nowrap table-hover">
                 @foreach ($menus as $menu)
                 <tr>                    
+                    <td>{{ $menu->menu_category_name }}</td>
                     <td>{{ $menu->item_name }}</td>
                     <td>{{ $menu->rate }}</td>
                     <td>{{ $menu->gst_rate }}%</td>
@@ -32,7 +33,7 @@
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ["Item Name",  "Rate",  "GST Rate", "Action"],
+                        headings: ["Category", "Menu Name", "Rate", "GST Rate", "Action"],
                     },
                     searchable: true,
                     perPage: 30,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hotel;
 use App\Models\MenuCategory;
 use App\Models\Menu;
+use App\Http\Controllers\DB;
 
 use Illuminate\Http\Request;
 
@@ -12,14 +13,29 @@ class MenusController extends Controller
 {
     public function index()
     {
-        $menus = Menu::orderBy('id', 'desc')->get();
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['hotel_id', auth()->user()->id];
+        }  
+        $menus = Menu::join('menu_categories', 'menu_categories.id', '=', 'menus.menu_category_id')  
+            ->where('menu_categories.hotel_id',auth()->user()->id)          
+            ->select('menus.*', 'menu_categories.*')
+            ->orderBy('menus.id', 'desc')
+            ->get();
+        
         return view('menus.index', ['menus' => $menus]);
     }
 
     public function create()
     {
-        $hotels = Hotel::pluck('hotel_name', 'id');        
-        $menu_categories = MenuCategory::pluck('menu_category_name', 'id');       
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        } 
+        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
+        $menu_categories = MenuCategory::where('hotel_id', auth()->user()->id)->pluck('menu_category_name', 'id');       
         return view('menus.create')->with(['hotels'=>$hotels, 'menu_categories'=>$menu_categories]);
     }
 
@@ -27,11 +43,9 @@ class MenusController extends Controller
     {
         $request->validate([
             'item_name' => 'required|unique:menus,item_name,'.$menu->id,
-            'hotel_id' => 'required',
             'menu_category_id' => 'required',
         ],
         [
-            'hotel_id.required' => 'Please select Hotel',
             'menu_category_id.required' => 'Please select Category',
         ]); 
         $input = $request->all();      
@@ -47,8 +61,13 @@ class MenusController extends Controller
 
     public function edit(Menu $menu)
     {
-        $hotels = Hotel::pluck('hotel_name', 'id');        
-        $menu_categories = MenuCategory::pluck('menu_category_name', 'id'); 
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        } 
+        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
+        $menu_categories = MenuCategory::where('hotel_id', auth()->user()->id)->pluck('menu_category_name', 'id'); 
         return view('menus.edit', ['menu' => $menu, 'hotels' => $hotels, 'menu_categories' => $menu_categories]);
     }
 
@@ -56,11 +75,9 @@ class MenusController extends Controller
     {
         $request->validate([
             'item_name' => 'required|unique:menus,item_name,'.$menu->id,
-            'hotel_id' => 'required',
             'menu_category_id' => 'required',
         ],
         [
-            'hotel_id.required' => 'Please select Hotel',
             'menu_category_id.required' => 'Please select Category',
         ]);         
         $menu->update($request->all());

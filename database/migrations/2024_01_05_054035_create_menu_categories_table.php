@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('menu_categories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('hotel_id',11)->nullable();
             $table->string('menu_category_name',100)->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();

@@ -8,9 +8,7 @@
                 @foreach ($suppliers as $supplier)
                 <tr>  
                     <td>{{ $supplier->supplier_name }}</td> 
-                    <td>{{ $supplier->supplier_contact_no }}</td>                        
-                    <td>{{ $supplier->customer_name }}</td>
-                    <td>{{ $supplier->customer_contact_no }}</td>
+                    <td>{{ $supplier->supplier_contact_no }}</td>  
                     <td>{{ $supplier->gstin }}</td>               
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
@@ -34,7 +32,7 @@
                 init() {
                     this.datatable = new simpleDatatables.DataTable('#myTable', {
                         data: {
-                            headings: ["Supplier Name", "Supplier Contact No", "Customer Name", "Customer Contact No", "GSTIN", "Action"],
+                            headings: ["Supplier Name", "Supplier Contact No", "GSTIN", "Action"],
                         },
                         searchable: true,
                         perPage: 30,

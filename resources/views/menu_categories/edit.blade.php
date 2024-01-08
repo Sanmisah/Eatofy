@@ -16,8 +16,13 @@
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Edit Menu Category</h5>
                 </div>   
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
+                    @foreach ($hotels as $id => $hotel)
+                    <input type="hidden" value="{{ $id }}" name="hotel_id"/>
+                    @endforeach
+                </div>  
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
-                        <x-text-input name="menu_category_name" value="{{ old('menu_category_name', $menu_category->menu_category_name) }}" :label="__('Category Name')" :require="true" :messages="$errors->get('menu_category_name')"/> 
+                    <x-text-input name="menu_category_name" value="{{ old('menu_category_name', $menu_category->menu_category_name) }}" :label="__('Category Name')" :require="true" :messages="$errors->get('menu_category_name')"/> 
                 </div>
                 <div class="flex justify-end mt-4">
                     <x-success-button>

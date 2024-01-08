@@ -3,24 +3,37 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MenuCategory;
+use App\Models\Hotel;
 
 class MenuCategoriesController extends Controller
 {
     public function index()
     {
-        $menu_categories = MenuCategory::orderBy('id', 'desc')->get();
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['hotel_id', auth()->user()->id];
+        } 
+        $menu_categories = MenuCategory::where($conditions)->orderBy('id', 'desc')->get();
+        // dd($menu_categories);
         return view('menu_categories.index', ['menu_categories' => $menu_categories]);
     }
 
     public function create()
     {
-        return view('menu_categories.create');
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        } 
+        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id');
+        return view('menu_categories.create')->with(['hotels' => $hotels]);
     }
 
     public function store(MenuCategory $menu_category, Request $request) 
     {
         $request->validate([
-            'menu_category_name' => 'required|unique:menu_categories,menu_category_name,'.$menu_category->id,
+            'menu_category_name' => 'required',
         ]); 
         $input = $request->all();      
         $menu_category = MenuCategory::create($input); 
@@ -35,13 +48,19 @@ class MenuCategoriesController extends Controller
 
     public function edit(MenuCategory $menu_category)
     {
-        return view('menu_categories.edit', ['menu_category' => $menu_category]);
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        } 
+        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id');
+        return view('menu_categories.edit', ['menu_category' => $menu_category, 'hotels' => $hotels]);
     }
 
     public function update(MenuCategory $menu_category, Request $request) 
     {
         $request->validate([
-            'menu_category_name' => 'required|unique:menu_categories,menu_category_name,'.$menu_category->id,
+            'menu_category_name' => 'required',
         ]);         
         $menu_category->update($request->all());
         $request->session()->flash('success', 'Category updated successfully!');

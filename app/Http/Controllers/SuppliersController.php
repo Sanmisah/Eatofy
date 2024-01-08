@@ -12,7 +12,7 @@ class SuppliersController extends Controller
     {
         $authUser = auth()->user()->roles->pluck('name')->first();
         $conditions = [];
-        if($authUser == 'User'){                       
+        if($authUser == 'Owner'){                       
             $conditions[] = ['hotel_id', auth()->user()->id];  
         }
         $suppliers = Supplier::where($conditions)->orderBy('id', 'DESC')->get();
@@ -23,7 +23,7 @@ class SuppliersController extends Controller
     {
         $authUser = auth()->user()->roles->pluck('name')->first();
         $conditions = [];
-        if($authUser == 'User'){                       
+        if($authUser == 'Owner'){                       
             $conditions[] = ['id', auth()->user()->id];
         } 
         $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id');  
@@ -49,7 +49,7 @@ class SuppliersController extends Controller
     {
         $authUser = auth()->user()->roles->pluck('name')->first();
         $conditions = [];
-        if($authUser == 'User'){                       
+        if($authUser == 'Owner'){                       
             $conditions[] = ['id', auth()->user()->id];
         } 
         $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id');

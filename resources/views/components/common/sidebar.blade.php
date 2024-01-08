@@ -23,7 +23,7 @@
             </div>
             <ul class="perfect-scrollbar relative font-semibold space-y-0.5 h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden  p-4 py-0"
                 x-data="{ activeDropdown: null }">
-                @role(['Admin', 'Root', 'User'])
+                @role(['Admin', 'Root', 'Owner'])
                 <li class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'dashboard' }"
                         @click="activeDropdown === 'dashboard' ? activeDropdown = null : activeDropdown = 'dashboard'">
@@ -39,14 +39,7 @@
                             </svg>
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Dashboard</span>
-                        </div>
-                        <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'dashboard' }">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
+                        </div>                        
                     </button>
                 </li>
                 @endrole                
@@ -78,21 +71,20 @@
                         </div>
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
-                        @role(['Root'])
+                        @role(['Admin', 'Root'])
                             <li><a href="/hotels">Hotels</a></li>
+                        @endrole
+                        @role(['Owner'])
                             <li><a href="/menu_categories">Menu Category</a></li>
                             <li><a href="/menus">Menus</a></li>
                             <li><a href="/item_categories">Item Category</a></li>
-                            <li><a href="/items">Items</a></li>
-                        @endrole
-                        @role(['User'])
+                            <li><a href="/items">Items</a></li>                        
                             <li><a href="/hotel_staffs">Staffs</a></li>
                             <li><a href="/suppliers">Suppliers</a></li>
                         @endrole
                     </ul>
-                </li> 
-                
-                @role(['Root'])
+                </li>                 
+                @role(['Admin', 'Root'])
                 <li class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'users' }"
                         @click="activeDropdown === 'users' ? activeDropdown = null : activeDropdown = 'users'">

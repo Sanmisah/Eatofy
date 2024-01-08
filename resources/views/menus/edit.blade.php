@@ -15,18 +15,13 @@
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Edit Menu</h5>
-                </div>   
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4"> 
-                    <div>
-                        <label>Hotels:<span style="color: red">*</span></label>
-                        <select class="form-input" name="hotel_id" required="true">
-                            <option>Select Hotels</option>
-                            @foreach ($hotels as $id => $hotel)
-                                <option value="{{$id}}" {{ $menu->hotel_id ? ($menu->hotel_id == $id ? 'Selected' : '' ) : ''}}>{{ $hotel }}</option>
-                            @endforeach
-                        </select> 
-                        <x-input-error :messages="$errors->get('hotel')" class="mt-2" /> 
-                    </div> 
+                </div>  
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
+                    @foreach ($hotels as $id => $hotel)
+                    <input type="hidden" value="{{ $id }}" name="hotel_id"/>
+                    @endforeach
+                </div>  
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                    
                     <div>
                         <label>Menu Categories:<span style="color: red">*</span></label>
                         <select class="form-input" name="menu_category_id" required="true">
@@ -58,14 +53,5 @@
             </div>
             </form>
         </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function(e) {
-            // default
-            var els = document.querySelectorAll(".selectize");
-            els.forEach(function(select) {
-                NiceSelect.bind(select);
-            });
-        });
-    </script>
+    </div>    
 </x-layout.default>

@@ -10,13 +10,23 @@ class ItemCategoriesController extends Controller
 {
     public function index()
     {
-        $item_categories = ItemCategory::orderBy('id', 'desc')->get();
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['hotel_id', auth()->user()->id];
+        } 
+        $item_categories = ItemCategory::where($conditions)->orderBy('id', 'desc')->get();
         return view('item_categories.index', ['item_categories' => $item_categories]);
     }
 
     public function create()
     {
-        $hotels = Hotel::pluck('hotel_name', 'id');  
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        } 
+        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id');
         return view('item_categories.create')->with(['hotels' => $hotels]);
     }
 
@@ -24,10 +34,6 @@ class ItemCategoriesController extends Controller
     {
         $request->validate([
             'item_category_name' => 'required',
-            'hotel_id' => 'required',
-        ],
-        [
-            'hotel_id.required' => 'Please select Hotel',
         ]); 
         $input = $request->all();      
         $item_category = ItemCategory::create($input); 
@@ -42,18 +48,19 @@ class ItemCategoriesController extends Controller
 
     public function edit(ItemCategory $item_category)
     {
-        $hotels = Hotel::pluck('hotel_name', 'id'); 
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        } 
+        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
         return view('item_categories.edit', ['item_category' => $item_category, 'hotels' => $hotels]);
     }
 
     public function update(ItemCategory $item_category, Request $request) 
     {
         $request->validate([
-            'item_category_name' => 'required',
-            'hotel_id' => 'required',
-        ],
-        [
-            'hotel_id.required' => 'Please select Hotel',
+            'item_category_name' => 'required',            
         ]);         
         $item_category->update($request->all());
         $request->session()->flash('success', 'Category updated successfully!');

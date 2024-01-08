@@ -12,6 +12,7 @@ use App\Traits\CreatedUpdatedBy;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use App\Models\Hotel;
+use App\Models\HotelStaff;
 
 class User extends Authenticatable
 {
@@ -30,10 +31,15 @@ class User extends Authenticatable
     ];
 
       //hasOne relationship
-      public function Hotel()
-      {
-          return $this->hasOne(Hotel::class, 'id');
-      }
+    public function Hotel()
+    {
+        return $this->hasOne(Hotel::class, 'id');
+    }
+
+    public function HotelStaff()
+    {
+        return $this->hasOne(HotelStaff::class, 'id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

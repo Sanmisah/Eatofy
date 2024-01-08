@@ -31,15 +31,20 @@ class HotelsController extends Controller
         $input = $request->all();    
         
         $input['name'] = $request->owner_name;
+        $input['email'] = $request->email;
         $input['password'] = Hash::make($request->new_password);
-        $input['active'] = true;      
-        $input['role'] = 'User';   
+        $input['active'] = true;  
         $user = User::create($input); 
-        $user->syncRoles('User');
+        $user->syncRoles('Owner');
         // dd($user);
         $hotel = $user->Hotel()->create($input);
         $request->session()->flash('success', 'Form saved successfully!');
         return redirect()->route('hotels.index');         
+    }
+    
+    public function show(HotelStaff $hotel_staff)
+    {
+       //
     }
   
     public function edit(Hotel $hotel)
@@ -58,8 +63,7 @@ class HotelsController extends Controller
         $hotel->update($request->all());        
         $new_password = Hash::make($request->new_password);
         if ($user === null)
-        {
-            
+        {           
             $user = new User;
             $user->name = $request->owner_name;
             $user->email = $request->email;
@@ -70,8 +74,7 @@ class HotelsController extends Controller
             $hotel->User()->save($user);
         }
         else
-        {
-           
+        {           
             $user->update([
                 'name' => $request->owner_name,
                 'email' => $request->email,
@@ -79,7 +82,7 @@ class HotelsController extends Controller
                 'active' => true,
             ]);
         }
-        $user->syncRoles('User');
+        $user->syncRoles('Owner');
         $request->session()->flash('success', 'Hotel updated successfully!');
         return redirect()->route('hotels.index');
     }

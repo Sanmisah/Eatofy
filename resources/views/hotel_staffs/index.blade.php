@@ -9,7 +9,7 @@
                 <tr>                    
                     <td>{{ $staff->staff_name }}</td>
                     <td>{{ $staff->contact_no }}</td>
-                    <td>{{ $staff->type }}</td>
+                    <td>{{ $staff->role }}</td>
                     <td>{{ $staff->salary }}</td>
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
@@ -33,7 +33,7 @@
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ["Staff Name",  "Contact No",  "Type", "Salary", "Action"],
+                        headings: ["Staff Name",  "Contact No",  "Role", "Salary", "Action"],
                     },
                     searchable: true,
                     perPage: 30,
