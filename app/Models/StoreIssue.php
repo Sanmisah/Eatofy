@@ -38,12 +38,12 @@ class StoreIssue extends Model
         return $this->belongsTo(Hotel::class);
     }
 
-    // public static function booted(): void
-    // {
-    //     static::creating(function(StoreIssue $store_issue){
-    //         $storeIssues = StoreIssue::whereNotNull('issue_no')->orderBy('created_at','DESC')->first();
-    //         $max = $storeIssues ? Str::substr($storeIssues->issue_no, 1) : 0;
-    //         $store_issue->issue_no = 'SI'.str_pad($max + 1, 5, "0", STR_PAD_LEFT);
-    //     });
-    // }
+    public static function booted(): void
+    {
+        static::creating(function(StoreIssue $store_issue){
+            $store_issues = StoreIssue::whereNotNull('issue_no')->orderBy('created_at','DESC')->first();
+            $max = $store_issues ? Str::substr($store_issues->issue_no, 1) : 0;
+            $store_issue->issue_no = 'S'.str_pad($max + 1, 5, "0", STR_PAD_LEFT);
+        });
+    }
 }

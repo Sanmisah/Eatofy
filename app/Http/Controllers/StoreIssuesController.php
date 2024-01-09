@@ -78,15 +78,12 @@ class StoreIssuesController extends Controller
                 'id' => $record['id'] ?? null,
                 'store_issue_id' => $store_issue->id,
                 'item' => $record['item'],
-                
-               
                 'qty' => $record['qty'],
-                
             ],[
                 'id'
             ]);
         }
-        $request->session()->flash('success', 'Purchases updated successfully!');
+        $request->session()->flash('success', 'Store Issues updated successfully!');
         return redirect()->route('store_issues.index');
     }
   

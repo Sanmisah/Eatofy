@@ -6,6 +6,7 @@ use App\Models\Purchase;
 use App\Models\Supplier;
 use App\Models\Item;
 use App\Models\PurchaseDetail;
+use App\Models\StockLedger;
 use Illuminate\Http\Request;
 
 class PurchasesController extends Controller
@@ -50,6 +51,13 @@ class PurchasesController extends Controller
                 'amount' => $record['amount'],
             ]);            
         }   
+        // $input['hotel_id'] = $request->hotel_id;
+        // $input['item_id'] = $request->item;
+        // $input['received'] = $request->qty;
+        // $input['model'] = true;  
+        // $input['foreign_key'] = $purchase->id;  
+        // StockLedger::create($input); 
+
         $request->session()->flash('success', 'Purchases saved successfully!');
         return redirect()->route('purchases.index');    
     }

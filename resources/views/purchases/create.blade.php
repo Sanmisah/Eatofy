@@ -138,7 +138,9 @@
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
         purchaseData:'',
+        
         init() {   
+            console.log('hi');
             this.amount = 0;    
             this.total_amount = 0;     
             flatpickr(document.getElementById('purchase_date'), {
