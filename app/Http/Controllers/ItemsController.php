@@ -52,8 +52,8 @@ class ItemsController extends Controller
     }
   
     public function show(Item $item)
-    {
-        return $item->unit;
+    {        
+        return $item;  
     }
 
     public function edit(Item $item)

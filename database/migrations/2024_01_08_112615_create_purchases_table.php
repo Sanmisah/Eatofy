@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('purchase_date')->nullable();
             $table->foreignId('supplier_id',11)->nullable();
             $table->string('invoice_no',50)->nullable();
+            $table->date('invoice_date')->nullable();
             $table->decimal('total_amount',10,2)->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();

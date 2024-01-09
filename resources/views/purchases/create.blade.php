@@ -1,7 +1,4 @@
 <x-layout.default>
-<style>
-    
-</style>
 <div>
     <ul class="flex space-x-2 rtl:space-x-reverse">
         <li>
@@ -26,7 +23,7 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="purchase_date" value="{{ old('purchase_date') }}" id="purchase_date" :label="__('Purchase Date')" :messages="$errors->get('purchase_date')"/>
                     <div>
-                        <label>Supplier :<span style="color: red">*</span></label>
+                        <label>Supplier :</label>
                         <select class="form-input" name="supplier_id" id="supplier_id">
                             @foreach ($suppliers as $id=>$supplier)                                
                                 <option value="{{$id}}">{{$supplier}}</option>
@@ -35,6 +32,7 @@
                         <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" /> 
                     </div>
                     <x-text-input name="invoice_no" value="{{ old('invoice_no') }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')"  />  
+                    <x-text-input name="invoice_date" value="{{ old('invoice_date') }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')"/>
                 </div>           
             </div>            
             <div class="panel table-responsive">
@@ -93,10 +91,10 @@
                                                         <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" x-bind:name="`purchase_details[${purchaseDetail.id}][unit]`" :messages="$errors->get('unit')" x-model="purchaseDetail.unit"/>
                                                     </td> 
                                                     <td>
-                                                        <x-text-input  x-bind:name="`purchase_details[${purchaseDetail.id}][qty]`" :messages="$errors->get('qty')" x-model="purchaseDetail.qty"/>
+                                                        <x-text-input  x-bind:name="`purchase_details[${purchaseDetail.id}][qty]`" :messages="$errors->get('qty')" x-model="purchaseDetail.qty" @change="calculateAmount()"/>
                                                     </td>                                                   
                                                     <td>
-                                                        <x-text-input  x-bind:name="`purchase_details[${purchaseDetail.id}][rate]`"  :messages="$errors->get('rate')" x-model="purchaseDetail.rate"/>
+                                                        <x-text-input  x-bind:name="`purchase_details[${purchaseDetail.id}][rate]`"  :messages="$errors->get('rate')" x-model="purchaseDetail.rate" @change="calculateAmount()"/>
                                                     </td>
                                                     <td>
                                                         <x-text-input  x-bind:name="`purchase_details[${purchaseDetail.id}][amount]`"  :messages="$errors->get('amount')" x-model="purchaseDetail.amount" @change="calculateTotal()"/>
@@ -113,7 +111,7 @@
                                             <tr>
                                                 <th colspan="6" style="text-align:right;">Total Amount: </th>
                                                 <td>               
-                                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total_amount')"  name="total_amount"/>
+                                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total_amount')" x-model="total_amount" name="total_amount"/>
                                                 </td>
                                             </tr>
                                         </tfoot>                
@@ -139,22 +137,27 @@
 <script>
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
-        init() {
+        purchaseData:'',
+        init() {   
+            this.amount = 0;    
+            this.total_amount = 0;     
             flatpickr(document.getElementById('purchase_date'), {
                 dateFormat: 'd/m/Y',
             });
-        },
 
-        item: '',
-        unit: '',
-        async purchaseChange() {                    
-            this.purchaseDetail.unit = await (await fetch('/items/'+ this.purchaseDetail.item, {
+            flatpickr(document.getElementById('invoice_date'), {
+                dateFormat: 'd/m/Y',
+            });
+        },
+      
+        async purchaseChange() {                  
+            this.purchaseData = await (await fetch('/items/'+ this.purchaseDetail.item, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json;',
             },
             })).json();
-            console.log(this.purchaseDetail.unit);
+            this.purchaseDetail.unit = this.purchaseData.unit;
         },
 
         purchaseDetails: [],
@@ -172,23 +175,33 @@ document.addEventListener("alpine:init", () => {
                 rate: '',
                 amount: '',
             });
-            // this.calculateTotal();
+            this.calculateAmount();
+            this.calculateTotal();
         }, 
         
         removeItem(purchaseDetail) {
             this.purchaseDetails = this.purchaseDetails.filter((d) => d.id != purchaseDetail.id);
-            // this.calculateTotal();
-        },        
+            this.calculateAmount();
+            this.calculateTotal();
+        },    
+        
+        calculateAmount() {            
+            this.purchaseDetails.forEach(purchaseDetail => {     
+                total = purchaseDetail.qty * purchaseDetail.rate;          
+                purchaseDetail.amount = total.toFixed(2);
+            }); 
+            this.calculateTotal();
+        },
 
-        // calculateTotal() {
-        //     let total = 0;  
-        //     this.purchaseDetails.forEach(purchaseDetail => {
-        //         total = parseFloat(total) + parseFloat(purchaseDetail.act_val);
-        //     });                     
-        //     if(!isNaN(total)){
-        //         this.total = total;
-        //     }    
-        // },
+        calculateTotal() {
+            let total_amount = 0;
+            this.purchaseDetails.forEach(purchaseDetail => {
+                total_amount = parseFloat(total_amount) + parseFloat(purchaseDetail.amount);
+            });                     
+            if(!isNaN(total_amount)){
+                this.total_amount = total_amount.toFixed(2);
+            }     
+        },
     }));
 });
 </script> 

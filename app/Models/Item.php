@@ -17,4 +17,9 @@ class Item extends Model
         'opening_qty',
         'closing_qty',        
     ];
+
+    public function updateClosingQty($hotel_id, $item_id)
+    {
+        // (opneing_qty + sum(received)) - sum(issude)
+    }
 }

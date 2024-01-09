@@ -8,7 +8,7 @@
                 <tr>              
                     <td>{{ $purchase->purchase_date}}</td>           
                     <td>{{ $purchase->invoice_no }}</td>
-                    <td>{{ $purchase->supplier_name }}</td>
+                    <td>{{ @$purchase->Supplier->supplier_name }}</td>
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">

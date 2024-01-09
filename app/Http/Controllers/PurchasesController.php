@@ -12,7 +12,7 @@ class PurchasesController extends Controller
 {
     public function index()
     {
-        $purchases = Purchase::orderBy('id', 'DESC')->get();   
+        $purchases = Purchase::with('Supplier')->orderBy('id', 'DESC')->get();   
         return view('purchases.index', ['purchases' => $purchases]);
     }
 
@@ -32,21 +32,21 @@ class PurchasesController extends Controller
 
     public function store(Purchase $purchase, Request $request) 
     {        
-        $input = $request->all();       
-        $purchase = Purchase::create($input); 
-        $data = $request->collect('purchase_details'); 
-        foreach($data as $record){            
+        $input = $request->all(); 
+        $purchase = Purchase::create($input);    
+        $data = $request->collect('purchase_details');
+        foreach($data as $record){
             PurchaseDetail::create([
                 'purchase_id' => $purchase->id,
                 'item' => $record['item'],
                 'unit' => $record['unit'],
-                'qty' => $record['qty'],
                 'rate' => $record['rate'],
+                'qty' => $record['qty'],
                 'amount' => $record['amount'],
             ]);            
         }   
-        $request->session()->flash('success', 'Purchase saved successfully!');
-        return redirect()->route('purchases.index');
+        $request->session()->flash('success', 'Purchases saved successfully!');
+        return redirect()->route('purchases.index');    
     }
     
     public function show(Purchase $purchase)
@@ -55,13 +55,38 @@ class PurchasesController extends Controller
     }
   
     public function edit(Purchase $purchase)
-    {
-        //
+    {       
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        } 
+        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
+        $suppliers = Supplier::where('hotel_id', auth()->user()->id)->pluck('supplier_name', 'id');
+        $items = Item::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
+        return view('purchases.edit', ['purchase' => $purchase, 'hotels'=>$hotels, 'suppliers'=>$suppliers, 'items'=>$items]); 
     }
 
     public function update(Purchase $purchase, Request $request) 
     {
-        //
+        $input = $request->all(); 
+        $purchase->update($input);        
+        $data = $request->collect('purchase_details');  
+        foreach($data as $record){           
+            PurchaseDetail::upsert([
+                'id' => $record['id'] ?? null,
+                'purchase_id' => $purchase->id,
+                'item' => $record['item'],
+                'unit' => $record['unit'],
+                'rate' => $record['rate'],
+                'qty' => $record['qty'],
+                'amount' => $record['amount'],
+            ],[
+                'id'
+            ]);
+        }
+        $request->session()->flash('success', 'Purchases updated successfully!');
+        return redirect()->route('purchases.index');
     }
   
     public function destroy(Request $request, Purchase $purchase)

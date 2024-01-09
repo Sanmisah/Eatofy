@@ -39,13 +39,13 @@
                     </div>   
                 </div>
                 <div class="flex justify-end mt-4">
-                    <x-success-button>
-                        {{ __('Submit') }}
-                    </x-success-button>
-                    &nbsp;&nbsp;
                     <x-cancel-button :link="route('users.index')">
                         {{ __('Cancel') }}
                     </x-cancel-button>
+                    &nbsp;&nbsp;
+                    <x-success-button>
+                        {{ __('Submit') }}
+                    </x-success-button>
                 </div>
             </div>
             </form>
