@@ -114,6 +114,7 @@
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'transactions'" x-collapse class="sub-menu text-gray-500">                    
                         <li><a href="/purchases">Purchases</a></li>
+                        <li><a href="/store_issues">Store Issues</a></li>
                     </ul>
                 </li> 
                 @endrole               

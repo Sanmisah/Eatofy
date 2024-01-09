@@ -12,7 +12,12 @@ class PurchasesController extends Controller
 {
     public function index()
     {
-        $purchases = Purchase::with('Supplier')->orderBy('id', 'DESC')->get();   
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        } 
+        $purchases = Purchase::with('Supplier')->where('hotel_id', auth()->user()->id)->orderBy('id', 'DESC')->get();   
         return view('purchases.index', ['purchases' => $purchases]);
     }
 

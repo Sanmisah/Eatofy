@@ -1,23 +1,21 @@
 <x-layout.default>    
     <div x-data="multicolumn"> 
-        <x-add-button :link="route('purchases.create')" />
+        <x-add-button :link="route('store_issues.create')" />
         <div class="panel mt-6 table-responsive">
-            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Purchase</h5>
+            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Store Issue</h5>
             <table id="myTable" class="whitespace-nowrap">
-                @foreach ($purchases as $purchase)
+                @foreach ($store_issues as $store_issue)
                 <tr>              
-                    <td>{{ $purchase->purchase_date}}</td> 
-                    <td>{{ @$purchase->Supplier->supplier_name }}</td>
-                    <td>{{ $purchase->invoice_no }}</td>
-                    <td>{{ $purchase->invoice_date}}</td>
-                    <td>{{ $purchase->total_amount}}</td>
+                    <td>{{ $store_issue->issue_no}}</td> 
+                    <td>{{ $store_issue->Hotel->owner_name }}</td>
+                    <td>{{ $store_issue->issue_date}}</td>
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-edit-button :link=" route('purchases.edit', $purchase->id)" />                               
+                                <x-edit-button :link=" route('store_issues.edit', $store_issue->id)" />                               
                             </li>
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-delete-button :link=" route('purchases.destroy',$purchase->id)" />  
+                                <x-delete-button :link=" route('store_issues.destroy',$store_issue->id)" />  
                             </li>   
                         </ul>
                     </td>
@@ -35,7 +33,7 @@
                     this.datatable = new simpleDatatables.DataTable('#myTable', {
                         data: {
                             headings: [
-                                "Purchase Date", "Supplier Name", "Invoice No", "Invoice Date", "Amount", "Action"
+                                "Issue No", "Issue Name", "Issue Date", "Action"
                             ],
                         },
                         searchable: true,

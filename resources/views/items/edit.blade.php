@@ -8,7 +8,7 @@
                 <span>Edit</span>
             </li>
         </ul>
-        <div class="pt-5">                                   
+        <div class="pt-5" x-data="data">                                   
             <form method="POST" action="{{ route('items.update', ['item'=>$item->id]) }}">
             @csrf
             @method('PATCH')
@@ -43,8 +43,8 @@
                             <option value="LTR" @if ($item->unit == 'LTR') {{ 'Selected' }} @endif>LTR</option>      
                         </select>
                     </div>
-                    <x-text-input name="opening_qty" value="{{ old('opening_qty', $item->opening_qty) }}" :label="__('Opening Quantity')" :messages="$errors->get('opening_qty')"/>
-                    <x-text-input name="closing_qty" value="{{ old('closing_qty', $item->closing_qty) }}" :label="__('Closing Quantity')" :messages="$errors->get('closing_qty')"/>
+                    <x-text-input name="opening_qty" x-model="opening_qty" value="{{ old('opening_qty', $item->opening_qty) }}" :label="__('Opening Quantity')" :messages="$errors->get('opening_qty')"  x-on:change.debounce="qtyChange()"/>
+                    <x-text-input name="closing_qty" x-model="closing_qty" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('closing_qty', $item->closing_qty) }}" :label="__('Closing Quantity')" :messages="$errors->get('closing_qty')"/>
                 </div> 
                 <div class="flex justify-end mt-4">
                     <x-success-button>
@@ -58,5 +58,16 @@
             </div>
             </form>
         </div>
-    </div>   
+    </div> 
+<script>
+document.addEventListener("alpine:init", () => {
+    Alpine.data('data', () => ({  
+        opening_qty : '',
+        closing_qty: '',
+        qtyChange(){  
+            this.closing_qty = this.opening_qty;
+        },
+    }));
+});
+</script>  
 </x-layout.default>
