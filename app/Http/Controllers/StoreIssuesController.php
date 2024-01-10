@@ -5,6 +5,7 @@ use App\Models\Hotel;
 use App\Models\StoreIssue;
 use App\Models\Item;
 use App\Models\StoreIssueDetail;
+use App\Models\StockLedger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -38,8 +39,7 @@ class StoreIssuesController extends Controller
         $input = $request->all(); 
         $store_issue = StoreIssue::create($input);   
         // dd($store_issue); 
-        $data = $request->collect('store_issue_details');
-        
+        $data = $request->collect('store_issue_details');        
         foreach($data as $record){
             StoreIssueDetail::create([
                 'store_issue_id' => $store_issue->id,
@@ -47,6 +47,18 @@ class StoreIssuesController extends Controller
                 'qty' => $record['qty'],
             ]);            
         }   
+
+        $ledger_data = $request->collect('stock_ledgers');
+        foreach($data as $record){
+            StockLedger::create([
+                'hotel_id' => $store_issue->hotel_id,
+                'item_id' => $record['item'],
+                'issued' => $record['qty'],
+                'model' => 'StoreIssue',
+                'foreign_key' => $store_issue->id,
+            ]);            
+        }
+
         $request->session()->flash('success', 'Store Issues saved successfully!');
         return redirect()->route('store_issues.index');    
     }
@@ -71,6 +83,7 @@ class StoreIssuesController extends Controller
     public function update(StoreIssue $store_issue, Request $request) 
     {
         $input = $request->all(); 
+        
         $store_issue->update($input);        
         $data = $request->collect('store_issue_details');  
         foreach($data as $record){           
@@ -83,6 +96,19 @@ class StoreIssuesController extends Controller
                 'id'
             ]);
         }
+
+        StockLedger::where('foreign_key', $store_issue->id)->delete();    
+        $ledger_data = $request->collect('stock_ledgers');
+        foreach($data as $record){
+            StockLedger::create([
+                'hotel_id' => $store_issue->hotel_id,
+                'item_id' => $record['item'],
+                'issued' => $record['qty'],
+                'model' => 'StoreIssue',
+                'foreign_key' => $store_issue->id,
+            ]);            
+        }        
+
         $request->session()->flash('success', 'Store Issues updated successfully!');
         return redirect()->route('store_issues.index');
     }

@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Hotel;
 use App\Models\PurchaseDetail;
 use App\Models\Supplier;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia;
 
-class Purchase extends Model
+class Purchase extends Model implements HasMedia
 {
-    use HasFactory, CreatedUpdatedBy;
+    use HasFactory, InteractsWithMedia, CreatedUpdatedBy;
     protected $fillable = [
         'hotel_id',
         'purchase_date',

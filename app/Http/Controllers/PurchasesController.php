@@ -39,7 +39,12 @@ class PurchasesController extends Controller
     public function store(Purchase $purchase, Request $request) 
     {        
         $input = $request->all(); 
-        $purchase = Purchase::create($input);    
+        $purchase = Purchase::create($input);  
+
+        if($request->hasFile('attachment') && $request->file('attachment')->isValid()){
+            $purchase->addMediaFromRequest('attachment')->toMediaCollection('attachment');
+        }
+        // $model_name = getModelByTablename('purchases');  
         $data = $request->collect('purchase_details');
         foreach($data as $record){
             PurchaseDetail::create([
@@ -51,12 +56,17 @@ class PurchasesController extends Controller
                 'amount' => $record['amount'],
             ]);            
         }   
-        // $input['hotel_id'] = $request->hotel_id;
-        // $input['item_id'] = $request->item;
-        // $input['received'] = $request->qty;
-        // $input['model'] = true;  
-        // $input['foreign_key'] = $purchase->id;  
-        // StockLedger::create($input); 
+
+        $ledger_data = $request->collect('stock_ledgers');
+        foreach($data as $record){
+            StockLedger::create([
+                'hotel_id' => $purchase->hotel_id,
+                'item_id' => $record['item'],
+                'received' => $record['qty'],
+                'model' => 'Purchase',
+                'foreign_key' => $purchase->id,
+            ]);            
+        }
 
         $request->session()->flash('success', 'Purchases saved successfully!');
         return redirect()->route('purchases.index');    
@@ -98,6 +108,19 @@ class PurchasesController extends Controller
                 'id'
             ]);
         }
+
+        StockLedger::where('foreign_key', $purchase->id)->delete();    
+        $ledger_data = $request->collect('stock_ledgers');
+        foreach($data as $record){
+            StockLedger::create([
+                'hotel_id' => $purchase->hotel_id,
+                'item_id' => $record['item'],
+                'received' => $record['qty'],
+                'model' => 'Purchase',
+                'foreign_key' => $purchase->id,
+            ]);            
+        }       
+
         $request->session()->flash('success', 'Purchases updated successfully!');
         return redirect()->route('purchases.index');
     }
@@ -107,5 +130,9 @@ class PurchasesController extends Controller
         $purchase->delete();
         $request->session()->flash('success', 'Purchase deleted successfully!');
         return redirect()->route('purchases.index');
+    }
+
+    public function getModelByTablename($tableName) {
+        return new studly_case(strtolower(str_singular($tableName)));
     }
 }

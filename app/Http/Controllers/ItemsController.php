@@ -5,6 +5,7 @@ use App\Models\Hotel;
 use App\Models\ItemCategory;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Models\Item\updateClosingQty;
 
 class ItemsController extends Controller
 {
@@ -77,7 +78,13 @@ class ItemsController extends Controller
         [           
             'item_category_id.required' => 'Please select Category',
         ]);          
+       
         $item->update($request->all());
+        // if(empty($item->closing_qty)){            
+        //     $closing_qty = new Item();              
+        //     $item->closing_qty = $closing_qty->updateClosingQty($item->hotel_id);
+        //     dd($item->closing_qty);
+        // }
         $request->session()->flash('success', 'Item updated successfully!');
         return redirect()->route('items.index');
     }

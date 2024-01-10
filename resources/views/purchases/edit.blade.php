@@ -35,7 +35,18 @@
                     <x-text-input name="invoice_no" value="{{ old('invoice_no', $purchase->invoice_no) }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')"  /> 
                     <x-text-input name="invoice_date" value="{{ old('invoice_date', $purchase->invoice_date) }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')"/>
                 </div>
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
+                    <div>
+                        <label>Upload File :</label>
+                        <input type="file" name="attachment" class="form-input">  
+                        <br />
+                        @if($purchase->getFirstMediaUrl('attachment'))
+                            <a href="{{ $purchase->getFirstMediaUrl('attachment')}}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{basename($purchase->getFirstMediaUrl('attachment'))}}</a>
+                        @endif
+                    </div>
+                </div>  
             </div>    
+            
             <div class="panel table-responsive">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light"> Add Items</h5>

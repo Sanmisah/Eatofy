@@ -7,7 +7,7 @@
                 @foreach ($store_issues as $store_issue)
                 <tr>              
                     <td>{{ $store_issue->issue_no}}</td> 
-                    <td>{{ $store_issue->Hotel->owner_name }}</td>
+                    <!-- <td>{{ $store_issue->Hotel->owner_name }}</td> -->
                     <td>{{ $store_issue->issue_date}}</td>
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
@@ -33,8 +33,9 @@
                     this.datatable = new simpleDatatables.DataTable('#myTable', {
                         data: {
                             headings: [
-                                "Issue No", "Issue Name", "Issue Date", "Action"
-                            ],
+                                "Issue No", "Issue Date", "Action"
+                            ], 
+                            // "Issue Name",
                         },
                         searchable: true,
                         perPage: 30,

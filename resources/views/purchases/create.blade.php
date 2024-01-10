@@ -9,7 +9,7 @@
         </li>
     </ul>
     <div class="pt-5" x-data="data">        
-        <form class="space-y-5" action="{{ route('purchases.store') }}" method="POST">
+        <form class="space-y-5" action="{{ route('purchases.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
@@ -25,6 +25,7 @@
                     <div>
                         <label>Supplier :</label>
                         <select class="form-input" name="supplier_id" id="supplier_id">
+                            <option>Select Supplier</option>
                             @foreach ($suppliers as $id=>$supplier)                                
                                 <option value="{{$id}}">{{$supplier}}</option>
                             @endforeach
@@ -33,7 +34,13 @@
                     </div>
                     <x-text-input name="invoice_no" value="{{ old('invoice_no') }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')"  />  
                     <x-text-input name="invoice_date" value="{{ old('invoice_date') }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')"/>
-                </div>           
+                </div>
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
+                    <div>
+                        <label>Upload File :</label>
+                        <input type="file" name="attachment" class="form-input">  
+                    </div>
+                </div>     
             </div>            
             <div class="panel table-responsive">
                 <div class="flex items-center justify-between mb-5">
