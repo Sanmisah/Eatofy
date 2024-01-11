@@ -74,7 +74,7 @@ class PurchasesController extends Controller
     
     public function show(Purchase $purchase)
     {
-       //
+       dd('hiiiiii'); exit;
     }
   
     public function edit(Purchase $purchase)

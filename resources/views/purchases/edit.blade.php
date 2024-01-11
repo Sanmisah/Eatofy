@@ -77,6 +77,7 @@
                                             <template x-for="(purchaseDetail, i) in purchaseDetails" :key="i">
                                                 <tr>
                                                     <td>
+                                                        
                                                         <button type="button" @click="removeItem(purchaseDetail)">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24px"
                                                                 height="24px" viewBox="0 0 24 24" fill="none"
@@ -89,6 +90,7 @@
                                                                     y2="18"></line>
                                                             </svg>
                                                         </button>
+                                                        
                                                     </td>
                                                     <td>
                                                         <input type="hidden" class="form-input min-w-[230px]" x-model="purchaseDetail.id" x-bind:name="`purchase_details[${purchaseDetail.id}][id]`"/>

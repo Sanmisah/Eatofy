@@ -120,6 +120,11 @@ class StoreIssuesController extends Controller
   
     public function destroy(Request $request, StoreIssue $store_issue)
     {
+        $stockLedgers = StockLedger::where('foreign_key', $store_issue->id)->where('model', 'StoreIssue')->get();
+        foreach($stockLedgers as $row) {
+            $row->delete();
+        }
+
         $store_issue->delete();
         $request->session()->flash('success', 'Store Issue deleted successfully!');
         return redirect()->route('store_issues.index');
