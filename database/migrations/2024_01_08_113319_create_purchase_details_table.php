@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('purchase_id',11)->nullable();
             $table->string('item',50)->nullable();
             $table->string('unit',50)->nullable();
-            $table->string('qty',50)->nullable();
+            $table->decimal('qty',10,2)->nullable();
             $table->decimal('rate',10,2)->nullable();
             $table->decimal('amount',10,2)->nullable();
             $table->integer('created_by')->unsigned();

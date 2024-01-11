@@ -18,4 +18,23 @@ class StockLedger extends Model
         'model',
         'foreign_key'
     ];
+
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::created(function (StockLedger $stockLedger) {
+            $item = Item::find($stockLedger->item_id);
+            $item->closing_qty = $item->getClosingQty($stockLedger->item_id);
+            $item->save();
+        });
+
+        static::deleted(function (StockLedger $stockLedger) {
+            $item = Item::find($stockLedger->item_id);
+            $item->closing_qty = $item->getClosingQty($stockLedger->item_id);
+            $item->save();
+        });        
+    }    
 }

@@ -24,13 +24,13 @@
                     <x-text-input name="item_category_name" value="{{ old('item_category_name') }}" :label="__('Item Category Name')" :require="true" :messages="$errors->get('item_category_name')"/>  
                 </div>
                 <div class="flex justify-end mt-4">
-                    <x-success-button>
-                        {{ __('Submit') }}
-                    </x-success-button>
-                    &nbsp;&nbsp;
                     <x-cancel-button :link="route('menu_categories.index')">
                         {{ __('Cancel') }}
                     </x-cancel-button>
+                    &nbsp;&nbsp;
+                    <x-success-button>
+                        {{ __('Submit') }}
+                    </x-success-button>
                 </div>
             </div>
         </form> 

@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon; 
+?>
 <x-layout.default>
 <div>
     <ul class="flex space-x-2 rtl:space-x-reverse">
@@ -21,7 +24,7 @@
                     @endforeach
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="purchase_date" value="{{ old('purchase_date') }}" id="purchase_date" :label="__('Purchase Date')" :messages="$errors->get('purchase_date')"/>
+                    <x-text-input name="purchase_date" value="{{ old('purchase_date', Carbon::now()->format('d/m/Y')) }}" :label="__('Purchase Date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('purchase_date')"/>
                     <div>
                         <label>Supplier :</label>
                         <select class="form-input" name="supplier_id" id="supplier_id">
@@ -150,9 +153,9 @@ document.addEventListener("alpine:init", () => {
             console.log('hi');
             this.amount = 0;    
             this.total_amount = 0;     
-            flatpickr(document.getElementById('purchase_date'), {
-                dateFormat: 'd/m/Y',
-            });
+            // flatpickr(document.getElementById('purchase_date'), {
+            //     dateFormat: 'd/m/Y',
+            // });
 
             flatpickr(document.getElementById('invoice_date'), {
                 dateFormat: 'd/m/Y',

@@ -97,7 +97,12 @@ class StoreIssuesController extends Controller
             ]);
         }
 
-        StockLedger::where('foreign_key', $store_issue->id)->delete();    
+        $stockLedgers = StockLedger::where('foreign_key', $store_issue->id)->where('model', 'StoreIssue')->get();
+        foreach($stockLedgers as $row) {
+            $row->delete();
+        }
+
+        // StockLedger::where('foreign_key', $store_issue->id)->where('model', 'StoreIssue')->delete();    
         $ledger_data = $request->collect('stock_ledgers');
         foreach($data as $record){
             StockLedger::create([

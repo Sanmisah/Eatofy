@@ -71,6 +71,7 @@ class ItemsController extends Controller
 
     public function update(Item $item, Request $request) 
     {
+
         $request->validate([
             'name' => 'required',
             'item_category_id' => 'required',
@@ -78,13 +79,12 @@ class ItemsController extends Controller
         [           
             'item_category_id.required' => 'Please select Category',
         ]);          
-       
+
+        $closingQty = $item->getClosingQty($item->id);
+        $request->merge(['closing_qty' => $closingQty]);
+        
         $item->update($request->all());
-        // if(empty($item->closing_qty)){            
-        //     $closing_qty = new Item();              
-        //     $item->closing_qty = $closing_qty->updateClosingQty($item->hotel_id);
-        //     dd($item->closing_qty);
-        // }
+
         $request->session()->flash('success', 'Item updated successfully!');
         return redirect()->route('items.index');
     }

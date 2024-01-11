@@ -93,8 +93,10 @@ class PurchasesController extends Controller
     public function update(Purchase $purchase, Request $request) 
     {
         $input = $request->all(); 
-        $purchase->update($input);        
+        $purchase->update($input);       
+         
         $data = $request->collect('purchase_details');  
+
         foreach($data as $record){           
             PurchaseDetail::upsert([
                 'id' => $record['id'] ?? null,
@@ -109,7 +111,11 @@ class PurchasesController extends Controller
             ]);
         }
 
-        StockLedger::where('foreign_key', $purchase->id)->delete();    
+        $stockLedgers = StockLedger::where('foreign_key', $purchase->id)->where('model', 'Purchase')->get();
+        foreach($stockLedgers as $row) {
+            $row->delete();
+        }
+
         $ledger_data = $request->collect('stock_ledgers');
         foreach($data as $record){
             StockLedger::create([
@@ -127,12 +133,15 @@ class PurchasesController extends Controller
   
     public function destroy(Request $request, Purchase $purchase)
     {
+        $stockLedgers = StockLedger::where('foreign_key', $purchase->id)->where('model', 'Purchase')->get();
+        foreach($stockLedgers as $row) {
+            $row->delete();
+        }
+        
         $purchase->delete();
+
         $request->session()->flash('success', 'Purchase deleted successfully!');
         return redirect()->route('purchases.index');
     }
 
-    public function getModelByTablename($tableName) {
-        return new studly_case(strtolower(str_singular($tableName)));
-    }
 }

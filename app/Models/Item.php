@@ -19,13 +19,12 @@ class Item extends Model
         'closing_qty',        
     ];
 
-    public function updateClosingQty($hotel_id)
+    public function getClosingQty($item_id)
     {
-        // (opneing_qty + sum(received)) - sum(issude)       
-        $opening_qty = Item::where('hotel_id', $hotel_id);
-        $received = StockLedger::where('hotel_id', $hotel_id)->sum('received');
-        $issued = StockLedger::where('hotel_id', $hotel_id)->sum('issued');
-        $closingQty = ($opening_qty + $received - $issued);
-        return $closingQty;
+        $item = Item::where('id', $item_id)->first();
+
+        $stockLedger = StockLedger::where('item_id', $item_id);
+
+        return ($item->opening_qty + $stockLedger->sum('received')) - $stockLedger->sum('issued');
     }
 }

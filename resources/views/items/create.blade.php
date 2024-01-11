@@ -40,20 +40,22 @@
                         <select class="form-input" name="unit">
                             <option selected disabled>Select Unit</option>
                             <option value='KG'>KG</option>
-                            <option value='LTR'>LTR</option>                           
+                            <option value='LTR'>LTR</option> 
+                            <option value='Gram'>Gram</option>    
+                            <option value='Dozen'>Dozen</option>                        
                         </select>
                     </div>
                     <x-text-input name="opening_qty" value="{{ old('opening_qty') }}" x-model="opening_qty" :label="__('Opening Quantity')" :messages="$errors->get('opening_qty')" x-on:change.debounce="qtyChange()"/>
                     <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" x-model="closing_qty" name="closing_qty" value="{{ old('closing_qty') }}" :label="__('Closing Quantity')" :messages="$errors->get('closing_qty')"/>
                 </div> 
                 <div class="flex justify-end mt-4">
-                    <x-success-button>
-                        {{ __('Submit') }}
-                    </x-success-button>
-                    &nbsp;&nbsp;
                     <x-cancel-button :link="route('items.index')">
                         {{ __('Cancel') }}
                     </x-cancel-button>
+                    &nbsp;&nbsp;
+                    <x-success-button>
+                        {{ __('Submit') }}
+                    </x-success-button>
                 </div>
             </div>
         </form> 
@@ -65,6 +67,7 @@ document.addEventListener("alpine:init", () => {
         opening_qty : '',
         closing_qty: '',
         qtyChange(){  
+            console.log('hiii');
             this.closing_qty = this.opening_qty;
         },
     }));
