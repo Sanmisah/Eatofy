@@ -74,12 +74,8 @@ class PurchasesController extends Controller
     
     public function show(Purchase $purchase)
     {
-        $supplier = Purchase::select('invoice_no', 'invoice_date', 'total_amount')
-                        ->where('supplier_id',$purchase->supplier_id)
-                        ->get();
-        dd($supplier);
-        return $supplier;
-        // return $doctor;  
+        $data = Purchase::where('supplier_id', $purchase->supplier_id);
+        return $data;   
     }
   
     public function edit(Purchase $purchase)

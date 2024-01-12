@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Purchase;
 
 class Supplier extends Model
 {
@@ -19,4 +20,9 @@ class Supplier extends Model
         'city',
         'pincode'
     ];
+
+    public function Purchase() 
+    {
+        return $this->belongsTo(Purchase::class);
+    }
 }

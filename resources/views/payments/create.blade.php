@@ -23,13 +23,12 @@ use Carbon\Carbon;
                     <input type="hidden" value="{{ $id }}" name="hotel_id"/>
                     @endforeach
                 </div>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="purchase_date" value="{{ old('purchase_date', Carbon::now()->format('d/m/Y')) }}" :label="__('Purchase Date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('purchase_date')"/>                    
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                         
                     <x-text-input name="voucher_no" value="{{ old('voucher_no') }}" :label="__('Voucher No')"  :messages="$errors->get('voucher_no')"  />  
                     <x-text-input name="voucher_date" value="{{ old('voucher_date') }}" id="voucher_date" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')"/>
                     <div>
                         <label>Supplier :</label>
-                        <select class="form-input" name="supplier_id" id="supplier_id" x-model="supplier_id" x-on:change="supplierChange()">
+                        <select class="form-input" name="supplier_id" x-model="supplier_id" x-on:change="supplierChange()">
                             <option>Select Supplier</option>
                             @foreach ($suppliers as $id=>$supplier)                                
                                 <option value="{{$id}}">{{$supplier}}</option>
@@ -101,10 +100,7 @@ use Carbon\Carbon;
 </div>
 <script>
 document.addEventListener("alpine:init", () => {
-    Alpine.data('data', () => ({  
-        supplier_id: '',
-        purchaseData: '',
-        purchases: '',
+    Alpine.data('data', () => ({ 
         init() {       
             this.refno_open = false;
             this.chqno_open = false;
@@ -144,20 +140,17 @@ document.addEventListener("alpine:init", () => {
                 this.upino_open = true; 
             }
         },
-        
-       
 
+        supplier_id: '',
+        data: '',
         async supplierChange() {
-            this.purchaseData = await (await fetch('/purchases/'+ this.supplier_id, {
-                
+            this.data = await (await fetch('/purchases/'+ this.supplier_id, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json;',
             },
             })).json();
-            this.invoice_no = this.purchaseData.invoice_no;
-            this.invoice_date = this.purchaseData.invoice_date;
-            this.total_amount = this.purchaseData.total_amount;
+            console.log(this.data);
         },
         
     }));
