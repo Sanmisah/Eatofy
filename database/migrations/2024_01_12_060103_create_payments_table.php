@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('purchases', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hotel_id',11)->nullable();
-            $table->date('purchase_date')->nullable();
             $table->foreignId('supplier_id',11)->nullable();
-            $table->string('invoice_no',50)->nullable();
-            $table->date('invoice_date')->nullable();
-            $table->decimal('total_amount',10,2)->nullable();
-            $table->decimal('paid_amount',10,2)->nullable();
+            $table->string('voucher_no',50)->nullable();
+            $table->date('voucher_date')->nullable();
+            $table->decimal('amount',10,2)->nullable();
+            $table->string('payment_mode',20)->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('payments');
     }
 };

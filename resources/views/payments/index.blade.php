@@ -1,24 +1,23 @@
 <x-layout.default>    
     <div x-data="multicolumn"> 
-        <x-add-button :link="route('purchases.create')" />
+        <x-add-button :link="route('payments.create')" />
         <div class="panel mt-6 table-responsive">
-            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Purchase</h5>
+            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">payment</h5>
             <table id="myTable" class="whitespace-nowrap">
-                @foreach ($purchases as $purchase)
-                <tr>              
-                    <td>{{ $purchase->purchase_date}}</td> 
-                    <td>{{ @$purchase->Supplier->supplier_name }}</td>
-                    <td>{{ $purchase->invoice_no }}</td>
-                    <td>{{ $purchase->invoice_date}}</td>
-                    <td>{{ $purchase->total_amount}}</td>
-                    <td>{{ $purchase->paid_amount}}</td>
+                @foreach ($payments as $payment)
+                <tr>                                  
+                    <td>{{ @$payment->Supplier->supplier_name }}</td>
+                    <td>{{ $payment->voucher_no }}</td>
+                    <td>{{ $payment->voucher_date}}</td>
+                    <td>{{ $payment->amount}}</td>
+                    <td>{{ $payment->payment_mode}}</td>
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-edit-button :link=" route('purchases.edit', $purchase->id)" />                               
+                                <x-edit-button :link=" route('payments.edit', $payment->id)" />                               
                             </li>
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-delete-button :link=" route('purchases.destroy',$purchase->id)" />  
+                                <x-delete-button :link=" route('payments.destroy',$payment->id)" />  
                             </li>   
                         </ul>
                     </td>
@@ -36,7 +35,7 @@
                     this.datatable = new simpleDatatables.DataTable('#myTable', {
                         data: {
                             headings: [
-                                "Purchase Date", "Supplier Name", "Invoice No", "Invoice Date", "Total Amount", "Balance Amount", "Action"
+                                "Supplier Name", "Voucher No", "Voucher Date", "Amount", "Payment Mode", "Action"
                             ],
                         },
                         searchable: true,

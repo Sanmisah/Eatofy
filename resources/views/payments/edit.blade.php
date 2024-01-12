@@ -124,7 +124,7 @@
                                         </tbody>           
                                         <tfoot  style="background-color: #FFFFF;">
                                             <tr>
-                                                <th colspan="5" style="text-align:right;">Total Amount: </th>
+                                                <th colspan="6" style="text-align:right;">Total Amount: </th>
                                                 <td>               
                                                     <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total_amount')"  value="{{ $purchase->total_amount }}" x-model="total_amount" name="total_amount"/>
                                                 </td>

@@ -20,7 +20,8 @@ class Purchase extends Model implements HasMedia
         'supplier_id',
         'invoice_no',
         'invoice_date',
-        'total_amount'
+        'total_amount',
+        'paid_amount'
     ];
 
     public function setPurchaseDateAttribute($value)
