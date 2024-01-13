@@ -22,9 +22,7 @@ class Item extends Model
     public function getClosingQty($item_id)
     {
         $item = Item::where('id', $item_id)->first();
-
         $stockLedger = StockLedger::where('item_id', $item_id);
-
         return ($item->opening_qty + $stockLedger->sum('received')) - $stockLedger->sum('issued');
     }
 }

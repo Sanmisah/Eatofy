@@ -19,6 +19,8 @@ return new class extends Migration
             $table->date('voucher_date')->nullable();
             $table->decimal('amount',10,2)->nullable();
             $table->string('payment_mode',20)->nullable();
+            $table->date('payment_date')->nullable();
+            $table->decimal('total',10,2)->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

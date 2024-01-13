@@ -57,6 +57,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{user}/destroy', 'UsersController@destroy')->name('users.destroy');
         });
         Route::get('profile', 'ProfileController@index')->name('profile.change');    
+        Route::get('purchases/getPurchaseData/{id}', 'PurchasesController@getPurchaseData')->name('purchases.getPurchaseData');
         /**
          * Masters Route
          */   

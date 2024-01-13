@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Hotel;
 use App\Models\PurchaseDetail;
+use App\Models\PaymentDetail;
 use App\Models\Supplier;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
@@ -21,7 +22,7 @@ class Purchase extends Model implements HasMedia
         'invoice_no',
         'invoice_date',
         'total_amount',
-        'paid_amount'
+        'balance_amount',
     ];
 
     public function setPurchaseDateAttribute($value)
@@ -52,5 +53,11 @@ class Purchase extends Model implements HasMedia
     public function Supplier() 
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function getTotalPaidAmount($purchase_id)
+    {
+        $paymentDetail = PaymentDetail::where('purchase_id', $purchase_id);
+        return $paymentDetail->sum('paid_amount');
     }
 }

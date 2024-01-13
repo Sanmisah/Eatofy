@@ -38,8 +38,9 @@ class PurchasesController extends Controller
 
     public function store(Purchase $purchase, Request $request) 
     {        
-        $input = $request->all(); 
-        $purchase = Purchase::create($input);  
+        $input = $request->all();                
+
+        $purchase = Purchase::create($input);         
 
         if($request->hasFile('attachment') && $request->file('attachment')->isValid()){
             $purchase->addMediaFromRequest('attachment')->toMediaCollection('attachment');
@@ -74,8 +75,16 @@ class PurchasesController extends Controller
     
     public function show(Purchase $purchase)
     {
-        $data = Purchase::where('supplier_id', $purchase->supplier_id);
-        return $data;   
+        //
+    }
+
+    public function getPurchaseData($id)
+    {      
+        $data = Purchase::select('id', 'invoice_no', 'invoice_date', 'total_amount', 'balance_amount')
+            ->where('supplier_id', $id)
+            ->where('balance_amount','>','0')
+            ->get();
+        return $data;
     }
   
     public function edit(Purchase $purchase)

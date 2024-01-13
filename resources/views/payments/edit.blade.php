@@ -22,14 +22,13 @@
                     @endforeach
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                                      
-                    <x-text-input name="voucher_no" value="{{ old('voucher_no', $payment->voucher_no) }}" :label="__('Voucher No')"  :messages="$errors->get('voucher_no')"  />  
-                    <x-text-input name="voucher_date" value="{{ old('voucher_date', $payment->voucher_date) }}" id="voucher_date" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')"/>
+                    <x-text-input name="voucher_no" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('voucher_no', $payment->voucher_no) }}" :label="__('Voucher No')" :messages="$errors->get('voucher_no')"  />  
+                    <x-text-input name="voucher_date" value="{{ old('voucher_date', $payment->voucher_date) }}" id="voucher_date" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
                     <div>
                         <label>Supplier :</label>
-                        <select class="form-input" name="supplier_id" x-model="supplier_id" x-on:change="supplierChange()">
-                            <option>Select Supplier</option>
+                        <select class="form-input" name="supplier_id" id="supplier_id">
                             @foreach ($suppliers as $id=>$supplier)                                
-                                <option value="{{$id}}" {{ $payment->supplier_id ? ($payment->supplier_id == $id ? 'Selected' : '' ) : ''}}>{{$supplier}}</option>
+                                <option value="{{$id}}"  {{ $payment->supplier_id ? ($payment->supplier_id == $id ? 'Selected' : '' ) : ''}}>{{$supplier}}</option>
                             @endforeach
                         </select> 
                         <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" /> 
@@ -47,19 +46,33 @@
                                 <th>Invoice No</th>
                                 <th>Invoice Date</th>                               
                                 <th>Total Amount</th>
+                                <th>Balance Amount</th>
                                 <th>Paid Amount</th>
                             </tr>
                         </thead>
+                        <!-- <template x-if="suppliers"> -->
                         <tbody>  
+                            <!-- <template x-for="(supplier,i) in suppliers" :key="i"> -->
                             <tr>
-                                <td></td>
-                                <td></td>                                
-                                <td></td>
+                                <!-- <td x-text="supplier.invoice_no"></td>
+                                <td x-text="supplier.invoice_date"></td>                                
+                                <td x-text="supplier.total_amount"></td>
+                                <td x-text="supplier.balance_amount"></td>
                                 <td>
                                     <x-text-input class="form-input" name="paid_amount" value="{{ old('paid_amount') }}" :messages="$errors->get('paid_amount')"/>  
+                                </td> -->
+                            </tr>
+                            <!-- </template> -->
+                        </tbody>
+                        <!-- </template> -->
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" style="text-align:right;">Total Amount: </th>
+                                <td>               
+                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total')" x-model="total" name="total" value="{{ $payment->total }}"/>
                                 </td>
                             </tr>
-                        </tbody>
+                        </tfoot>   
                     </table>
                 </div>
             </div>
@@ -72,10 +85,10 @@
                         <label>Payment Mode:</label>
                         <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
                             <option>Select Payment mode</option>
-                            <option value="Cash"@if ($payment->payment_mode == "Cash") {{ 'Selected' }} @endif>Cash</option>
-                            <option value="Bank"@if ($payment->payment_mode == "Bank") {{ 'Selected' }} @endif>Bank</option>
-                            <option value="UPI"@if ($payment->payment_mode == "UPI") {{ 'Selected' }} @endif>UPI</option>
-                            <option value="Card"@if ($payment->payment_mode == "Card") {{ 'Selected' }} @endif>Card</option>                            
+                            <option value="Cash" @if ($payment->payment_mode == "Cash") {{ 'Selected' }} @endif>Cash</option>
+                            <option value="Bank" @if ($payment->payment_mode == "Bank") {{ 'Selected' }} @endif>Bank</option>
+                            <option value="UPI" @if ($payment->payment_mode == "UPI") {{ 'Selected' }} @endif>UPI</option>
+                            <option value="Card" @if ($payment->payment_mode == "Card") {{ 'Selected' }} @endif>Card</option>                            
                         </select>
                         <x-input-error :messages="$errors->get('payment_mode')" class="mt-2" /> 
                     </div>               
@@ -107,8 +120,8 @@ document.addEventListener("alpine:init", () => {
             flatpickr(document.getElementById('voucher_date'), {
                 dateFormat: 'd/m/Y',
             });
-            @if($payment->paymentMode)
-                this.paymentMode = '{{$payment->paymentMode}}';
+            @if($payment->payment_mode)
+                this.paymentMode = '{{$payment->payment_mode}}';
                 this.paymentModeChange();
             @endif
         },
@@ -119,21 +132,33 @@ document.addEventListener("alpine:init", () => {
                 this.refno_open = false;
                 this.chqno_open = false;
                 this.bkname_open = false;
-                this.upino_open = false; 
+                this.upino_open = false;                
             } else if (this.paymentMode == 'UPI') {
                 this.refno_open = false;
                 this.chqno_open = false;
                 this.bkname_open = false;
                 this.upino_open = true; 
+                @if($payment->paymentMode)
+                    this.upino_open={{$payment->upi_no}};
+                @endif
             } else if (this.paymentMode == 'Card'){
                 this.refno_open = true; 
+                @if($payment->paymentMode)
+                    this.refno_open={{$payment->reference_no}};
+                @endif
                 this.chqno_open = false;
                 this.bkname_open = false;
                 this.upino_open = false; 
             } else if (this.paymentMode == 'Bank'){
                 this.refno_open = false;
                 this.chqno_open = true;
+                @if($payment->paymentMode)
+                    this.chqno_open={{$payment->cheque_no}};
+                @endif
                 this.bkname_open = true;
+                @if($payment->paymentMode)
+                    this.bkname_open={{$payment->bank_name}};
+                @endif
                 this.upino_open = false; 
             } else {
                 this.refno_open = true;

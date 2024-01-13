@@ -5,7 +5,6 @@ use App\Models\Hotel;
 use App\Models\ItemCategory;
 use App\Models\Item;
 use Illuminate\Http\Request;
-use App\Models\Item\updateClosingQty;
 
 class ItemsController extends Controller
 {

@@ -11,7 +11,7 @@
                     <td>{{ $purchase->invoice_no }}</td>
                     <td>{{ $purchase->invoice_date}}</td>
                     <td>{{ $purchase->total_amount}}</td>
-                    <td>{{ $purchase->paid_amount}}</td>
+                    <td>{{ $purchase->balance_amount}}</td>
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">

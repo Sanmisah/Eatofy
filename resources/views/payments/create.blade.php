@@ -24,8 +24,8 @@ use Carbon\Carbon;
                     @endforeach
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                         
-                    <x-text-input name="voucher_no" value="{{ old('voucher_no') }}" :label="__('Voucher No')"  :messages="$errors->get('voucher_no')"  />  
-                    <x-text-input name="voucher_date" value="{{ old('voucher_date') }}" id="voucher_date" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')"/>
+                    <x-text-input name="voucher_no" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('voucher_no') }}" :label="__('Voucher No')"  :messages="$errors->get('voucher_no')"  />  
+                    <x-text-input name="voucher_date" value="{{ old('voucher_date', Carbon::now()->format('d/m/Y')) }}" class="bg-gray-100 dark:bg-gray-700" readonly="true" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')"/>
                     <div>
                         <label>Supplier :</label>
                         <select class="form-input" name="supplier_id" x-model="supplier_id" x-on:change="supplierChange()">
@@ -36,32 +36,48 @@ use Carbon\Carbon;
                         </select> 
                         <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" /> 
                     </div>
+                    <!-- <x-text-input name="amount" value="{{ old('amount') }}" :label="__('Amount')"  :messages="$errors->get('amount')"  />  -->
                 </div>    
             </div>
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Purchase list</h5>
-                </div>
+                </div>               
                 <div class="table-responsive">
-                    <table class="table-striped">
+                    <table class="table-hover">
                         <thead>
                             <tr>
                                 <th>Invoice No</th>
                                 <th>Invoice Date</th>                               
                                 <th>Total Amount</th>
+                                <th>Balance Amount</th>
                                 <th>Paid Amount</th>
                             </tr>
                         </thead>
-                        <tbody>  
+                        <template x-if="suppliers">
+                        <tbody> 
+                            <template x-for="(supplier,i) in suppliers" :key="i">
                             <tr>
-                                <td></td>
-                                <td></td>                                
-                                <td></td>
-                                <td>
-                                    <x-text-input class="form-input" name="paid_amount" value="{{ old('paid_amount') }}" :messages="$errors->get('paid_amount')"/>  
+                                <td x-text="supplier.invoice_no"></td>
+                                <td x-text="supplier.invoice_date"></td>                                
+                                <td x-text="supplier.total_amount"></td>
+                                <td x-text="supplier.balance_amount"></td>
+                                <td>          
+                                    <input type="hidden" class="form-input min-w-[230px]" x-model="supplier.id" x-bind:name="`payment_details[${supplier.id}][id]`"/>                                   
+                                    <x-text-input x-bind:name="`payment_details[${supplier.id}][paid_amount]`" :messages="$errors->get('paid_amount')" x-model="supplier.paid_amount" @change="calculateTotal()"/>
                                 </td>
                             </tr>
-                        </tbody>
+                            </template>
+                        </tbody>                        
+                        </template>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" style="text-align:right;">Total Amount: </th>
+                                <td>               
+                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total')" x-model="total" name="total"/>
+                                </td>
+                            </tr>
+                        </tfoot>   
                     </table>
                 </div>
             </div>
@@ -73,7 +89,7 @@ use Carbon\Carbon;
                     <div>
                         <label>Payment Mode:</label>
                         <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
-                            <option>Select Payment mode</option>
+                            <option value="">Select Payment mode</option>
                             <option value="Cash">Cash</option>
                             <option value="Bank">Bank</option>
                             <option value="UPI">UPI</option>
@@ -92,7 +108,19 @@ use Carbon\Carbon;
                     </div>  
                     <div x-show="upino_open">     
                         <x-text-input class="form-input" :label="__('UPI No')" name="upi_no" value="{{ old('upi_no') }}" :messages="$errors->get('upi_no')"/>
-                    </div>                 
+                    </div>    
+                    <div>
+                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date') }}" :messages="$errors->get('payment_date')"/>
+                    </div>             
+                </div> 
+                <div class="flex justify-end mt-4">
+                    <x-cancel-button :link="route('payments.index')">
+                        {{ __('Cancel') }}
+                    </x-cancel-button>
+                    &nbsp;&nbsp;
+                    <x-success-button>
+                        {{ __('Submit') }}
+                    </x-success-button>  
                 </div>               
             </div>
         </form>         
@@ -105,8 +133,13 @@ document.addEventListener("alpine:init", () => {
             this.refno_open = false;
             this.chqno_open = false;
             this.bkname_open = false; 
-            this.upino_open = false;    
-            flatpickr(document.getElementById('voucher_date'), {
+            this.upino_open = false;  
+            this.total = 0;       
+            // flatpickr(document.getElementById('voucher_date'), {
+            //     dateFormat: 'd/m/Y',
+            // });
+
+            flatpickr(document.getElementById('payment_date'), {
                 dateFormat: 'd/m/Y',
             });
         },
@@ -141,18 +174,26 @@ document.addEventListener("alpine:init", () => {
             }
         },
 
-        supplier_id: '',
-        data: '',
+        supplier_id: '',        
+        suppliers:'',
         async supplierChange() {
-            this.data = await (await fetch('/purchases/'+ this.supplier_id, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json;',
-            },
+            this.suppliers = await (await fetch('/purchases/getPurchaseData/'+ this.supplier_id, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json;',
+                },
             })).json();
-            console.log(this.data);
         },
         
+        calculateTotal() {            
+            let total = 0;
+            this.suppliers.forEach(supplier => {
+                total = parseFloat(total) + parseFloat(supplier.paid_amount);                
+            });                         
+            if(!isNaN(total)){
+                this.total = total.toFixed(2);
+            }     
+        },
     }));
 });
 </script> 

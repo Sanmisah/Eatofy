@@ -22,7 +22,7 @@
                     @endforeach
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="purchase_date" value="{{ old('purchase_date', $purchase->purchase_date) }}" id="purchase_date" :label="__('Purchase Date')" :messages="$errors->get('purchase_date')"/>
+                    <x-text-input name="purchase_date" value="{{ old('purchase_date', $purchase->purchase_date) }}" id="purchase_date" :label="__('Purchase Date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('purchase_date')"/>
                     <div>
                         <label>Supplier :</label>
                         <select class="form-input" name="supplier_id" id="supplier_id">

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('invoice_no',50)->nullable();
             $table->date('invoice_date')->nullable();
             $table->decimal('total_amount',10,2)->nullable();
-            $table->decimal('paid_amount',10,2)->nullable();
+            $table->decimal('balace_amount',10,2)->default(0)->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

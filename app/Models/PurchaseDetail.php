@@ -18,10 +18,12 @@ class PurchaseDetail extends Model
         'rate',
         'amount'
     ];
+
     public function Purchase() 
     {
         return $this->belongsTo(Purchase::class);
-    } 
+    }
+     
     public function Item() 
     {
         return $this->belongsTo(Item::class);
