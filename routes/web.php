@@ -12,6 +12,8 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\StoreIssuesController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\TablesController;
+use App\Http\Controllers\ServersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,6 +73,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('purchases', PurchasesController::class);
         Route::resource('store_issues', StoreIssuesController::class);
         Route::resource('payments', PaymentsController::class);
+        Route::resource('tables', TablesController::class);
+        Route::resource('servers', ServersController::class);
     });
 
     Route::group(['middleware' => ['auth']], function() {  

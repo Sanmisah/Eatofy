@@ -47,6 +47,8 @@
                                 <td>{{ @$val->purchase->balance_amount }}</td>
                                 <td>
                                     <x-text-input class="form-input" name="paid_amount" value="{{ @$val->paid_amount }}" :messages="$errors->get('paid_amount')" @change="calculateTotal()"/>  
+                                    <template x-for="(supplier, i) in suppliers" :key="i">
+                                    </template>
                                 </td>
                             </tr>
                             
@@ -102,6 +104,7 @@
 <script>
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
+        suppliers: [],      
         init() {       
             this.refno_open = false;
             this.chqno_open = false;
@@ -123,6 +126,12 @@ document.addEventListener("alpine:init", () => {
             @if($payment->total)                
                 this.total = {{ $payment->total }};
             @endif
+
+            // @if($payment['paymentDetails'])
+            //     @foreach($payment['paymentDetails'] as $i=>$details)            
+            //         this.suppliers.paid_amount = {{ $details->paid_amount }};                                
+            //     @endforeach
+            // @endif 
         },
       
         paymentMode: '',

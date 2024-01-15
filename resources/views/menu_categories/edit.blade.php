@@ -21,7 +21,7 @@
                     <input type="hidden" value="{{ $id }}" name="hotel_id"/>
                     @endforeach
                 </div>  
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="menu_category_name" value="{{ old('menu_category_name', $menu_category->menu_category_name) }}" :label="__('Category Name')" :require="true" :messages="$errors->get('menu_category_name')"/> 
                 </div>
                 <div class="flex justify-end mt-4">

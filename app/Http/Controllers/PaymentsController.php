@@ -60,16 +60,8 @@ class PaymentsController extends Controller
     }
   
     public function edit(Payment $payment)
-    {       
-        // dd($payment);
-        // $authUser = auth()->user()->roles->pluck('name')->first();
-        // $conditions = [];
-        // if($authUser == 'Owner'){                       
-        //     $conditions[] = ['id', auth()->user()->id];
-        // } 
-        // $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
-        // $suppliers = Supplier::where('hotel_id', auth()->user()->id)->pluck('supplier_name', 'id');
-        // dd($payment->paymentDetails);
+    {               
+        // dd($payment->paymentDetails[1]->purchase);
         return view('payments.edit', ['payment' => $payment]); 
     }
 

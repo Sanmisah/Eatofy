@@ -81,6 +81,8 @@
                             <li><a href="/items">Items</a></li>                        
                             <li><a href="/hotel_staffs">Staffs</a></li>
                             <li><a href="/suppliers">Suppliers</a></li>
+                            <li><a href="/tables">Tables</a></li>
+                            <li><a href="/servers">Servers</a></li>
                         @endrole
                     </ul>
                 </li>  
