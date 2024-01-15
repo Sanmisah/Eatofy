@@ -56,25 +56,36 @@ class PaymentsController extends Controller
     
     public function show(Payment $payment)
     {
-       //
+        //
     }
   
     public function edit(Payment $payment)
     {       
         // dd($payment);
-        $authUser = auth()->user()->roles->pluck('name')->first();
-        $conditions = [];
-        if($authUser == 'Owner'){                       
-            $conditions[] = ['id', auth()->user()->id];
-        } 
-        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
-        $suppliers = Supplier::where('hotel_id', auth()->user()->id)->pluck('supplier_name', 'id');
-        return view('payments.edit', ['payment' => $payment, 'hotels'=>$hotels, 'suppliers'=>$suppliers]); 
+        // $authUser = auth()->user()->roles->pluck('name')->first();
+        // $conditions = [];
+        // if($authUser == 'Owner'){                       
+        //     $conditions[] = ['id', auth()->user()->id];
+        // } 
+        // $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
+        // $suppliers = Supplier::where('hotel_id', auth()->user()->id)->pluck('supplier_name', 'id');
+        // dd($payment->paymentDetails);
+        return view('payments.edit', ['payment' => $payment]); 
     }
 
     public function update(Payment $payment, Request $request) 
     {
-        //
+        $payment->update($request->all());
+        $data = $request->collect('payment_details');
+        foreach($data as $record){
+            $paymentDetail = PaymentDetail::create([
+                'payment_id' => $payment->id,
+                'purchase_id' => $record['id'] ?? null,
+                'paid_amount' => $record['paid_amount'],  
+            ]); 
+        }     
+        $request->session()->flash('success', 'Payment updated successfully!');
+        return redirect()->route('payments.index');
     }
   
     public function destroy(Request $request, Payment $payment)

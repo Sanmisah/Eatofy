@@ -176,13 +176,14 @@ document.addEventListener("alpine:init", () => {
 
         supplier_id: '',        
         suppliers:'',
-        async supplierChange() {
+        async supplierChange() {            
             this.suppliers = await (await fetch('/purchases/getPurchaseData/'+ this.supplier_id, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json;',
                 },
             })).json();
+            console.log(this.suppliers)
         },
         
         calculateTotal() {            

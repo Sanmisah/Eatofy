@@ -15,24 +15,11 @@
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Edit Purchase</h5>
-                </div>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
-                    @foreach ($hotels as $id => $hotel)
-                    <input type="hidden" value="{{ $id }}" name="hotel_id"/>
-                    @endforeach
-                </div>
+                </div>                
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                                      
                     <x-text-input name="voucher_no" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('voucher_no', $payment->voucher_no) }}" :label="__('Voucher No')" :messages="$errors->get('voucher_no')"  />  
-                    <x-text-input name="voucher_date" value="{{ old('voucher_date', $payment->voucher_date) }}" id="voucher_date" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
-                    <div>
-                        <label>Supplier :</label>
-                        <select class="form-input" name="supplier_id" id="supplier_id">
-                            @foreach ($suppliers as $id=>$supplier)                                
-                                <option value="{{$id}}"  {{ $payment->supplier_id ? ($payment->supplier_id == $id ? 'Selected' : '' ) : ''}}>{{$supplier}}</option>
-                            @endforeach
-                        </select> 
-                        <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" /> 
-                    </div>
+                    <x-text-input name="voucher_date" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('voucher_date', $payment->voucher_date) }}" id="voucher_date" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
+                    <x-text-input name="supplier_name" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ $payment->supplier->supplier_name }}" :label="__('Supplier Name')" :messages="$errors->get('supplier_name')"  />  
                 </div>                 
             </div>    
             <div class="panel">
@@ -50,21 +37,21 @@
                                 <th>Paid Amount</th>
                             </tr>
                         </thead>
-                        <!-- <template x-if="suppliers"> -->
+                        @foreach ($payment->paymentDetails as $val)
                         <tbody>  
-                            <!-- <template x-for="(supplier,i) in suppliers" :key="i"> -->
+                            
                             <tr>
-                                <!-- <td x-text="supplier.invoice_no"></td>
-                                <td x-text="supplier.invoice_date"></td>                                
-                                <td x-text="supplier.total_amount"></td>
-                                <td x-text="supplier.balance_amount"></td>
+                                <td>{{ @$val->purchase->invoice_no }}</td>
+                                <td>{{ @$val->purchase->invoice_date }}</td>                                
+                                <td>{{ @$val->purchase->total_amount }}</td>
+                                <td>{{ @$val->purchase->balance_amount }}</td>
                                 <td>
-                                    <x-text-input class="form-input" name="paid_amount" value="{{ old('paid_amount') }}" :messages="$errors->get('paid_amount')"/>  
-                                </td> -->
+                                    <x-text-input class="form-input" name="paid_amount" value="{{ @$val->paid_amount }}" :messages="$errors->get('paid_amount')" @change="calculateTotal()"/>  
+                                </td>
                             </tr>
-                            <!-- </template> -->
+                            
                         </tbody>
-                        <!-- </template> -->
+                        @endforeach
                         <tfoot>
                             <tr>
                                 <th colspan="4" style="text-align:right;">Total Amount: </th>
@@ -103,7 +90,10 @@
                     </div>  
                     <div x-show="upino_open">     
                         <x-text-input class="form-input" :label="__('UPI No')" name="upi_no" value="{{ old('upi_no', $payment->upi_no) }}" :messages="$errors->get('upi_no')"/>
-                    </div>                 
+                    </div>         
+                    <div>
+                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date', $payment->payment_date) }}" :messages="$errors->get('payment_date')"/>
+                    </div>         
                 </div>               
             </div>            
         </form> 
@@ -120,9 +110,18 @@ document.addEventListener("alpine:init", () => {
             flatpickr(document.getElementById('voucher_date'), {
                 dateFormat: 'd/m/Y',
             });
+
+            flatpickr(document.getElementById('payment_date'), {
+                dateFormat: 'd/m/Y',
+            });
+
             @if($payment->payment_mode)
                 this.paymentMode = '{{$payment->payment_mode}}';
                 this.paymentModeChange();
+            @endif
+
+            @if($payment->total)                
+                this.total = {{ $payment->total }};
             @endif
         },
       
@@ -168,16 +167,14 @@ document.addEventListener("alpine:init", () => {
             }
         },
 
-        supplier_id: '',
-        data: '',
-        async supplierChange() {
-            this.data = await (await fetch('/purchases/'+ this.supplier_id, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json;',
-            },
-            })).json();
-            console.log(this.data);
+        calculateTotal() {            
+            let total = 0;
+            this.suppliers.forEach(supplier => {
+                total = parseFloat(total) + parseFloat(supplier.paid_amount);                
+            });                         
+            if(!isNaN(total)){
+                this.total = total.toFixed(2);
+            }     
         },
     }));
 });

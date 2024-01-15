@@ -26,6 +26,12 @@ class PaymentDetail extends Model
             $purchase->save();
         });
 
+        static::updated(function (PaymentDetail $paymentDetail) {
+            $purchase = Purchase::find($paymentDetail->purchase_id);
+            $purchase->balance_amount = $purchase->total_amount - $purchase->getTotalPaidAmount($paymentDetail->purchase_id);
+            $purchase->save();
+        });
+
         static::deleted(function (PaymentDetail $paymentDetail) {
             $purchase = Purchase::find($paymentDetail->purchase_id);
             $purchase->balance_amount = $purchase->total_amount - $purchase->getTotalPaidAmount($paymentDetail->purchase_id);

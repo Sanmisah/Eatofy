@@ -79,11 +79,12 @@ class PurchasesController extends Controller
     }
 
     public function getPurchaseData($id)
-    {      
+    {     
         $data = Purchase::select('id', 'invoice_no', 'invoice_date', 'total_amount', 'balance_amount')
-            ->where('supplier_id', $id)
-            ->where('balance_amount','>','0')
-            ->get();
+                        ->where('supplier_id', $id)
+                        ->get();
+        // ->where('balance_amount','>','0')
+        // dd($data);
         return $data;
     }
   
