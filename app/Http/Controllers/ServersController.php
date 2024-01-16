@@ -54,7 +54,7 @@ class ServersController extends Controller
             $conditions[] = ['id', auth()->user()->id];
         } 
         $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
-        return view('servers.edit', ['Server' => $server, 'hotels' => $hotels]);
+        return view('servers.edit', ['server' => $server, 'hotels' => $hotels]);
     }
 
     public function update(Server $server, Request $request) 

@@ -73,6 +73,7 @@
                     <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
                         @role(['Admin', 'Root'])
                             <li><a href="/hotels">Hotels</a></li>
+                            <li><a href="/packages">Packages</a></li>
                         @endrole
                         @role(['Owner'])
                             <li><a href="/menu_categories">Menu Category</a></li>
@@ -118,6 +119,7 @@
                         <li><a href="/purchases">Purchases</a></li>
                         <li><a href="/store_issues">Store Issues</a></li>
                         <li><a href="/payments">Payments</a></li>
+                        <li><a href="/orders">Orders</a></li>
                     </ul>
                 </li> 
                 @endrole               
