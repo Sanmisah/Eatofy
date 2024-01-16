@@ -23,6 +23,9 @@
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
+                                <x-subscription-button :link=" route('hotels.subscription', $hotel->id)" />                               
+                            </li>
+                            <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('hotels.edit', $hotel->id)" />                               
                             </li>
                             <li style="display: inline-block;vertical-align:top;">

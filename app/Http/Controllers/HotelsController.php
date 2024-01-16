@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hotel;
 use App\Models\HotelStaff;
+use App\Models\Package;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -35,10 +36,18 @@ class HotelsController extends Controller
         $input['email'] = $request->email;
         $input['password'] = Hash::make($request->new_password);
         $input['active'] = true;  
-        $user = User::create($input); 
-        $user->syncRoles('Owner');
-        // dd($user);
-        $hotel = $user->Hotel()->create($input);
+        $user = User::create($input);         
+        $user->syncRoles('Owner');      
+
+        $hotel = $user->Hotel()->create($input);    
+        
+        $input['staff_name'] = $request->owner_name;
+        $input['contact_no'] = $request->contact_no;
+        $input['address'] = $request->address;
+        $input['hotel_id'] = $hotel->id;
+        $input['role'] = 'Owner';
+        $input['email'] = $request['email'];
+        $hotelStaff = HotelStaff::create($input);
         $request->session()->flash('success', 'Form saved successfully!');
         return redirect()->route('hotels.index');         
     }
@@ -71,5 +80,11 @@ class HotelsController extends Controller
         $hotel->delete();
         $request->session()->flash('success', 'Hotel deleted successfully!');
         return redirect()->route('hotels.index');
+    }
+
+    public function subscription(Request $request, Hotel $hotel)
+    {
+        $packages = Package::pluck('package_name', 'id'); 
+        return view('hotels.subscription', ['hotel' => $hotel, 'packages' => $packages]);
     }
 }
