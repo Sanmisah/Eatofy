@@ -43,7 +43,7 @@ class StoreIssuesController extends Controller
         foreach($data as $record){
             StoreIssueDetail::create([
                 'store_issue_id' => $store_issue->id,
-                'item' => $record['item'],
+                'item_id' => $record['item_id'],
                 'qty' => $record['qty'],
             ]);            
         }   
@@ -52,7 +52,7 @@ class StoreIssuesController extends Controller
         foreach($data as $record){
             StockLedger::create([
                 'hotel_id' => $store_issue->hotel_id,
-                'item_id' => $record['item'],
+                'item_id' => $record['item_id'],
                 'issued' => $record['qty'],
                 'model' => 'StoreIssue',
                 'foreign_key' => $store_issue->id,
@@ -90,7 +90,7 @@ class StoreIssuesController extends Controller
             StoreIssueDetail::upsert([
                 'id' => $record['id'] ?? null,
                 'store_issue_id' => $store_issue->id,
-                'item' => $record['item'],
+                'item_id' => $record['item_id'],
                 'qty' => $record['qty'],
             ],[
                 'id'
@@ -107,7 +107,7 @@ class StoreIssuesController extends Controller
         foreach($data as $record){
             StockLedger::create([
                 'hotel_id' => $store_issue->hotel_id,
-                'item_id' => $record['item'],
+                'item_id' => $record['item_id'],
                 'issued' => $record['qty'],
                 'model' => 'StoreIssue',
                 'foreign_key' => $store_issue->id,

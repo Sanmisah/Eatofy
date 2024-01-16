@@ -19,6 +19,10 @@ return new class extends Migration
             $table->date('voucher_date')->nullable();
             $table->decimal('amount',10,2)->nullable();
             $table->string('payment_mode',20)->nullable();
+            $table->string('cheque_no',50)->nullable();
+            $table->string('bank_name',50)->nullable();
+            $table->string('reference_no',50)->nullable();
+            $table->string('upi_no',20)->nullable();
             $table->date('payment_date')->nullable();
             $table->decimal('total',10,2)->nullable();
             $table->integer('created_by')->unsigned();

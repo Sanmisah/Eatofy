@@ -94,13 +94,13 @@
                                                     </td>
                                                     <td>
                                                         <input type="hidden" class="form-input min-w-[230px]" x-model="purchaseDetail.id" x-bind:name="`purchase_details[${purchaseDetail.id}][id]`"/>
-                                                        <select class="form-input" x-model="purchaseDetail.item" x-bind:name="`purchase_details[${purchaseDetail.id}][item]`"  x-on:change="purchaseChange()">
+                                                        <select class="form-input" x-model="purchaseDetail.item_id" x-bind:name="`purchase_details[${purchaseDetail.id}][item_id]`"  x-on:change="purchaseChange()">
                                                             <option>Select Items</option>
-                                                                @foreach ($items as $id => $item)
-                                                                    <option value="{{$id}}" {{ $id ? ($id == $purchase->item ? 'selected' : '') : '' }}> {{$item}} </option>
+                                                            @foreach ($items as $id => $item)
+                                                                <option value="{{$id}}"> {{$item}} </option>
                                                             @endforeach
                                                         </select>
-                                                        <x-input-error :messages="$errors->get('item')" class="mt-2" /> 
+                                                        <x-input-error :messages="$errors->get('item_id')" class="mt-2" /> 
                                                     </td>
                                                     <td>
                                                         <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" x-bind:name="`purchase_details[${purchaseDetail.id}][unit]`" :messages="$errors->get('unit')" x-model="purchaseDetail.unit"/>
@@ -171,23 +171,22 @@ document.addEventListener("alpine:init", () => {
             let maxId = 0; 
             id='';
             @if($purchase['PurchaseDetails'])
-            @foreach($purchase['PurchaseDetails'] as $i=>$details)
-            this.purchaseDetails.push({
-                i: ++maxId,
-                id: '{{ $details->id }}',
-                item: '{{ $details->item }}',
-                unit: '{{ $details->unit }}',
-                qty: '{{ $details->qty }}',
-                rate: '{{ $details->rate }}',
-                amount: '{{ $details->amount }}',
-            });   
-                             
-            @endforeach
+                @foreach($purchase['PurchaseDetails'] as $i=>$details)
+                    this.purchaseDetails.push({
+                        i: ++maxId,
+                        id: '{{ $details->id }}',
+                        item_id: '{{ $details->item_id }}',
+                        unit: '{{ $details->unit }}',
+                        qty: '{{ $details->qty }}',
+                        rate: '{{ $details->rate }}',
+                        amount: '{{ $details->amount }}',
+                    });    
+                @endforeach
             @endif    
         },
         
         async purchaseChange() {                  
-            this.purchaseData = await (await fetch('/items/'+ this.purchaseDetail.item, {
+            this.purchaseData = await (await fetch('/items/'+ this.purchaseDetail.item_id, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json;',
@@ -205,7 +204,7 @@ document.addEventListener("alpine:init", () => {
             }
             this.purchaseDetails.push({
                 id: maxId + 1,
-                item: '',
+                item_id: '',
                 unit: '',
                 qty: '',
                 rate: '',

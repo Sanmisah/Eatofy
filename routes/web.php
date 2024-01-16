@@ -79,6 +79,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('servers', ServersController::class);
         Route::resource('packages', PackagesController::class);
         Route::resource('orders', OrdersController::class);
+        Route::get('/{order}/bill', 'OrdersController@bill')->name('orders.bill');
+        Route::patch('/{order}/updatePaymentData', 'OrdersController@updatePaymentData')->name('orders.updatePaymentData');
     });
 
     Route::group(['middleware' => ['auth']], function() {  

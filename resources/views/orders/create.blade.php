@@ -24,16 +24,16 @@ use Carbon\Carbon;
                     @endforeach
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="bill_date" value="{{ old('purchase_date', Carbon::now()->format('d/m/Y')) }}" :label="__('Bill Date')" id="bill_date" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('purchase_date')"/>                    
+                    <x-text-input name="bill_date" value="{{ old('bill_date', Carbon::now()->format('d/m/Y')) }}" :label="__('Bill Date')" id="bill_date" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('bill_date')"/>                    
                     <x-text-input name="bill_no" value="{{ old('bill_no') }}" :label="__('Bill No')"  :messages="$errors->get('bill_no')" class="bg-gray-100 dark:bg-gray-700" readonly="true" />  
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="hotel_name" value="{{ old('hotel_name') }}" :label="__('Hotel Name')" :require="true" :messages="$errors->get('hotel_name')"/>
-                    <x-text-input name="contact_no" value="{{ old('contact_no') }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" />     
+                    <x-text-input name="customer_name" value="{{ old('customer_name') }}" :label="__('Customer Name')" :require="true" :messages="$errors->get('customer_name')"/>
+                    <x-text-input name="mobile_no" value="{{ old('mobile_no') }}" :label="__('Mobile No')" :messages="$errors->get('mobile_no')" />     
                     <div>
                         <label>Table :</label>
                         <select class="form-input" name="table_id" id="table_id">
-                            <option>Select Table</option>
+                            <option value="">Select Table</option>
                             @foreach ($tables as $id=>$table)                                
                                 <option value="{{$id}}">{{$table}}</option>
                             @endforeach
@@ -43,7 +43,7 @@ use Carbon\Carbon;
                     <div>
                         <label>Server :</label>
                         <select class="form-input" name="server_id" id="server_id">
-                            <option>Select Server</option>
+                            <option value="">Select Server</option>
                             @foreach ($servers as $id=>$server)                                
                                 <option value="{{$id}}">{{$server}}</option>
                             @endforeach
@@ -66,8 +66,8 @@ use Carbon\Carbon;
                                             <tr>
                                                 <th>&nbsp; #</th>
                                                 <th>Items</th>
-                                                <th>Qty</th>
-                                                <th>Rate</th>                                                
+                                                <th>Rate</th>  
+                                                <th>Qty</th>                               
                                                 <th>Instruction</th>
                                                 <th>Amount</th>
                                             </tr>
@@ -96,25 +96,25 @@ use Carbon\Carbon;
                                                         </button>
                                                     </td>
                                                     <td>
-                                                        <select class="form-input" x-model="orderDetail.item" x-bind:name="`order_details[${orderDetail.id}][item]`"  x-on:change="orderChange()">
+                                                        <select class="form-input" x-model="orderDetail.menu_id" x-bind:name="`order_details[${orderDetail.id}][menu_id]`" x-on:change="menuChange()">
                                                             <option>Select Items</option>
                                                                 @foreach ($menus as $id => $menu)
                                                                     <option value="{{$id}}"> {{$menu}} </option>
                                                             @endforeach
                                                         </select>
-                                                        <x-input-error :messages="$errors->get('item')" class="mt-2" /> 
+                                                        <x-input-error :messages="$errors->get('menu_id')" class="mt-2" /> 
                                                     </td>
                                                     <td>
-                                                        <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" x-bind:name="`order_details[${orderDetail.id}][qty]`" :messages="$errors->get('qty')" x-model="orderDetail.qty"/>
-                                                    </td>                                                   
-                                                    <td>
-                                                        <x-text-input  x-bind:name="`order_details[${orderDetail.id}][rate]`"  :messages="$errors->get('rate')" x-model="orderDetail.rate"/>
+                                                        <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" x-bind:name="`order_details[${orderDetail.id}][rate]`"  :messages="$errors->get('rate')" x-model="orderDetail.rate"/>
                                                     </td>
+                                                    <td>
+                                                        <x-text-input x-bind:name="`order_details[${orderDetail.id}][qty]`" :messages="$errors->get('qty')" x-model="orderDetail.qty" @change="calculateAmount()"/>
+                                                    </td> 
                                                     <td>
                                                         <x-text-input x-bind:name="`order_details[${orderDetail.id}][instruction]`" :messages="$errors->get('instruction')" x-model="orderDetail.instruction"/>
                                                     </td> 
                                                     <td>
-                                                        <x-text-input  x-bind:name="`order_details[${orderDetail.id}][amount]`"  :messages="$errors->get('amount')" x-model="orderDetail.amount"/>
+                                                        <x-text-input  x-bind:name="`order_details[${orderDetail.id}][amount]`"  :messages="$errors->get('amount')" x-model="orderDetail.amount" @change="calculateTotal()"/>
                                                     </td>                                                   
                                                 </tr>
                                             </template>
@@ -128,7 +128,7 @@ use Carbon\Carbon;
                                             <tr>
                                                 <th colspan="5" style="text-align:right;">Total Amount: </th>
                                                 <td>               
-                                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total_amount')" name="total_amount"/>
+                                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total_amount')" x-model="total_amount" name="total_amount"/>
                                                 </td>
                                             </tr>
                                         </tfoot>                
@@ -153,8 +153,11 @@ use Carbon\Carbon;
 </div>
 <script>
 document.addEventListener("alpine:init", () => {
-    Alpine.data('data', () => ({             
-        init() {      
+    Alpine.data('data', () => ({ 
+        menuData:'',            
+        init() {     
+            this.amount = 0;  
+            this.total_amount = 0;   
             flatpickr(document.getElementById('bill_date'), {
                 dateFormat: 'd/m/Y',
             });
@@ -169,18 +172,50 @@ document.addEventListener("alpine:init", () => {
             }
             this.orderDetails.push({
                 id: maxId + 1,
-                item: '',
+                menu_id: '',
                 qty: '',
                 rate: '',                
                 instruction: '',
                 amount: '',
             });         
+            this.calculateAmount();
+            this.calculateTotal();
         }, 
         
         removeItem(orderDetail) {
             this.orderDetails = this.orderDetails.filter((d) => d.id != orderDetail.id);
+            this.calculateAmount();
+            this.calculateTotal();
            
-        },  
+        }, 
+        
+        async menuChange() {                  
+            this.menuData = await (await fetch('/menus/'+ this.orderDetail.menu_id, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json;',
+            },
+            })).json();
+            this.orderDetail.rate = this.menuData.rate;
+        },
+
+        calculateAmount() {            
+            this.orderDetails.forEach(orderDetail => {     
+                total = orderDetail.qty * orderDetail.rate;          
+                orderDetail.amount = total.toFixed(2);
+            }); 
+            this.calculateTotal();
+        },
+
+        calculateTotal() {
+            let total_amount = 0;
+            this.orderDetails.forEach(orderDetail => {
+                total_amount = parseFloat(total_amount) + parseFloat(orderDetail.amount);
+            });                     
+            if(!isNaN(total_amount)){
+                this.total_amount = total_amount.toFixed(2);
+            }     
+        },
     }));
 });
 </script> 

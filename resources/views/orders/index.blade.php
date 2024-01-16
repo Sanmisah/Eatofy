@@ -2,7 +2,7 @@
     <div x-data="multicolumn"> 
         <x-add-button :link="route('orders.create')" />
         <div class="panel mt-6 table-responsive">
-            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Purchase</h5>
+            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Order</h5>
             <table id="myTable" class="whitespace-nowrap">
                 @foreach ($orders as $order)
                 <tr>              
@@ -10,9 +10,14 @@
                     <td>{{ $order->bill_date}}</td> 
                     <td>{{ $order->mobile_no }}</td>
                     <td>{{ $order->customer_name }}</td>
-                    <td>{{ $order->total_amount}}</td>
-                    <td class="float-right">
-                        <ul class="flex items-center gap-2" >
+                    <td>{{ $order->total_amount}}</td>                    
+                    <td >
+                        <ul class="flex items-center gap-2" >   
+                            @if($order->closed == 0)
+                                <li style="display: inline-block;vertical-align:top;">
+                                    <a href="{{ route('orders.bill', $order->id) }}" class="btn btn-warning btn-sm">Close</a>
+                                </li>
+                            @endif                         
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('orders.edit', $order->id)" />                               
                             </li>

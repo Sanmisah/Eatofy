@@ -60,6 +60,35 @@
                     <x-combo-input name="email" type="email" value="{{ old('email', $hotel->email) }}" :email="true" :label="__('Email')" :messages="$errors->get('email')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
                 </div>   
             </div>
+            <div class="panel">
+                <div class="flex items-center justify-between mb-5">
+                    <h5 class="font-semibold text-lg dark:text-white-light">Staff Data</h5>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>                            
+                                <th>Name</th>   
+                                <th>Email</th>                          
+                                <th>Contact No </th>                            
+                                <th>Designation </th>  
+                                <th>Salary</th>         
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($staff as $detail)
+                            <tr>                            
+                                <td>{{ @$detail->staff_name }}</td>                            
+                                <td>{{ @$detail->email }}</td>                            
+                                <td>{{ @$detail->contact_no }}</td>                                               
+                                <td>{{ @$detail->role }}</td>   
+                                <td>{{ @$detail->salary }}</td>                         
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
         </form> 
     </div>
 </div>

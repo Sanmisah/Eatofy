@@ -12,7 +12,7 @@ class StoreIssueDetail extends Model
     use HasFactory, CreatedUpdatedBy;
     protected $fillable = [
         'store_issue_id',
-        'item',
+        'item_id',
         'qty',
     ];
     public function StoreIssue() 

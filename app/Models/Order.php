@@ -10,6 +10,7 @@ use App\Models\OrderDetail;
 use App\Models\Table;
 use App\Models\Server;
 use App\Models\Hotel;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -23,15 +24,31 @@ class Order extends Model
         'table_id',
         'server_id',
         'total_amount',
+        'payment_mode',
+        'cheque_no',
+        'bank_name',
+        'reference_no',
+        'upi_no',
+        'payment_date',
         'closed'
     ];
 
     public function setBillDateAttribute($value)
     {       
-        $this->attributes['purchase_date'] = $value != null  ? Carbon::createFromFormat('d/m/Y', $value) : null;
+        $this->attributes['bill_date'] = $value != null  ? Carbon::createFromFormat('d/m/Y', $value) : null;
     }
 
     public function getBillDateAttribute($value)
+    {      
+        return $value != null  ? Carbon::parse($value)->format('d/m/Y') : null;
+    }
+
+    public function setPaymentDateAttribute($value)
+    {       
+        $this->attributes['payment_date'] = $value != null  ? Carbon::createFromFormat('d/m/Y', $value) : null;
+    }
+
+    public function getPaymentDateAttribute($value)
     {      
         return $value != null  ? Carbon::parse($value)->format('d/m/Y') : null;
     }
@@ -56,7 +73,7 @@ class Order extends Model
         static::creating(function(Order $order){
             $orders = Order::whereNotNull('bill_no')->orderBy('created_at','DESC')->first();
             $max = $orders ? Str::substr($orders->bill_no, 1) : 0;
-            $order->bill_no = 'O'.str_pad($max + 1, 5, "0", STR_PAD_LEFT);
+            $order->bill_no = 'B'.str_pad($max + 1, 5, "0", STR_PAD_LEFT);
         });
     }
     

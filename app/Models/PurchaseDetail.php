@@ -12,17 +12,12 @@ class PurchaseDetail extends Model
     use HasFactory, CreatedUpdatedBy;
     protected $fillable = [
         'purchase_id',
-        'item',
+        'item_id',
         'unit',
         'qty',
         'rate',
         'amount'
     ];
-
-    public function Purchase() 
-    {
-        return $this->belongsTo(Purchase::class);
-    }
      
     public function Item() 
     {

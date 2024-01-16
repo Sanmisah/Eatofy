@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('store_issue_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('store_issue_id',11)->nullable();
-            $table->string('item',50)->nullable();
+            $table->foreignId('item_id',20)->nullable();
             $table->decimal('qty',10,2)->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();

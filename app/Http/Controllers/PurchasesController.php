@@ -50,7 +50,7 @@ class PurchasesController extends Controller
         foreach($data as $record){
             PurchaseDetail::create([
                 'purchase_id' => $purchase->id,
-                'item' => $record['item'],
+                'item_id' => $record['item_id'],
                 'unit' => $record['unit'],
                 'rate' => $record['rate'],
                 'qty' => $record['qty'],
@@ -62,7 +62,7 @@ class PurchasesController extends Controller
         foreach($data as $record){
             StockLedger::create([
                 'hotel_id' => $purchase->hotel_id,
-                'item_id' => $record['item'],
+                'item_id' => $record['item_id'],
                 'received' => $record['qty'],
                 'model' => 'Purchase',
                 'foreign_key' => $purchase->id,
@@ -104,7 +104,8 @@ class PurchasesController extends Controller
     public function update(Purchase $purchase, Request $request) 
     {
         $input = $request->all(); 
-        $purchase->update($input);       
+        $purchase->update($input);     
+
          
         $data = $request->collect('purchase_details');  
 
@@ -112,7 +113,7 @@ class PurchasesController extends Controller
             PurchaseDetail::upsert([
                 'id' => $record['id'] ?? null,
                 'purchase_id' => $purchase->id,
-                'item' => $record['item'],
+                'item_id' => $record['item_id'],
                 'unit' => $record['unit'],
                 'rate' => $record['rate'],
                 'qty' => $record['qty'],
@@ -131,7 +132,7 @@ class PurchasesController extends Controller
         foreach($data as $record){
             StockLedger::create([
                 'hotel_id' => $purchase->hotel_id,
-                'item_id' => $record['item'],
+                'item_id' => $record['item_id'],
                 'received' => $record['qty'],
                 'model' => 'Purchase',
                 'foreign_key' => $purchase->id,

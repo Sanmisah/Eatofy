@@ -19,7 +19,8 @@ class MenusController extends Controller
             $conditions[] = ['hotel_id', auth()->user()->id];
         }  
         $menus = Menu::join('menu_categories', 'menu_categories.id', '=', 'menus.menu_category_id')  
-            ->where('menu_categories.hotel_id',auth()->user()->id)          
+            ->where('menu_categories.hotel_id',auth()->user()->id)  
+            ->where('menus.hotel_id',auth()->user()->id)          
             ->select('menus.*', 'menu_categories.menu_category_name')
             ->orderBy('menus.id', 'desc')
             ->get();
@@ -56,7 +57,7 @@ class MenusController extends Controller
   
     public function show(Menu $menu)
     {
-        //
+        return $menu;  
     }
 
     public function edit(Menu $menu)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Models\HotelStaff;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -50,7 +51,9 @@ class HotelsController extends Controller
     public function edit(Hotel $hotel)
     {
         $users = User::all();
-        return view('hotels.edit', ['hotel' => $hotel, 'users' => $users]);
+        $staff = HotelStaff::where('hotel_id', $hotel->id)->get();
+        // dd($staff);
+        return view('hotels.edit', ['hotel' => $hotel, 'users' => $users, 'staff' => $staff]);
     }
 
     public function update(Hotel $hotel, Request $request) 

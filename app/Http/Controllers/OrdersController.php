@@ -8,6 +8,7 @@ use App\Models\Menu;
 use App\Models\OrderDetail;
 use App\Models\Server;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OrdersController extends Controller
 {
@@ -38,6 +39,9 @@ class OrdersController extends Controller
 
     public function store(Order $order, Request $request) 
     {        
+        $request->validate([
+            'customer_name' => 'required',
+        ]);
         $input = $request->all();
         $order = Order::create($input); 
          
@@ -45,7 +49,7 @@ class OrdersController extends Controller
         foreach($data as $record){
             OrderDetail::create([
                 'order_id' => $order->id,
-                'item' => $record['item'],
+                'menu_id' => $record['menu_id'],
                 'rate' => $record['rate'],
                 'qty' => $record['qty'],
                 'instruction' => $record['instruction'],
@@ -73,11 +77,15 @@ class OrdersController extends Controller
         $tables = Table::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
         $servers = Server::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
         $menus = Menu::where('hotel_id', auth()->user()->id)->pluck('item_name', 'id');
-        return view('orders.edit', ['hotels' => $hotels, 'tables' => $tables, 'menus' => $menus, 'servers' => $servers]); 
+        return view('orders.edit', ['order' => $order, 'hotels' => $hotels, 'tables' => $tables, 'menus' => $menus, 'servers' => $servers]); 
     }
 
     public function update(Order $order, Request $request) 
     {
+        $request->validate([
+            'customer_name' => 'required',
+        ]);
+
         $input = $request->all(); 
         $order->update($input);       
          
@@ -87,7 +95,7 @@ class OrdersController extends Controller
             OrderDetail::upsert([
                 'id' => $record['id'] ?? null,
                 'order_id' => $order->id,
-                'item' => $record['item'],
+                'menu_id' => $record['menu_id'],
                 'rate' => $record['rate'],
                 'qty' => $record['qty'],
                 'instruction' => $record['instruction'],
@@ -104,6 +112,21 @@ class OrdersController extends Controller
     {
         $order->delete();
         $request->session()->flash('success', 'Order deleted successfully!');
+        return redirect()->route('orders.index');
+    }
+
+    public function bill(Order $order)
+    {               
+        // dd($order->OrderDetails[0]->Menu);
+        return view('orders.bill', ['order' => $order]); 
+    }
+
+    public function updatePaymentData(Order $order, Request $request) 
+    {
+        $input = $request->all();
+        $input['closed'] = "1";
+        $order->update($input);           
+        $request->session()->flash('success', 'Payment paid successfully!');
         return redirect()->route('orders.index');
     }
 

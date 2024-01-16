@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id',11)->nullable();
-            $table->string('item',50)->nullable();
+            $table->foreignId('menu_id',20)->nullable();
             $table->decimal('qty',10,2)->nullable();
             $table->decimal('rate',10,2)->nullable();
             $table->string('instruction',100)->nullable();

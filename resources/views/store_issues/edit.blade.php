@@ -69,13 +69,13 @@
                                                     <td>
                                                     <input type="hidden" class="form-input min-w-[230px]" x-model="issueDetail.id" x-bind:name="`store_issue_details[${issueDetail.id}][id]`"/>
 
-                                                        <select class="form-input" x-model="issueDetail.item" x-bind:name="`store_issue_details[${issueDetail.id}][item]`" x-on:change="itemChange()">
+                                                        <select class="form-input" x-model="issueDetail.item_id" x-bind:name="`store_issue_details[${issueDetail.id}][item_id]`" x-on:change="itemChange()">
                                                             <option>Select Items</option>
                                                                 @foreach ($items as $id => $item)
                                                                     <option value="{{$id}}"> {{$item}} </option>
                                                             @endforeach
                                                         </select>
-                                                        <x-input-error :messages="$errors->get('item')" class="mt-2" /> 
+                                                        <x-input-error :messages="$errors->get('item_id')" class="mt-2" /> 
                                                     </td>                                                    
                                                     <td>
                                                         <input type="hidden" class="form-input min-w-[230px]" x-model="issueDetail.unit" x-bind:name="`store_issue_details[${issueDetail.id}][unit]`"/>
@@ -125,7 +125,7 @@ document.addEventListener("alpine:init", () => {
             this.storeIssueDetails.push({
                 i: ++maxId,
                 id: '{{ $details->id }}',
-                item: '{{ $details->item }}',
+                item_id: '{{ $details->item_id }}',
                 qty: '{{ $details->qty }}',
             });   
                              
@@ -134,7 +134,7 @@ document.addEventListener("alpine:init", () => {
         },
 
         async itemChange() {      
-            this.issueData = await (await fetch('/items/'+ this.issueDetail.item, {
+            this.issueData = await (await fetch('/items/'+ this.issueDetail.item_id, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json;',
@@ -152,7 +152,7 @@ document.addEventListener("alpine:init", () => {
             }
             this.storeIssueDetails.push({
                 id: maxId + 1,
-                item: '',             
+                item_id: '',             
                 qty: '',
             });
         }, 

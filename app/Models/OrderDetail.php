@@ -13,17 +13,12 @@ class OrderDetail extends Model
     use HasFactory, CreatedUpdatedBy;
     protected $fillable = [
         'order_id',
-        'item',
+        'menu_id',
         'qty',
         'rate',
         'instruction',
         'amount'
     ];
-
-    public function Order() 
-    {
-        return $this->belongsTo(Order::class);
-    }
      
     public function Menu() 
     {
