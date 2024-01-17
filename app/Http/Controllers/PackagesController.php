@@ -30,7 +30,7 @@ class PackagesController extends Controller
   
     public function show(Package $package)
     {
-        //
+        return $package; 
     }
 
     public function edit(Package $package)

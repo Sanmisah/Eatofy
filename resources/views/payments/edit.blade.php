@@ -38,20 +38,18 @@
                             </tr>
                         </thead>
                         @foreach ($payment->paymentDetails as $val)
-                        <tbody>  
-                            
+                        <tbody>                              
                             <tr>
                                 <td>{{ @$val->purchase->invoice_no }}</td>
                                 <td>{{ @$val->purchase->invoice_date }}</td>                                
                                 <td>{{ @$val->purchase->total_amount }}</td>
                                 <td>{{ @$val->purchase->balance_amount }}</td>
                                 <td>
-                                    <x-text-input class="form-input" name="paid_amount" value="{{ @$val->paid_amount }}" :messages="$errors->get('paid_amount')" @change="calculateTotal()"/>  
-                                    <template x-for="(supplier, i) in suppliers" :key="i">
-                                    </template>
+                                    <!-- <x-text-input class="form-input" name="payment_details[{{ @$val->id }}][id]" value="{{ @$val->id }}" :messages="$errors->get('paid_amount')" @change="calculateTotal()"/>   -->
+                                    <input type="hidden" class="form-input min-w-[230px]" name="payment_details[{{ @$val->purchase->id }}][id]" value="{{ @$val->purchase->id }}"/> 
+                                    <x-text-input class="form-input" name="payment_details[{{ @$val->purchase->id }}][paid_amount]" value="{{ @$val->paid_amount }}" :messages="$errors->get('paid_amount')" @change="calculateTotal()"/>  
                                 </td>
-                            </tr>
-                            
+                            </tr>                            
                         </tbody>
                         @endforeach
                         <tfoot>
@@ -96,7 +94,16 @@
                     <div>
                         <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date', $payment->payment_date) }}" :messages="$errors->get('payment_date')"/>
                     </div>         
-                </div>               
+                </div> 
+                <div class="flex justify-end mt-4">
+                    <x-cancel-button :link="route('payments.index')">
+                        {{ __('Cancel') }}
+                    </x-cancel-button>
+                    &nbsp;&nbsp;
+                    <x-success-button>
+                        {{ __('Submit') }}
+                    </x-success-button>  
+                </div>                
             </div>            
         </form> 
     </div>
@@ -104,7 +111,7 @@
 <script>
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
-        suppliers: [],      
+        suppliers: [],
         init() {       
             this.refno_open = false;
             this.chqno_open = false;
@@ -178,14 +185,20 @@ document.addEventListener("alpine:init", () => {
 
         calculateTotal() {            
             let total = 0;
-            this.suppliers.forEach(supplier => {
-                total = parseFloat(total) + parseFloat(supplier.paid_amount);                
-            });                         
+
+            // this.paid_amount.forEach(el => {
+            //     console.log(el);
+            // });
+            
+            // this.suppliers.forEach(supplier => {
+            //     total = parseFloat(total) + parseFloat(supplier.paid_amount);                
+            // });                         
+            
             if(!isNaN(total)){
                 this.total = total.toFixed(2);
             }     
         },
-    }));
+    }));    
 });
 </script>
 </x-layout.default>

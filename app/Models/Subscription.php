@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Hotel;
 use App\Models\Package;
+use Illuminate\Support\Str;
 
 class Subscription extends Model
 {
@@ -41,6 +42,16 @@ class Subscription extends Model
     }
 
     public function getPaymentDateAttribute($value)
+    {      
+        return $value != null  ? Carbon::parse($value)->format('d/m/Y') : null;
+    }
+
+    public function setExpiryDateAttribute($value)
+    {       
+        $this->attributes['expiry_date'] = $value != null  ? Carbon::createFromFormat('d/m/Y', $value) : null;
+    }
+
+    public function getExpiryDateAttribute($value)
     {      
         return $value != null  ? Carbon::parse($value)->format('d/m/Y') : null;
     }

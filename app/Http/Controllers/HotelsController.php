@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Models\Hotel;
 use App\Models\HotelStaff;
 use App\Models\Package;
 use App\Models\User;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class HotelsController extends Controller
 {
@@ -86,5 +88,15 @@ class HotelsController extends Controller
     {
         $packages = Package::pluck('package_name', 'id'); 
         return view('hotels.subscription', ['hotel' => $hotel, 'packages' => $packages]);
+    }
+
+    public function storeSubscription(Hotel $hotel, Request $request) 
+    {
+        
+        $input = $request->all();
+        $input['hotel_id'] = $hotel->id;
+        Subscription::create($input);    
+        $request->session()->flash('success', 'Subscription Done successfully!');
+        return redirect()->route('hotels.index');
     }
 }

@@ -83,6 +83,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::patch('/{order}/updatePaymentData', 'OrdersController@updatePaymentData')->name('orders.updatePaymentData');
         // Route::resource('subscriptions', SubscriptionsController::class);
         Route::get('/{hotel}/subscription', 'HotelsController@subscription')->name('hotels.subscription');
+        Route::patch('hotels/storeSubscription/{hotel}', 'HotelsController@storeSubscription')->name('hotels.storeSubscription');
     });
 
     Route::group(['middleware' => ['auth']], function() {  
