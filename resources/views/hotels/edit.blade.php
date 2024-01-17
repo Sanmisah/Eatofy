@@ -16,20 +16,21 @@
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Add Hotel Data</h5>
                 </div>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1"> 
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3"> 
                     <x-text-input name="hotel_name" value="{{ old('hotel_name', $hotel->hotel_name) }}" :label="__('Hotel Name')" :require="true" :messages="$errors->get('hotel_name')"/>
+                    <x-text-input name="branch_name" value="{{ old('branch_name', $hotel->branch_name) }}" :label="__('Branch Name')" :messages="$errors->get('branch_name')"/>
                 </div> 
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">   
-                    <x-text-input name="contact_no" value="{{ old('contact_no', $hotel->contact_no) }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" />                  
+                    <x-text-input name="contact_no" value="{{ old('contact_no', $hotel->contact_no) }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" :require="true"/>                  
                     <x-text-input name="website_url" value="{{ old('website_url', $hotel->website_url) }}" :label="__('Website URL')" :messages="$errors->get('website_url')"/>
                     <x-text-input name="gstin" value="{{ old('gstin', $hotel->gstin) }}" :label="__('GSTIN')" :messages="$errors->get('gstin')" /> 
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1"> 
-                    <x-text-input name="address" value="{{ old('address', $hotel->address) }}" :label="__('Address')" :messages="$errors->get('address')"/> 
+                    <x-text-input name="address" value="{{ old('address', $hotel->address) }}" :label="__('Address')" :messages="$errors->get('address')" :require="true"/> 
                 </div>  
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                     
                     <div>
-                    <label>State:</label>
+                    <label>State:<span style="color: red">*</span></label>
                         <select class="form-input" name="state">
                             <option value="">Select state</option>
                             <template x-for="state in states" :key="state.code">
@@ -38,7 +39,7 @@
                         </select> 
                         <x-input-error :messages="$errors->get('state_name')" class="mt-2" />
                     </div>
-                    <x-text-input name="city" value="{{ old('city', $hotel->city) }}" :label="__('City')" :messages="$errors->get('city')" />
+                    <x-text-input name="city" value="{{ old('city', $hotel->city) }}" :label="__('City')" :messages="$errors->get('city')" :require="true"/>
                 </div>
                 <div class="flex justify-end mt-4">
                     <x-cancel-button :link="route('hotels.index')">
@@ -55,9 +56,9 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Owner Data</h5>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="owner_name" value="{{ old('owner_name', $hotel->owner_name) }}" :label="__('Owner Name')" :messages="$errors->get('owner_name')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>          
+                    <x-text-input name="owner_name" value="{{ old('owner_name', $hotel->owner_name) }}" :label="__('Owner Name')" :messages="$errors->get('owner_name')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>  
                     <x-text-input name="owner_contact_no" value="{{ old('owner_contact_no', $hotel->owner_contact_no) }}" :label="__('Owner Contact No')" :messages="$errors->get('owner_contact_no')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/> 
-                    <x-combo-input name="email" type="email" value="{{ old('email', $hotel->email) }}" :email="true" :label="__('Email')" :messages="$errors->get('email')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
+                    <x-text-input name="email" value="{{ old('email', $hotel->email) }}" :label="__('Email')" :messages="$errors->get('email')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
                 </div>   
             </div>
             <div class="panel">
@@ -89,6 +90,31 @@
                     </table>
                 </div>
             </div> 
+            <div class="panel">
+                <div class="flex items-center justify-between mb-5">
+                    <h5 class="font-semibold text-lg dark:text-white-light">Subscription</h5>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>                            
+                                <th>No</th>   
+                                <th>Subscription Date</th>                          
+                                <th>Expiry Date </th>   
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($subscription as $detail)
+                            <tr>                            
+                                <td>{{ $detail->subscription_no }}</td>                            
+                                <td>{{ $detail->subscription_date }}</td>                            
+                                <td>{{ $detail->expiry_date }}</td>                      
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </form> 
     </div>
 </div>

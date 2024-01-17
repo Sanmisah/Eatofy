@@ -17,8 +17,8 @@
                 </div>                
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="package_name" value="{{ old('package_name') }}" :label="__('Package Name')" :require="true" :messages="$errors->get('package_name')"/>   
-                    <x-text-input name="validity_in_days" value="{{ old('validity_in_days') }}" :label="__('Validity (in Days)')" :messages="$errors->get('validity_in_days')"/>
-                    <x-combo-input name="cost" value="{{ old('cost') }}" :label="__('Cost')" :messages="$errors->get('cost')"/>                    
+                    <x-text-input name="validity_in_days" value="{{ old('validity_in_days') }}" :label="__('Validity (in Days)')" :messages="$errors->get('validity_in_days')" :require="true"/>
+                    <x-combo-input name="cost" value="{{ old('cost') }}" :label="__('Cost')" :messages="$errors->get('cost')" :require="true"/>                    
                 </div>                 
                 <div class="flex justify-end mt-4">
                     <x-cancel-button :link="route('packages.index')">

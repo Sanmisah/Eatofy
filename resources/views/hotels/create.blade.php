@@ -15,20 +15,21 @@
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Add Hotel Data</h5>
                 </div>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1"> 
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3"> 
                     <x-text-input name="hotel_name" value="{{ old('hotel_name') }}" :label="__('Hotel Name')" :require="true" :messages="$errors->get('hotel_name')"/>
+                    <x-text-input name="branch_name" value="{{ old('branch_name') }}" :label="__('Branch Name')" :messages="$errors->get('branch_name')"/>
                 </div> 
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">   
-                    <x-text-input name="contact_no" value="{{ old('contact_no') }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" />                  
+                    <x-text-input name="contact_no" value="{{ old('contact_no') }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" :require="true"/>                  
                     <x-text-input name="website_url" value="{{ old('website_url') }}" :label="__('Website URL')" :messages="$errors->get('website_url')"/>
                     <x-text-input name="gstin" value="{{ old('gstin') }}" :label="__('GSTIN')" :messages="$errors->get('gstin')" /> 
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1"> 
-                    <x-text-input name="address" value="{{ old('address') }}" :label="__('Address')" :messages="$errors->get('address')"/> 
+                    <x-text-input name="address" value="{{ old('address') }}" :label="__('Address')" :messages="$errors->get('address')" :require="true"/> 
                 </div>  
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                     
                     <div>
-                        <label>State:</label>
+                        <label>State:<span style="color: red">*</span></label>
                         <select class="form-input" name="state">
                             <option value="">Select state</option>
                             <template x-for="state in states" :key="state.code">
@@ -37,7 +38,7 @@
                         </select> 
                         <x-input-error :messages="$errors->get('state_name')" class="mt-2" />
                     </div>
-                    <x-text-input name="city" value="{{ old('city') }}" :label="__('City')" :messages="$errors->get('city')" />
+                    <x-text-input name="city" value="{{ old('city') }}" :label="__('City')" :require="true" :messages="$errors->get('city')" />
                 </div>
             </div>
             <div class="panel">
@@ -45,10 +46,10 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Add Owner Data</h5>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="owner_name" value="{{ old('owner_name') }}" :label="__('Owner Name')" :messages="$errors->get('owner_name')"/>          
-                    <x-text-input name="owner_contact_no" value="{{ old('owner_contact_no') }}" :label="__('Owner Contact No')" :messages="$errors->get('owner_contact_no')"/> 
-                    <x-combo-input name="email" type="email" :email="true" :label="__('Email')" :messages="$errors->get('email')"/>
-                    <x-text-input name="new_password" type="password" :label="__('Password')" :messages="$errors->get('new_password')"/>
+                    <x-text-input name="owner_name" value="{{ old('owner_name') }}" :label="__('Owner Name')" :messages="$errors->get('owner_name')" :require="true"/>          
+                    <x-text-input name="owner_contact_no" value="{{ old('owner_contact_no') }}" :label="__('Owner Contact No')" :messages="$errors->get('owner_contact_no')" :require="true"/> 
+                    <x-text-input name="email" :email="true" :label="__('Email')" :messages="$errors->get('email')" :require="true"/>
+                    <x-text-input name="new_password" type="password" :label="__('Password')" :messages="$errors->get('new_password')" :require="true"/>
                 </div>         
                 <div class="flex justify-end mt-4">
                     <x-success-button>

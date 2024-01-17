@@ -26,10 +26,16 @@ class HotelsController extends Controller
     }
 
     public function store(Hotel $hotel, Request $request) 
-    {
-        
+    {        
         $request->validate([
             'hotel_name' => 'required',
+            'contact_no' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'owner_name' => 'required',
+            'owner_contact_no' => 'required',
+            'email' => 'required',
+            'new_password' => 'required',
         ]);     
          
         $input = $request->all();    
@@ -63,15 +69,22 @@ class HotelsController extends Controller
     {
         $users = User::all();
         $staff = HotelStaff::where('hotel_id', $hotel->id)->get();
-        // dd($staff);
-        return view('hotels.edit', ['hotel' => $hotel, 'users' => $users, 'staff' => $staff]);
+        $subscription = Subscription::where('hotel_id', $hotel->id)->get();
+        return view('hotels.edit', ['hotel' => $hotel, 'users' => $users, 'staff' => $staff, 'subscription' => $subscription]);
     }
 
     public function update(Hotel $hotel, Request $request) 
     {
         $request->validate([
             'hotel_name' => 'required',
-        ]);         
+            'contact_no' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'owner_name' => 'required',
+            'owner_contact_no' => 'required',
+            'email' => 'required',
+            'new_password' => 'required',
+        ]);             
         $hotel->update($request->all());    
         $request->session()->flash('success', 'Hotel updated successfully!');
         return redirect()->route('hotels.index');
@@ -92,10 +105,34 @@ class HotelsController extends Controller
 
     public function storeSubscription(Hotel $hotel, Request $request) 
     {
-        
         $input = $request->all();
+
+        if($input['payment_mode'] == 'UPI'){
+            $request->validate([                
+                'upi_no' => 'numeric',
+            ]); 
+        }elseif($input['payment_mode'] == "Card"){
+            $request->validate([
+                'reference_no' => 'numeric',
+            ]); 
+        }elseif($input['payment_mode'] == "Bank"){
+            $request->validate([
+                'cheque_no' => 'numeric',
+            ]);
+        }else{
+            $request->validate([
+                'package_id' => 'required',
+                'subscription_date' => 'required',
+                'payment_mode' => 'required',
+            ]);    
+        }
+        
         $input['hotel_id'] = $hotel->id;
         Subscription::create($input);    
+
+        $input['expiry_date'] = $request->expiry_date;
+        $hotel->update($input);
+
         $request->session()->flash('success', 'Subscription Done successfully!');
         return redirect()->route('hotels.index');
     }

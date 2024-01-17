@@ -36,7 +36,7 @@
                     <x-text-input name="name" value="{{ old('name') }}" :label="__('Name')" :require="true" :messages="$errors->get('name')"/>   
                     <!-- <x-text-input name="unit" value="{{ old('unit') }}" :label="__('Unit')" :messages="$errors->get('unit')"/> -->
                     <div>
-                        <label>Unit:</label>
+                        <label>Unit:<span style="color: red">*</span></label>
                         <select class="form-input" name="unit">
                             <option selected disabled>Select Unit</option>
                             <option value='KG'>KG</option>
@@ -45,7 +45,7 @@
                             <option value='Dozen'>Dozen</option>                        
                         </select>
                     </div>
-                    <x-text-input name="opening_qty" value="{{ old('opening_qty') }}" x-model="opening_qty" :label="__('Opening Quantity')" :messages="$errors->get('opening_qty')" x-on:change.debounce="qtyChange()"/>
+                    <x-text-input name="opening_qty" value="{{ old('opening_qty') }}" x-model="opening_qty" :label="__('Opening Quantity')" :messages="$errors->get('opening_qty')" :require="true"  x-on:change.debounce="qtyChange()"/>
                     <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" x-model="closing_qty" name="closing_qty" value="{{ old('closing_qty') }}" :label="__('Closing Quantity')" :messages="$errors->get('closing_qty')"/>
                 </div> 
                 <div class="flex justify-end mt-4">

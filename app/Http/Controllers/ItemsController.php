@@ -41,6 +41,8 @@ class ItemsController extends Controller
         $request->validate([
             'name' => 'required',          
             'item_category_id' => 'required',
+            'unit' => 'required',
+            'opening_qty' => 'required',
         ],
         [           
             'item_category_id.required' => 'Please select Category',
@@ -74,6 +76,8 @@ class ItemsController extends Controller
         $request->validate([
             'name' => 'required',
             'item_category_id' => 'required',
+            'unit' => 'required',
+            'opening_qty' => 'required',
         ],
         [           
             'item_category_id.required' => 'Please select Category',

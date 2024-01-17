@@ -19,7 +19,8 @@
                     <td>{{ $hotel->owner_name }}</td>
                     <td>{{ $hotel->owner_contact_no }}</td>
                     <td>{{ $hotel->city }}</td> 
-                    <td>{{ $hotel->gstin }}</td>               
+                    <td>{{ $hotel->gstin }}</td>  
+                    <td>{{ $hotel->expiry_date }}</td>             
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
@@ -45,7 +46,7 @@
                 init() {
                     this.datatable = new simpleDatatables.DataTable('#myTable', {
                         data: {
-                            headings: ["Hotel Name", "Hotel Contact No", "Owner Name", "Owner Contact No", "City", "GSTIN", "Action"],
+                            headings: ["Hotel Name", "Hotel Contact No", "Owner Name", "Owner Contact No", "City", "GSTIN", "Expiry Date", "Action"],
                         },
                         searchable: true,
                         perPage: 30,

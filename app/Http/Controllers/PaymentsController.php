@@ -69,18 +69,18 @@ class PaymentsController extends Controller
         $payment->update($request->all());
         $data = $request->collect('payment_details');
         
-        // $payment_details = PaymentDetail::where('payment_id', $payment->id)->get();
-        // foreach($payment_details as $row) {
-        //     $row->delete();
-        // }
+        $payment_details = PaymentDetail::where('payment_id', $payment->id)->get();
+        foreach($payment_details as $row) {
+            $row->delete();
+        }
 
-        // foreach($data as $record){
-        //     PaymentDetail::create([
-        //         'payment_id' => $payment->id,
-        //         'purchase_id' => $record['id'] ?? null,
-        //         'paid_amount' => $record['paid_amount'],   
-        //     ]); 
-        // }    
+        foreach($data as $record){
+            PaymentDetail::create([
+                'payment_id' => $payment->id,
+                'purchase_id' => $record['id'] ?? null,
+                'paid_amount' => $record['paid_amount'],   
+            ]); 
+        }    
 
         $request->session()->flash('success', 'Payment updated successfully!');
         return redirect()->route('payments.index');

@@ -34,10 +34,12 @@ class SuppliersController extends Controller
     {
         $request->validate([
             'supplier_name' => 'required',
-            'hotel_id' => 'required',
-        ],
-        [
-            'hotel_id.required' => 'Please select Hotel',
+            'supplier_contact_no' => 'required',
+            'address_line_1' => 'required',
+            'address_line_2' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'pincode' => 'required',
         ]);         
         $input = $request->all();
         Supplier::create($input);
@@ -60,11 +62,13 @@ class SuppliersController extends Controller
     {
         $request->validate([
             'supplier_name' => 'required',
-            'hotel_id' => 'required',
-        ],
-        [
-            'hotel_id.required' => 'Please select Hotel',
-        ]);       
+            'supplier_contact_no' => 'required',
+            'address_line_1' => 'required',
+            'address_line_2' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'pincode' => 'required',
+        ]); 
         $supplier->update($request->all());    
         $request->session()->flash('success', 'Supplier updated successfully!');
         return redirect()->route('suppliers.index');

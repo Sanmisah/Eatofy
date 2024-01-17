@@ -43,8 +43,9 @@ class MenusController extends Controller
     public function store(Menu $menu, Request $request) 
     {
         $request->validate([
-            'item_name' => 'required|unique:menus,item_name,'.$menu->id,
+            'item_name' => 'required',
             'menu_category_id' => 'required',
+            'rate' => 'required',
         ],
         [
             'menu_category_id.required' => 'Please select Category',
@@ -75,8 +76,9 @@ class MenusController extends Controller
     public function update(Menu $menu, Request $request) 
     {
         $request->validate([
-            'item_name' => 'required|unique:menus,item_name,'.$menu->id,
+            'item_name' => 'required',
             'menu_category_id' => 'required',
+            'rate' => 'required',
         ],
         [
             'menu_category_id.required' => 'Please select Category',

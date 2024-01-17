@@ -23,18 +23,18 @@
                 </div> 
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4"> 
                     <x-text-input name="supplier_name" value="{{ old('supplier_name', $supplier->supplier_name) }}" :label="__('Supplier Name')" :require="true" :messages="$errors->get('supplier_name')"/>  
-                    <x-text-input name="supplier_contact_no" value="{{ old('supplier_contact_no', $supplier->supplier_contact_no) }}" :label="__('Supplier Contact No')" :messages="$errors->get('supplier_contact_no')"/>  
+                    <x-text-input name="supplier_contact_no" value="{{ old('supplier_contact_no', $supplier->supplier_contact_no) }}" :label="__('Supplier Contact No')" :messages="$errors->get('supplier_contact_no')" :require="true"/>  
                     <x-text-input name="gstin" value="{{ old('gstin', $supplier->gstin) }}" :label="__('GSTIN')" :messages="$errors->get('gstin')" /> 
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1"> 
-                    <x-text-input name="address_line_1" value="{{ old('address_line_1', $supplier->address_line_1) }}" :label="__('Address Line 1')" :messages="$errors->get('address_line_1')"/>
+                    <x-text-input name="address_line_1" value="{{ old('address_line_1', $supplier->address_line_1) }}" :label="__('Address Line 1')" :messages="$errors->get('address_line_1')" :require="true"/>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1"> 
-                    <x-text-input name="address_line_2" value="{{ old('address_line_2', $supplier->address_line_2) }}" :label="__('Address Line 2')" :messages="$errors->get('address_line_2')"/>
+                    <x-text-input name="address_line_2" value="{{ old('address_line_2', $supplier->address_line_2) }}" :label="__('Address Line 2')" :messages="$errors->get('address_line_2')" :require="true"/>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                     
                     <div>
-                        <label>State:</label>
+                        <label>State:<span style="color: red">*</span></label>
                         <select class="form-input" name="state">
                             <option value="">Select state</option>
                             <template x-for="state in states" :key="state.code">
@@ -43,8 +43,8 @@
                         </select> 
                         <x-input-error :messages="$errors->get('state_name')" class="mt-2" />
                     </div>
-                    <x-text-input name="city" value="{{ old('city', $supplier->city) }}" :label="__('City')" :messages="$errors->get('city')" />
-                    <x-text-input name="pincode" value="{{ old('pincode', $supplier->pincode) }}" :label="__('Pincode')" :messages="$errors->get('pincode')" />
+                    <x-text-input name="city" value="{{ old('city', $supplier->city) }}" :label="__('City')" :messages="$errors->get('city')" :require="true"/>
+                    <x-text-input name="pincode" value="{{ old('pincode', $supplier->pincode) }}" :label="__('Pincode')" :messages="$errors->get('pincode')" :require="true"/>
                 </div>
                 <div class="flex justify-end mt-4">
                     <x-cancel-button :link="route('suppliers.index')">

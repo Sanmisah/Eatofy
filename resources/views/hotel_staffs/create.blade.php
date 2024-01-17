@@ -22,9 +22,9 @@
                 </div>  
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="staff_name" value="{{ old('staff_name') }}" :label="__('Staff Name')" :require="true" :messages="$errors->get('staff_name')"/>  
-                    <x-text-input name="contact_no" value="{{ old('contact_no') }}" :label="__('Contact No')" :messages="$errors->get('contact_no')"/> 
+                    <x-text-input name="contact_no" value="{{ old('contact_no') }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" :require="true" /> 
                     <div>
-                        <label>Role:</label>
+                        <label>Role:<span style="color: red">*</span></label>
                         <select class="form-input" name="role">
                             <option value="">Select role</option>
                             <option value='Store Manager'>Store Manager</option>
@@ -35,7 +35,7 @@
                     <x-text-input name="salary" value="{{ old('salary') }}" :label="__('Salary')" :messages="$errors->get('salary')"/>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1">
-                    <x-text-input name="address" value="{{ old('address') }}" :label="__('Address')" :messages="$errors->get('address')"/>                     
+                    <x-text-input name="address" value="{{ old('address') }}" :label="__('Address')" :messages="$errors->get('address')" :require="true"/>                     
                 </div>
             </div>
             <div class="panel">
@@ -43,8 +43,8 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Login details</h5>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                    
-                    <x-combo-input name="email" type="email" :email="true" :label="__('Email')" :messages="$errors->get('email')"/>
-                    <x-text-input name="new_password" type="password" :label="__('Password')" :messages="$errors->get('new_password')"/>
+                    <x-text-input name="email" :require="true" :label="__('Email')" :messages="$errors->get('email')"/>
+                    <x-text-input name="new_password" type="password" :require="true" :label="__('Password')" :messages="$errors->get('new_password')"/>
                 </div> 
                 <div class="flex justify-end mt-4">
                     <x-cancel-button :link="route('hotel_staffs.index')">

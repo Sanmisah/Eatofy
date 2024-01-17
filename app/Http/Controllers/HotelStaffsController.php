@@ -35,6 +35,14 @@ class HotelStaffsController extends Controller
 
     public function store(HotelStaff $hotel_staff, Request $request) 
     {
+        $request->validate([
+            'staff_name' => 'required',
+            'contact_no' => 'required',
+            'role' => 'required',            
+            'address' => 'required',
+            'email' => 'required',
+            'new_password' => 'required',
+        ]);         
         $request->validate(['staff_name' => 'required']);
         $input = $request->all();
         $input['name'] = $request->staff_name;
@@ -61,6 +69,14 @@ class HotelStaffsController extends Controller
 
     public function update(HotelStaff $hotel_staff, Request $request) 
     {
+        $request->validate([
+            'staff_name' => 'required',
+            'contact_no' => 'required',
+            'role' => 'required',            
+            'address' => 'required',
+            'email' => 'required',
+            'new_password' => 'required',
+        ]); 
         $hotel_staff->update($request->all());
         $request->session()->flash('success', 'Staff updated successfully!');
         return redirect()->route('hotel_staffs.index');

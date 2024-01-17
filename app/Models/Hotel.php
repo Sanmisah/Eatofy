@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Carbon\Carbon;
 use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +13,7 @@ class Hotel extends Model
     use HasFactory, CreatedUpdatedBy;
     protected $fillable = [
         'hotel_name',
+        'branch_name',
         'address',
         'state',
         'city',
@@ -22,6 +23,7 @@ class Hotel extends Model
         'email',
         'owner_contact_no',
         'gstin',
+        'expiry_date'
     ];
 
     public function User()
@@ -32,5 +34,15 @@ class Hotel extends Model
     public function Subscriptions() 
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    public function setExpiryDateAttribute($value)
+    {       
+        $this->attributes['expiry_date'] = $value != null  ? Carbon::createFromFormat('d/m/Y', $value) : null;
+    }
+
+    public function getExpiryDateAttribute($value)
+    {      
+        return $value != null  ? Carbon::parse($value)->format('d/m/Y') : null;
     }
 }

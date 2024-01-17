@@ -21,6 +21,8 @@ class PackagesController extends Controller
     {
         $request->validate([
             'package_name' => 'required',
+            'validity_in_days' => 'required',
+            'cost' => 'required'
         ]); 
         $input = $request->all();      
         $package = Package::create($input); 
@@ -42,7 +44,9 @@ class PackagesController extends Controller
     {
         $request->validate([
             'package_name' => 'required',
-        ]);         
+            'validity_in_days' => 'required',
+            'cost' => 'required'
+        ]);    
         $package->update($request->all());
         $request->session()->flash('success', 'Package updated successfully!');
         return redirect()->route('packages.index');

@@ -36,7 +36,7 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="name" value="{{ old('name', $item->name) }}" :label="__('Name')" :require="true" :messages="$errors->get('name')"/>  
                     <div>
-                        <label>Unit:</label>
+                        <label>Unit:<span style="color: red">*</span></label>
                         <select class="form-input" name="unit">
                             <option selected disabled>Select Status</option>
                             <option value="KG" @if ($item->unit == 'KG') {{ 'Selected' }} @endif>KG</option>
@@ -45,7 +45,7 @@
                             <option value='Dozen' @if ($item->unit == 'Dozen') {{ 'Selected' }} @endif>Dozen</option>  
                         </select>
                     </div>
-                    <x-text-input name="opening_qty" value="{{ old('opening_qty', $item->opening_qty) }}" :label="__('Opening Quantity')" :messages="$errors->get('opening_qty')"/>
+                    <x-text-input name="opening_qty" value="{{ old('opening_qty', $item->opening_qty) }}" :require="true" :label="__('Opening Quantity')" :messages="$errors->get('opening_qty')"/>
                     <x-text-input name="closing_qty" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('closing_qty', $item->closing_qty) }}" :label="__('Closing Quantity')" :messages="$errors->get('closing_qty')"/>
                 </div> 
                 <div class="flex justify-end mt-4">

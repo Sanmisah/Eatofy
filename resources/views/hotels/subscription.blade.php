@@ -18,7 +18,7 @@
                 </div>                
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
-                        <label>Package :</label>
+                        <label>Package :<span style="color: red">*</span></label>
                         <select class="form-input" name="package_id" x-model="package_id" x-on:change="packageChange()">
                             <option value="">Select Package</option>
                             @foreach ($packages as $id=>$package)                                
@@ -27,12 +27,12 @@
                         </select> 
                         <x-input-error :messages="$errors->get('package_id')" class="mt-2" /> 
                     </div>
-                    <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('validity_in_days')" :label="__('Validity(In Days)')" x-model="validity_in_days"/>
+                    <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('validity_in_days')" :label="__('Validity(In Days)')" x-model="validity_in_days" />
                     <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('cost')" :label="__('Cost')" x-model="cost"/>                                                          
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="subscription_no" value="{{ old('subscription_no') }}" :label="__('Subscription No')"  :messages="$errors->get('subscription_no')" class="bg-gray-100 dark:bg-gray-700" readonly="true" />  
-                    <x-text-input name="subscription_date" value="{{ old('subscription_date') }}" :label="__('Subscription Date')" id="subscription_date" x-model="subscription_date" x-on:change.debounce="dateChange()" :messages="$errors->get('subscription_date')"/>     
+                    <x-text-input name="subscription_date" value="{{ old('subscription_date') }}" :label="__('Subscription Date')" id="subscription_date" x-model="subscription_date" x-on:change.debounce="dateChange()" :messages="$errors->get('subscription_date')" :require="true"/>     
                     <x-text-input name="expiry_date" value="{{ old('expiry_date') }}" x-model="expiry_date" :label="__('Expiry Date')" id="expiry_date" class="bg-gray-100 dark:bg-gray-700" readonly="true"  :messages="$errors->get('expiry_date')"/>                                     
                 </div>
                 <div class="flex items-center justify-between mb-5">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
-                        <label>Payment Mode:</label>
+                        <label>Payment Mode:<span style="color: red">*</span></label>
                         <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
                             <option value="">Select Payment mode</option>
                             <option value="Cash">Cash</option>
