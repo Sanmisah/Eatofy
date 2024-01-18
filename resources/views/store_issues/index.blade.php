@@ -14,9 +14,9 @@
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('store_issues.edit', $store_issue->id)" />                               
                             </li>
-                            <li style="display: inline-block;vertical-align:top;">
+                            <!-- <li style="display: inline-block;vertical-align:top;">
                                 <x-delete-button :link=" route('store_issues.destroy',$store_issue->id)" />  
-                            </li>   
+                            </li>    -->
                         </ul>
                     </td>
                 </tr>

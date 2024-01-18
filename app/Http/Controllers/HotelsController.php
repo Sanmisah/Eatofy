@@ -69,7 +69,12 @@ class HotelsController extends Controller
     {
         $users = User::all();
         $staff = HotelStaff::where('hotel_id', $hotel->id)->get();
-        $subscription = Subscription::where('hotel_id', $hotel->id)->get();
+        // $subscription = Subscription::where('hotel_id', $hotel->id)->get();
+        $subscription = Subscription::join('packages', 'packages.id', '=', 'subscriptions.package_id')  
+            ->where('hotel_id', $hotel->id)       
+            ->select('packages.package_name', 'packages.cost', 'subscriptions.*')
+            ->orderBy('subscriptions.id', 'desc')
+            ->get();
         return view('hotels.edit', ['hotel' => $hotel, 'users' => $users, 'staff' => $staff, 'subscription' => $subscription]);
     }
 

@@ -97,17 +97,21 @@
                 <div class="table-responsive">
                     <table>
                         <thead>
-                            <tr>                            
-                                <th>No</th>   
-                                <th>Subscription Date</th>                          
+                            <tr>                     
+                                <th>Subscription No</th>   
+                                <th>Subscription Date</th> 
+                                <th>Package Name</th>  
+                                <th>Cost</th>                         
                                 <th>Expiry Date </th>   
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($subscription as $detail)
-                            <tr>                            
+                            <tr>  
                                 <td>{{ $detail->subscription_no }}</td>                            
-                                <td>{{ $detail->subscription_date }}</td>                            
+                                <td>{{ $detail->subscription_date }}</td>
+                                <td>{{ $detail->package_name }}</td>                       
+                                <td>{{ $detail->cost }}</td>             
                                 <td>{{ $detail->expiry_date }}</td>                      
                             </tr>
                             @endforeach

@@ -17,7 +17,7 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                     <x-text-input name="name" value="{{ old('name') }}" :label="__('Name')" :require="true" :messages="$errors->get('name')"/>   
-                    <x-combo-input name="email" type="email" value="{{ old('email') }}" :require="true" :label="__('Email')" :email=true :messages="$errors->get('email')"/>
+                    <x-text-input name="email" value="{{ old('email') }}" :require="true" :label="__('Email')" :messages="$errors->get('email')"/>
                     <x-text-input name="password" type="password" value="{{ old('password') }}" :require="true" :label="__('Password')" :messages="$errors->get('password')"/>
                     <div>
                         <label>Role:</label>

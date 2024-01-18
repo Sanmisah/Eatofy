@@ -21,7 +21,7 @@
                     @csrf
                     <div class="grid grid-cols-2 gap-4">
                         <x-text-input name="name" value="{{ old('name', $user->name) }}" placeholder="Enter Full Name" :label="__('User Name')" :require="true" :messages="$errors->get('name')"/>                     
-                        <x-combo-input name="email" type="email" :email=true value="{{ old('email', $user->email) }}" :label="__('Email')" :messages="$errors->get('email')"/>  
+                        <x-text-input name="email" value="{{ old('email', $user->email) }}" :label="__('Email')" :messages="$errors->get('email')"/>  
                     </div>
                     <div class="flex justify-end mt-4">
                     <x-success-button>
