@@ -9,6 +9,7 @@
                     <td>{{ @$payment->Supplier->supplier_name }}</td>
                     <td>{{ $payment->voucher_no }}</td>
                     <td>{{ $payment->voucher_date}}</td>
+                    <td>{{ $payment->total}}</td>
                     <td>{{ $payment->payment_mode}}</td>
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
@@ -34,7 +35,7 @@
                     this.datatable = new simpleDatatables.DataTable('#myTable', {
                         data: {
                             headings: [
-                                "Supplier Name", "Voucher No", "Voucher Date", "Payment Mode", "Action"
+                                "Supplier Name", "Voucher No", "Voucher Date", "Total Amount" , "Payment Mode", "Action"
                             ],
                         },
                         searchable: true,

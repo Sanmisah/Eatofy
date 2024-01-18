@@ -183,7 +183,8 @@ document.addEventListener("alpine:init", () => {
                     'Content-type': 'application/json;',
                 },
             })).json();
-            console.log(this.suppliers)
+            // console.log(this.suppliers)
+           
         },
         
         calculateTotal() {            
@@ -193,7 +194,10 @@ document.addEventListener("alpine:init", () => {
             });                         
             if(!isNaN(total)){
                 this.total = total.toFixed(2);
-            }     
+            }   
+            if(this.supplier.balance_amount < this.supplier.paid_amount){
+                alert('You cannot add more than balance amount');
+            }  
         },
     }));
 });

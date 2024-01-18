@@ -76,10 +76,13 @@
                                                             @endforeach
                                                         </select>
                                                         <x-input-error :messages="$errors->get('item_id')" class="mt-2" /> 
-                                                    </td>                                                    
+                                                    </td>    
+                                                    <td>
+                                                        <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" x-bind:name="`store_issue_details[${issueDetail.id}][closing_qty]`" :messages="$errors->get('closing_qty')" x-model="issueDetail.closing_qty"/>
+                                                    </td>                                                            
                                                     <td>
                                                         <input type="hidden" class="form-input min-w-[230px]" x-model="issueDetail.unit" x-bind:name="`store_issue_details[${issueDetail.id}][unit]`"/>
-                                                        <x-text-input class="mt-2" x-bind:name="`store_issue_details[${issueDetail.id}][qty]`" :messages="$errors->get('qty')" x-model="issueDetail.qty" />
+                                                        <x-text-input class="mt-2" x-bind:name="`store_issue_details[${issueDetail.id}][qty]`" :messages="$errors->get('qty')" x-model="issueDetail.qty" x-on:change="itemChange()"/>
                                                         <!-- <span x-text="issueDetail.unit"></span> -->
                                                     </td>                                            
                                                 </tr>
@@ -140,7 +143,10 @@ document.addEventListener("alpine:init", () => {
                 'Content-type': 'application/json;',
             },
             })).json();
-            this.issueDetail.unit = this.issueData.unit;
+            this.issueDetail.closing_qty = this.issueData.closing_qty;
+            if(this.issueDetail.closing_qty < this.issueDetail.qty){
+                alert('You cannot add quantity');
+            }
         },
 
         storeIssueDetails: [],

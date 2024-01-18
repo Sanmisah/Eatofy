@@ -39,6 +39,7 @@
                                             <tr>
                                                 <th>&nbsp; #</th>
                                                 <th>Items</th>
+                                                <th>Closing Qty</th>
                                                 <th>Qty</th>
                                             </tr>
                                         </thead>
@@ -73,11 +74,13 @@
                                                             @endforeach
                                                         </select>
                                                         <x-input-error :messages="$errors->get('item_id')" class="mt-2" /> 
-                                                    </td>                                                    
+                                                    </td>               
                                                     <td>
-                                                        
-                                                        <x-text-input class="mt-2" x-bind:name="`store_issue_details[${issueDetail.id}][qty]`" :messages="$errors->get('qty')" x-model="issueDetail.qty" />
-                                                        
+                                                        <x-text-input class="bg-gray-100 dark:bg-gray-700" readonly="true" x-bind:name="`store_issue_details[${issueDetail.id}][closing_qty]`" :messages="$errors->get('closing_qty')" x-model="issueDetail.closing_qty"/>
+                                                    </td>                                      
+                                                    <td>                                                        
+                                                        <x-text-input class="mt-2" x-bind:name="`store_issue_details[${issueDetail.id}][qty]`" :messages="$errors->get('qty')" x-model="issueDetail.qty" x-on:change="itemChange()"/>      
+                                                                                                        
                                                     </td>                                            
                                                 </tr>
                                             </template>
@@ -115,7 +118,7 @@ document.addEventListener("alpine:init", () => {
                 dateFormat: 'd/m/Y',
             });
         },
-
+        
         async itemChange() {      
             this.issueData = await (await fetch('/items/'+ this.issueDetail.item_id, {
             method: 'GET',
@@ -123,7 +126,10 @@ document.addEventListener("alpine:init", () => {
                 'Content-type': 'application/json;',
             },
             })).json();
-            this.issueDetail.unit = this.issueData.unit;
+            this.issueDetail.closing_qty = this.issueData.closing_qty;
+            if(this.issueDetail.closing_qty < this.issueDetail.qty){
+                alert('You cannot add quantity');
+            }
         },
 
         storeIssueDetails: [],
