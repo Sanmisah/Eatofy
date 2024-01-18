@@ -99,8 +99,9 @@ class HotelsController extends Controller
 
     public function subscription(Request $request, Hotel $hotel)
     {
-        $packages = Package::pluck('package_name', 'id'); 
-        return view('hotels.subscription', ['hotel' => $hotel, 'packages' => $packages]);
+        $packages = Package::pluck('package_name', 'id');  
+        $subscription = Subscription::where('hotel_id', $hotel->id)->orderBy('subscription_date', 'desc')->first();
+        return view('hotels.subscription', ['hotel' => $hotel, 'packages' => $packages, 'subscription' => $subscription]);
     }
 
     public function storeSubscription(Hotel $hotel, Request $request) 
@@ -119,16 +120,23 @@ class HotelsController extends Controller
             $request->validate([
                 'cheque_no' => 'numeric',
             ]);
+        }elseif($input['payment_mode'] == "Cash"){
+            $request->validate([
+                'package_id' => 'required',
+                'payment_mode' => 'required',
+                'payment_date' => 'required',
+            ]);    
         }else{
             $request->validate([
                 'package_id' => 'required',
                 'subscription_date' => 'required',
                 'payment_mode' => 'required',
-            ]);    
-        }
-        
+                'payment_date' => 'required',
+            ]);  
+        }   
+       
         $input['hotel_id'] = $hotel->id;
-        Subscription::create($input);    
+        Subscription::create($input); 
 
         $input['expiry_date'] = $request->expiry_date;
         $hotel->update($input);

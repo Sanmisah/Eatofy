@@ -4,10 +4,10 @@
         <div class="bg-white dark:bg-[#0e1726] h-full">
             <div class="flex justify-between items-center px-4 py-3">
                 <a href="/" class="main-logo flex items-center shrink-0">
-                    <img class="w-8 ml-[5px] flex-none" src="/assets/images/logo.svg"
+                    <img class="w-8 ml-[5px] flex-none" style="width:100%;" src="/assets/images/eatofy.jpeg"
                         alt="image" />
-                    <span
-                        class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle lg:inline dark:text-white-light">{{ config('app.name', 'Eatofy') }}</span>
+                    <!-- <span
+                        class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle lg:inline dark:text-white-light">{{ config('app.name', 'Eatofy') }}</span> -->
                 </a>
                 <a href="javascript:;"
                     class="collapse-icon w-8 h-8 rounded-full flex items-center hover:bg-gray-500/10 dark:hover:bg-dark-light/10 dark:text-white-light transition duration-300 rtl:rotate-180"

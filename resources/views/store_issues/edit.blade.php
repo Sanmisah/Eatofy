@@ -23,7 +23,7 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="issue_no" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('issue_no', $store_issue->issue_no) }}" :label="__('Issue No')"  :messages="$errors->get('issue_no')"  />
-                    <x-text-input name="issue_date" value="{{ old('issue_date', $store_issue->issue_date) }}" id="issue_date" :label="__('Issue Date')" :messages="$errors->get('issue_date')"/>                           
+                    <x-text-input name="issue_date" value="{{ old('issue_date', $store_issue->issue_date) }}" id="issue_date" :label="__('Issue Date')" :messages="$errors->get('issue_date')" :require="true" />                           
                 </div>
             </div>    
             <div class="panel table-responsive">

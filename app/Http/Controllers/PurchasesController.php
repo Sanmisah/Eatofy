@@ -38,6 +38,14 @@ class PurchasesController extends Controller
 
     public function store(Purchase $purchase, Request $request) 
     {        
+        $request->validate([
+            'supplier_id' => 'required',
+            'invoice_no' => 'required',
+            'invoice_date' => 'required',
+        ]); 
+
+
+        $request->merge(['balance_amount' => $request->total_amount]);
         $input = $request->all();                
 
         $purchase = Purchase::create($input);         
@@ -82,6 +90,7 @@ class PurchasesController extends Controller
     {     
         $data = Purchase::select('id', 'invoice_no', 'invoice_date', 'total_amount', 'balance_amount')
                         ->where('supplier_id', $id)
+                        ->where('balance_amount', '>', 0)
                         ->get();
         // ->where('balance_amount','>','0')
         // dd($data);
@@ -103,12 +112,14 @@ class PurchasesController extends Controller
 
     public function update(Purchase $purchase, Request $request) 
     {
+        $request->validate([
+            'supplier_id' => 'required',
+            'invoice_no' => 'required',
+            'invoice_date' => 'required',
+        ]); 
         $input = $request->all(); 
-        $purchase->update($input);     
-
-         
+        $purchase->update($input);   
         $data = $request->collect('purchase_details');  
-
         foreach($data as $record){           
             PurchaseDetail::upsert([
                 'id' => $record['id'] ?? null,

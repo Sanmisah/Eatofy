@@ -69,7 +69,7 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
-                        <label>Payment Mode:</label>
+                        <label>Payment Mode:<span style="color: red">*</span></label>
                         <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
                             <option>Select Payment mode</option>
                             <option value="Cash" @if ($payment->payment_mode == "Cash") {{ 'Selected' }} @endif>Cash</option>
@@ -92,7 +92,7 @@
                         <x-text-input class="form-input" :label="__('UPI No')" name="upi_no" value="{{ old('upi_no', $payment->upi_no) }}" :messages="$errors->get('upi_no')"/>
                     </div>         
                     <div>
-                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date', $payment->payment_date) }}" :messages="$errors->get('payment_date')"/>
+                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date', $payment->payment_date) }}" :messages="$errors->get('payment_date')" :require="true" />
                     </div>         
                 </div> 
                 <div class="flex justify-end mt-4">

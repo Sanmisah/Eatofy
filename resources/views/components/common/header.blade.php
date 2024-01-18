@@ -3,10 +3,9 @@
         <div class="relative bg-white flex w-full items-center px-5 py-2.5 dark:bg-[#0e1726]">
             <div class="horizontal-logo flex lg:hidden justify-between items-center ltr:mr-2 rtl:ml-2">
                 <a href="/" class="main-logo flex items-center shrink-0">
-                    <img class="w-8 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo.svg"
+                    <img class="w-8 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/eatofy.jpeg"
                         alt="image" />
-                    <span
-                        class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle hidden md:inline dark:text-white-light transition-all duration-300">{{ config('app.name', 'Laravel') }}</span>
+                    <!-- <span class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle hidden md:inline dark:text-white-light transition-all duration-300">{{ config('app.name', 'Laravel') }}</span> -->
                 </a>
 
                 <a href="javascript:;"

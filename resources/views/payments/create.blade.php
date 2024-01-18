@@ -27,7 +27,7 @@ use Carbon\Carbon;
                     <x-text-input name="voucher_no" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('voucher_no') }}" :label="__('Voucher No')"  :messages="$errors->get('voucher_no')"  />  
                     <x-text-input name="voucher_date" value="{{ old('voucher_date', Carbon::now()->format('d/m/Y')) }}" class="bg-gray-100 dark:bg-gray-700" readonly="true" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')"/>
                     <div>
-                        <label>Supplier :</label>
+                        <label>Supplier :<span style="color: red">*</span></label>
                         <select class="form-input" name="supplier_id" x-model="supplier_id" x-on:change="supplierChange()">
                             <option>Select Supplier</option>
                             @foreach ($suppliers as $id=>$supplier)                                
@@ -87,7 +87,7 @@ use Carbon\Carbon;
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
-                        <label>Payment Mode:</label>
+                        <label>Payment Mode:<span style="color: red">*</span></label>
                         <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
                             <option value="">Select Payment mode</option>
                             <option value="Cash">Cash</option>
@@ -110,7 +110,7 @@ use Carbon\Carbon;
                         <x-text-input class="form-input" :label="__('UPI No')" name="upi_no" value="{{ old('upi_no') }}" :messages="$errors->get('upi_no')"/>
                     </div>    
                     <div>
-                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date') }}" :messages="$errors->get('payment_date')"/>
+                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date') }}" :messages="$errors->get('payment_date')" :require="true" />
                     </div>             
                 </div> 
                 <div class="flex justify-end mt-4">

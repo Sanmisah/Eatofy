@@ -32,7 +32,11 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="subscription_no" value="{{ old('subscription_no') }}" :label="__('Subscription No')"  :messages="$errors->get('subscription_no')" class="bg-gray-100 dark:bg-gray-700" readonly="true" />  
-                    <x-text-input name="subscription_date" value="{{ old('subscription_date') }}" :label="__('Subscription Date')" id="subscription_date" x-model="subscription_date" x-on:change.debounce="dateChange()" :messages="$errors->get('subscription_date')" :require="true"/>     
+                    @if(empty($subscription->subscription_date))
+                        <x-text-input name="subscription_date" value="{{ old('subscription_date') }}" :label="__('Subscription Date')" id="subscription_date" x-model="subscription_date" x-on:change.debounce="dateChange()" :messages="$errors->get('subscription_date')" :require="true"/>     
+                    @else
+                        <x-text-input name="subscription_date" value="{{ old('subscription_date') }}" :label="__('Subscription Date')" x-model="subscription_date" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('subscription_date')" /> 
+                    @endif
                     <x-text-input name="expiry_date" value="{{ old('expiry_date') }}" x-model="expiry_date" :label="__('Expiry Date')" id="expiry_date" class="bg-gray-100 dark:bg-gray-700" readonly="true"  :messages="$errors->get('expiry_date')"/>                                     
                 </div>
                 <div class="flex items-center justify-between mb-5">
@@ -63,7 +67,7 @@
                         <x-text-input class="form-input" :label="__('UPI No')" name="upi_no" value="{{ old('upi_no') }}" :messages="$errors->get('upi_no')"/>
                     </div>    
                     <div>
-                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date') }}" :messages="$errors->get('payment_date')"/>
+                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date') }}" :messages="$errors->get('payment_date')" :require="true" />
                     </div>             
                 </div> 
                 <div class="flex justify-end mt-4">
@@ -87,15 +91,22 @@ document.addEventListener("alpine:init", () => {
         validity_in_days: '',
         cost: '',
         package_id: '',
+        expiry_date: '',
+        subscription_date: '',
+
         init() {        
             this.refno_open = false;
             this.chqno_open = false;
             this.bkname_open = false; 
             this.upino_open = false;  
 
-            flatpickr(document.getElementById('subscription_date'), {
-                dateFormat: 'd/m/Y',
-            });
+            @if(isset($subscription->subscription_date))                
+                this.subscription_date = '{{ $subscription->expiry_date }}';
+            @else
+                flatpickr(document.getElementById('subscription_date'), {
+                    dateFormat: 'd/m/Y',
+                });
+            @endif
 
             flatpickr(document.getElementById('payment_date'), {
                 dateFormat: 'd/m/Y',
@@ -103,7 +114,7 @@ document.addEventListener("alpine:init", () => {
 
             flatpickr(document.getElementById('expiry_date'), {
                 dateFormat: 'd/m/Y',
-            });
+            });            
         },
         
         async packageChange() {                  
@@ -115,6 +126,7 @@ document.addEventListener("alpine:init", () => {
             })).json();
             this.validity_in_days = this.packageData.validity_in_days;
             this.cost = this.packageData.cost;
+            this.dateChange();
         },    
         
         paymentMode: '',
@@ -147,8 +159,6 @@ document.addEventListener("alpine:init", () => {
             }
         },
 
-        subscription_date: '',
-        expiry_date : '',
         dateChange(){   
             this.expiry_date = moment(this.subscription_date, 'DD/MM/YYYY').add(this.validity_in_days, 'days').format("DD/MM/YYYY");
             console.log(this.expiry_date);

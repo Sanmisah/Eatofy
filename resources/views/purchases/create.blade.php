@@ -26,7 +26,7 @@ use Carbon\Carbon;
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="purchase_date" value="{{ old('purchase_date', Carbon::now()->format('d/m/Y')) }}" :label="__('Purchase Date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('purchase_date')"/>
                     <div>
-                        <label>Supplier :</label>
+                        <label>Supplier :<span style="color: red">*</span></label>
                         <select class="form-input" name="supplier_id" id="supplier_id">
                             <option>Select Supplier</option>
                             @foreach ($suppliers as $id=>$supplier)                                
@@ -35,8 +35,8 @@ use Carbon\Carbon;
                         </select> 
                         <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" /> 
                     </div>
-                    <x-text-input name="invoice_no" value="{{ old('invoice_no') }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')"  />  
-                    <x-text-input name="invoice_date" value="{{ old('invoice_date') }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')"/>
+                    <x-text-input name="invoice_no" value="{{ old('invoice_no') }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')" :require="true"  />  
+                    <x-text-input name="invoice_date" value="{{ old('invoice_date') }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')" :require="true" />
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>

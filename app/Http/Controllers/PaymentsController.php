@@ -37,7 +37,27 @@ class PaymentsController extends Controller
 
     public function store(Request $request) 
     {       
-        $input = $request->all();             
+        $input = $request->all();  
+        if($input['payment_mode'] == 'UPI'){
+            $request->validate([                
+                'upi_no' => 'numeric',
+            ]); 
+        }elseif($input['payment_mode'] == "Card"){
+            $request->validate([
+                'reference_no' => 'numeric',
+            ]); 
+        }elseif($input['payment_mode'] == "Bank"){
+            $request->validate([
+                'cheque_no' => 'numeric',
+            ]);
+        }else{
+            $request->validate([
+                'supplier_id' => 'required',
+                'payment_mode' => 'required',
+                'payment_date' => 'required',
+            ]);    
+        }
+                   
         $payment = Payment::create($input); 
         
         $data = $request->collect('payment_details');        
@@ -66,7 +86,26 @@ class PaymentsController extends Controller
 
     public function update(Payment $payment, Request $request) 
     {
-        $payment->update($request->all());
+        $input = $request->all();  
+        if($input['payment_mode'] == 'UPI'){
+            $request->validate([                
+                'upi_no' => 'numeric',
+            ]); 
+        }elseif($input['payment_mode'] == "Card"){
+            $request->validate([
+                'reference_no' => 'numeric',
+            ]); 
+        }elseif($input['payment_mode'] == "Bank"){
+            $request->validate([
+                'cheque_no' => 'numeric',
+            ]);
+        }else{
+            $request->validate([
+                'payment_mode' => 'required',
+                'payment_date' => 'required',
+            ]);    
+        }
+        $payment->update($input);
         $data = $request->collect('payment_details');
         
         $payment_details = PaymentDetail::where('payment_id', $payment->id)->get();

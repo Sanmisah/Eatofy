@@ -29,9 +29,9 @@ use Carbon\Carbon;
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="customer_name" value="{{ old('customer_name') }}" :label="__('Customer Name')" :require="true" :messages="$errors->get('customer_name')"/>
-                    <x-text-input name="mobile_no" value="{{ old('mobile_no') }}" :label="__('Mobile No')" :messages="$errors->get('mobile_no')" />     
+                    <x-text-input name="mobile_no" value="{{ old('mobile_no') }}" :label="__('Mobile No')" :messages="$errors->get('mobile_no')" :require="true"/>     
                     <div>
-                        <label>Table :</label>
+                        <label>Table :<span style="color: red">*</span></label>
                         <select class="form-input" name="table_id" id="table_id">
                             <option value="">Select Table</option>
                             @foreach ($tables as $id=>$table)                                
@@ -41,7 +41,7 @@ use Carbon\Carbon;
                         <x-input-error :messages="$errors->get('table_id')" class="mt-2" /> 
                     </div> 
                     <div>
-                        <label>Server :</label>
+                        <label>Server :<span style="color: red">*</span></label>
                         <select class="form-input" name="server_id" id="server_id">
                             <option value="">Select Server</option>
                             @foreach ($servers as $id=>$server)                                

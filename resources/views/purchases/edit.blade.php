@@ -24,7 +24,7 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="purchase_date" value="{{ old('purchase_date', $purchase->purchase_date) }}" id="purchase_date" :label="__('Purchase Date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('purchase_date')"/>
                     <div>
-                        <label>Supplier :</label>
+                        <label>Supplier:<span style="color: red">*</span></label>
                         <select class="form-input" name="supplier_id" id="supplier_id">
                             @foreach ($suppliers as $id=>$supplier)                                
                                 <option value="{{$id}}"  {{ $purchase->supplier_id ? ($purchase->supplier_id == $id ? 'Selected' : '' ) : ''}}>{{$supplier}}</option>
@@ -32,8 +32,8 @@
                         </select> 
                         <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" /> 
                     </div>
-                    <x-text-input name="invoice_no" value="{{ old('invoice_no', $purchase->invoice_no) }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')"  /> 
-                    <x-text-input name="invoice_date" value="{{ old('invoice_date', $purchase->invoice_date) }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')"/>
+                    <x-text-input name="invoice_no" value="{{ old('invoice_no', $purchase->invoice_no) }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')" :require="true" /> 
+                    <x-text-input name="invoice_date" value="{{ old('invoice_date', $purchase->invoice_date) }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')" :require="true" />
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>

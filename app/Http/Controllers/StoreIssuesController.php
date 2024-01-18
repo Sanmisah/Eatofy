@@ -36,6 +36,9 @@ class StoreIssuesController extends Controller
 
     public function store(StoreIssue $store_issue, Request $request) 
     {        
+        $request->validate([
+            'issue_date' => 'required',
+        ]);   
         $input = $request->all(); 
         $store_issue = StoreIssue::create($input);   
         // dd($store_issue); 
@@ -82,8 +85,10 @@ class StoreIssuesController extends Controller
 
     public function update(StoreIssue $store_issue, Request $request) 
     {
-        $input = $request->all(); 
-        
+        $request->validate([
+            'issue_date' => 'required',
+        ]);  
+        $input = $request->all();         
         $store_issue->update($input);        
         $data = $request->collect('store_issue_details');  
         foreach($data as $record){           
