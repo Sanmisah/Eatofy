@@ -43,11 +43,12 @@
                                 <td>{{ @$val->purchase->invoice_no }}</td>
                                 <td>{{ @$val->purchase->invoice_date }}</td>                                
                                 <td>{{ @$val->purchase->total_amount }}</td>
-                                <td>{{ @$val->purchase->balance_amount }}</td>
+                                <td id="balance_amount">{{ @$val->purchase->balance_amount }}</td>
                                 <td>
                                     <!-- <x-text-input class="form-input" name="payment_details[{{ @$val->id }}][id]" value="{{ @$val->id }}" :messages="$errors->get('paid_amount')" @change="calculateTotal()"/>   -->
                                     <input type="hidden" class="form-input min-w-[230px]" name="payment_details[{{ @$val->purchase->id }}][id]" value="{{ @$val->purchase->id }}"/> 
-                                    <x-text-input class="form-input" name="payment_details[{{ @$val->purchase->id }}][paid_amount]" value="{{ @$val->paid_amount }}" :messages="$errors->get('paid_amount')" @change="calculateTotal()"/>  
+                                    <x-text-input class="form-input" name="payment_details[{{ @$val->purchase->id }}][paid_amount]" value="{{ @$val->paid_amount }}" :id="`payment_details$[{val->purchase->id}][paid_amount]`" :messages="$errors->get('paid_amount')" @change="calculateTotal($event)"/>  
+                                    
                                 </td>
                             </tr>                            
                         </tbody>
@@ -56,7 +57,7 @@
                             <tr>
                                 <th colspan="4" style="text-align:right;">Total Amount: </th>
                                 <td>               
-                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total')" x-model="total" name="total" value="{{ $payment->total }}"/>
+                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total')" x-model.number="total" name="total" value="{{ $payment->total }}"/>
                                 </td>
                             </tr>
                         </tfoot>   
@@ -111,8 +112,9 @@
 <script>
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
-        suppliers: [],
-        init() {       
+        paid_amount: [],
+        init() {     
+            this.total = 0; 
             this.refno_open = false;
             this.chqno_open = false;
             this.bkname_open = false; 
@@ -133,7 +135,7 @@ document.addEventListener("alpine:init", () => {
             @if($payment->total)                
                 this.total = {{ $payment->total }};
             @endif
-
+            
             // @if($payment['paymentDetails'])
             //     @foreach($payment['paymentDetails'] as $i=>$details)            
             //         this.suppliers.paid_amount = {{ $details->paid_amount }};                                
@@ -182,21 +184,13 @@ document.addEventListener("alpine:init", () => {
                 this.upino_open = true; 
             }
         },
-
-        calculateTotal() {            
-            let total = 0;
-
-            // this.paid_amount.forEach(el => {
-            //     console.log(el);
-            // });
-            
-            // this.suppliers.forEach(supplier => {
-            //     total = parseFloat(total) + parseFloat(supplier.paid_amount);                
-            // });                         
-            
-            if(!isNaN(total)){
-                this.total = total.toFixed(2);
-            }     
+        
+        calculateTotal(e) {   
+            let total = 0;     
+            this.paid_amount = e.target.value; 
+            this.balance_amount = document.getElementById('balance_amount').innerHTML;
+            console.log(this.balance_amount);             
+            console.log(this.paid_amount);            
         },
     }));    
 });
