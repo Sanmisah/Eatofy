@@ -13,6 +13,7 @@ class StoreIssueDetail extends Model
     protected $fillable = [
         'store_issue_id',
         'item_id',
+        'closing_qty',
         'qty',
     ];
     public function StoreIssue() 

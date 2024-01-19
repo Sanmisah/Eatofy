@@ -29,8 +29,8 @@ use Carbon\Carbon;
                     <x-text-input name="bill_no" value="{{ old('bill_no', $order->bill_no) }}" :label="__('Bill No')"  :messages="$errors->get('bill_no')" class="bg-gray-100 dark:bg-gray-700" readonly="true" />  
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="customer_name" value="{{ old('customer_name', $order->customer_name) }}" :label="__('Customer Name')" :require="true" :messages="$errors->get('customer_name')"/>
-                    <x-text-input name="mobile_no" value="{{ old('mobile_no', $order->mobile_no) }}" :label="__('Mobile No')" :messages="$errors->get('mobile_no')" :require="true"/>     
+                    <x-text-input name="customer_name" value="{{ old('customer_name', $order->customer_name) }}" :label="__('Customer Name')" :messages="$errors->get('customer_name')"/>
+                    <x-text-input name="mobile_no" value="{{ old('mobile_no', $order->mobile_no) }}" :label="__('Mobile No')" :messages="$errors->get('mobile_no')"/>     
                     <div>
                         <label>Table :<span style="color: red">*</span></label>
                         <select class="form-input" name="table_id" id="table_id">
@@ -67,7 +67,7 @@ use Carbon\Carbon;
                                         <thead>
                                             <tr>
                                                 <th>&nbsp; #</th>
-                                                <th>Items</th>
+                                                <th>Menu Items</th>
                                                 <th>Rate</th>  
                                                 <th>Qty</th>                               
                                                 <th>Instruction</th>

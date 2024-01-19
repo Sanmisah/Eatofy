@@ -8,7 +8,7 @@
                 <span>Edit</span>
             </li>
         </ul>
-        <div class="pt-5">                                   
+        <div class="pt-5" x-data="data">                                   
             <form method="POST" action="{{ route('menus.update', ['menu'=>$menu->id]) }}">
             @csrf
             @method('PATCH')
@@ -24,7 +24,7 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                    
                     <div>
                         <label>Menu Categories:<span style="color: red">*</span></label>
-                        <select class="form-input" name="menu_category_id" required="true">
+                        <select class="form-input" name="menu_category_id" required="true" x-model="menu_category_id" @change="menuCategoryChange()">
                             <option>Select Category</option>
                             @foreach ($menu_categories as $id => $category)
                                 <option value="{{$id}}" {{ $menu->menu_category_id ? ($menu->menu_category_id == $id ? 'Selected' : '' ) : ''}}>{{ $category }}</option>
@@ -36,7 +36,7 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="item_name" value="{{ old('item_name', $menu->item_name) }}" :label="__('Item Name')" :require="true" :messages="$errors->get('item_name')"/>   
                     <x-combo-input name="rate" value="{{ old('rate', $menu->rate) }}" :label="__('Rate')" :messages="$errors->get('rate')" :require="true"/>
-                    <x-text-input name="gst_rate" value="{{ old('gst_rate', $menu->gst_rate) }}" :label="__('GST Rate')" :messages="$errors->get('gst_rate')"/>
+                    <x-text-input name="gst_rate" value="{{ old('gst_rate', $menu->gst_rate) }}" :label="__('GST Rate')" :messages="$errors->get('gst_rate')" x-model="gst_rate"/>
                 </div> 
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1">
                     <x-text-input name="item_description" value="{{ old('item_description', $menu->item_description) }}" :label="__('Description')" :messages="$errors->get('item_description')"/>                       
@@ -53,5 +53,34 @@
             </div>
             </form>
         </div>
-    </div>    
+    </div>  
+<script>
+document.addEventListener("alpine:init", () => {
+    Alpine.data('data', () => ({             
+        menu_category_id: '',
+        menuData:'',
+        gst_rate: '',
+        async menuCategoryChange() {                  
+            this.menuData = await (await fetch('/menu_categories/'+ this.menu_category_id, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json;',
+            },
+            })).json();
+            this.gst_rate = this.menuData.gst_rate;
+        },    
+
+        init() {   
+            @if($menu->menu_category_id)
+                this.menu_category_id = {{ $menu->menu_category_id }};
+                this.menuCategoryChange();
+            @endif
+
+            @if($menu->gst_rate)                
+                this.gst_rate = {{  $menu->gst_rate }};
+            @endif   
+        },
+    }));
+});
+</script>
 </x-layout.default>

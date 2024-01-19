@@ -40,8 +40,10 @@ class OrdersController extends Controller
     public function store(Order $order, Request $request) 
     {        
         $request->validate([
-            'customer_name' => 'required',
+            'table_id' => 'required',
+            'server_id' => 'required',
         ]);
+        
         $input = $request->all();
         $order = Order::create($input); 
          
@@ -83,7 +85,8 @@ class OrdersController extends Controller
     public function update(Order $order, Request $request) 
     {
         $request->validate([
-            'customer_name' => 'required',
+            'table_id' => 'required',
+            'server_id' => 'required',
         ]);
 
         $input = $request->all(); 

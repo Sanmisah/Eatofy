@@ -22,6 +22,7 @@
                 </div>  
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">     
                     <x-text-input name="menu_category_name" value="{{ old('menu_category_name') }}" :label="__('Category Name')" :require="true" :messages="$errors->get('menu_category_name')"/>  
+                    <x-text-input name="gst_rate" value="{{ old('gst_rate') }}" :label="__('GST Rate')" :messages="$errors->get('gst_rate')" :require="true"/>
                 </div>
                 <div class="flex justify-end mt-4">
                     <x-cancel-button :link="route('menu_categories.index')">

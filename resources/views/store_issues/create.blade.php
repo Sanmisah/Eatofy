@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon; 
+?>
 <x-layout.default>
 <div>
     <ul class="flex space-x-2 rtl:space-x-reverse">
@@ -22,7 +25,7 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="issue_no" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('issue_no') }}" :label="__('Issue No')"  :messages="$errors->get('issue_no')"  />
-                    <x-text-input name="issue_date" value="{{ old('issue_date') }}" id="issue_date" :label="__('Issue Date')" :messages="$errors->get('issue_date')" :require="true" />                           
+                    <x-text-input name="issue_date" value="{{ old('issue_date', Carbon::now()->format('d/m/Y')) }}" :label="__('Issue Date')" :messages="$errors->get('issue_date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" />                           
                 </div>           
             </div>            
             <div class="panel table-responsive">
@@ -113,11 +116,6 @@
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
         issueData:'',
-        init() {   
-            flatpickr(document.getElementById('issue_date'), {
-                dateFormat: 'd/m/Y',
-            });
-        },
         
         async itemChange() {      
             this.issueData = await (await fetch('/items/'+ this.issueDetail.item_id, {
@@ -127,8 +125,9 @@ document.addEventListener("alpine:init", () => {
             },
             })).json();
             this.issueDetail.closing_qty = this.issueData.closing_qty;
-            if(this.issueDetail.closing_qty < this.issueDetail.qty){
-                alert('You cannot add quantity');
+            if(this.issueDetail.qty > this.issueData.closing_qty ){
+                alert('You cannot add more than '+Math.trunc(this.issueDetail.closing_qty)+' quantity. ');
+                this.issueDetail.qty = "";
             }
         },
 

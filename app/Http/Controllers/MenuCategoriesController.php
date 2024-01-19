@@ -34,6 +34,7 @@ class MenuCategoriesController extends Controller
     {
         $request->validate([
             'menu_category_name' => 'required',
+            'gst_rate' => 'required',
         ]); 
         $input = $request->all();      
         $menu_category = MenuCategory::create($input); 
@@ -43,7 +44,7 @@ class MenuCategoriesController extends Controller
   
     public function show(MenuCategory $menu_category)
     {
-        //
+        return $menu_category; 
     }
 
     public function edit(MenuCategory $menu_category)
@@ -61,6 +62,7 @@ class MenuCategoriesController extends Controller
     {
         $request->validate([
             'menu_category_name' => 'required',
+            'gst_rate' => 'required',
         ]);         
         $menu_category->update($request->all());
         $request->session()->flash('success', 'Category updated successfully!');

@@ -23,7 +23,7 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="issue_no" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('issue_no', $store_issue->issue_no) }}" :label="__('Issue No')"  :messages="$errors->get('issue_no')"  />
-                    <x-text-input name="issue_date" value="{{ old('issue_date', $store_issue->issue_date) }}" id="issue_date" :label="__('Issue Date')" :messages="$errors->get('issue_date')" :require="true" />                           
+                    <x-text-input name="issue_date" value="{{ old('issue_date', $store_issue->issue_date) }}" :label="__('Issue Date')" :messages="$errors->get('issue_date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" />                           
                 </div>
             </div>    
             <div class="panel table-responsive">
@@ -40,6 +40,7 @@
                                             <tr>
                                                 <th>&nbsp; #</th>
                                                 <th>Items</th>
+                                                <th>Closing Qty</th>
                                                 <th>Qty</th>
                                             </tr>
                                         </thead>
@@ -116,10 +117,7 @@
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
         issueData:'',
-        init() {   
-            flatpickr(document.getElementById('issue_date'), {
-                dateFormat: 'd/m/Y',
-            });
+        init() {
 
             let maxId = 0; 
             id='';
@@ -129,6 +127,7 @@ document.addEventListener("alpine:init", () => {
                 i: ++maxId,
                 id: '{{ $details->id }}',
                 item_id: '{{ $details->item_id }}',
+                closing_qty: '{{ $details->closing_qty }}',
                 qty: '{{ $details->qty }}',
             });   
                              
@@ -144,8 +143,9 @@ document.addEventListener("alpine:init", () => {
             },
             })).json();
             this.issueDetail.closing_qty = this.issueData.closing_qty;
-            if(this.issueDetail.closing_qty < this.issueDetail.qty){
-                alert('You cannot add quantity');
+            if(this.issueDetail.qty > this.issueData.closing_qty ){
+                alert('You cannot add more than '+Math.trunc(this.issueDetail.closing_qty)+' quantity. ');
+                this.issueDetail.qty = "";
             }
         },
 

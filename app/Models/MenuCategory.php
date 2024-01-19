@@ -11,5 +11,6 @@ class MenuCategory extends Model
     protected $fillable = [
         'hotel_id',
         'menu_category_name',
+        'gst_rate',
     ];
 }

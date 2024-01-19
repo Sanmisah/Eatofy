@@ -35,10 +35,7 @@ class StoreIssuesController extends Controller
     }
 
     public function store(StoreIssue $store_issue, Request $request) 
-    {        
-        $request->validate([
-            'issue_date' => 'required',
-        ]);   
+    {          
         $input = $request->all(); 
         $store_issue = StoreIssue::create($input);   
         // dd($store_issue); 
@@ -47,6 +44,7 @@ class StoreIssuesController extends Controller
             StoreIssueDetail::create([
                 'store_issue_id' => $store_issue->id,
                 'item_id' => $record['item_id'],
+                'closing_qty' => $record['closing_qty'],
                 'qty' => $record['qty'],
             ]);            
         }   
@@ -85,9 +83,6 @@ class StoreIssuesController extends Controller
 
     public function update(StoreIssue $store_issue, Request $request) 
     {
-        $request->validate([
-            'issue_date' => 'required',
-        ]);  
         $input = $request->all();         
         $store_issue->update($input);        
         $data = $request->collect('store_issue_details');  
@@ -96,6 +91,7 @@ class StoreIssuesController extends Controller
                 'id' => $record['id'] ?? null,
                 'store_issue_id' => $store_issue->id,
                 'item_id' => $record['item_id'],
+                'closing_qty' => $record['closing_qty'],
                 'qty' => $record['qty'],
             ],[
                 'id'
