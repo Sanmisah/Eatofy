@@ -62,6 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         });
         Route::get('profile', 'ProfileController@index')->name('profile.change');    
         Route::get('purchases/getPurchaseData/{id}', 'PurchasesController@getPurchaseData')->name('purchases.getPurchaseData');
+        Route::get('menu_categories/getMenuData/{id}/', 'MenuCategoriesController@getMenuData')->name('menu_categories.getMenuData');
         /**
          * Masters Route
          */   
@@ -84,6 +85,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // Route::resource('subscriptions', SubscriptionsController::class);
         Route::get('/{hotel}/subscription', 'HotelsController@subscription')->name('hotels.subscription');
         Route::patch('hotels/storeSubscription/{hotel}', 'HotelsController@storeSubscription')->name('hotels.storeSubscription');
+        
     });
 
     Route::group(['middleware' => ['auth']], function() {  

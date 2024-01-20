@@ -7,6 +7,7 @@ use App\Models\Table;
 use App\Models\Menu;
 use App\Models\OrderDetail;
 use App\Models\Server;
+use App\Models\MenuCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -33,8 +34,8 @@ class OrdersController extends Controller
         $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
         $tables = Table::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
         $servers = Server::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
-        $menus = Menu::where('hotel_id', auth()->user()->id)->pluck('item_name', 'id');
-        return view('orders.create')->with(['hotels' => $hotels, 'tables' => $tables, 'menus' => $menus, 'servers' => $servers]);
+        $menu_categories = MenuCategory::where('hotel_id', auth()->user()->id)->pluck('menu_category_name', 'id'); 
+        return view('orders.create')->with(['hotels' => $hotels, 'tables' => $tables, 'servers' => $servers, 'menu_categories' => $menu_categories]);
     }
 
     public function store(Order $order, Request $request) 
@@ -51,6 +52,7 @@ class OrdersController extends Controller
         foreach($data as $record){
             OrderDetail::create([
                 'order_id' => $order->id,
+                'menu_category_id' => $record['menu_category_id'],
                 'menu_id' => $record['menu_id'],
                 'rate' => $record['rate'],
                 'qty' => $record['qty'],
@@ -78,8 +80,8 @@ class OrdersController extends Controller
         $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
         $tables = Table::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
         $servers = Server::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
-        $menus = Menu::where('hotel_id', auth()->user()->id)->pluck('item_name', 'id');
-        return view('orders.edit', ['order' => $order, 'hotels' => $hotels, 'tables' => $tables, 'menus' => $menus, 'servers' => $servers]); 
+        $menu_categories = MenuCategory::where('hotel_id', auth()->user()->id)->pluck('menu_category_name', 'id'); 
+        return view('orders.edit', ['order' => $order, 'hotels' => $hotels, 'tables' => $tables, 'servers' => $servers, 'menu_categories' => $menu_categories]); 
     }
 
     public function update(Order $order, Request $request) 
@@ -98,6 +100,7 @@ class OrdersController extends Controller
             OrderDetail::upsert([
                 'id' => $record['id'] ?? null,
                 'order_id' => $order->id,
+                'menu_category_id' => $record['menu_category_id'],
                 'menu_id' => $record['menu_id'],
                 'rate' => $record['rate'],
                 'qty' => $record['qty'],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MenuCategory;
 use App\Models\Hotel;
+use App\Models\Menu;
 
 class MenuCategoriesController extends Controller
 {
@@ -75,4 +76,10 @@ class MenuCategoriesController extends Controller
         $request->session()->flash('success', 'Category deleted successfully!');
         return redirect()->route('menu_categories.index');
     }    
+
+    public function getMenuData(MenuCategory $menu_category, $id)
+    {       
+        $menu = Menu::select('id', 'item_name', 'rate')->where('menu_category_id', $id)->get();
+        return $menu;
+    }
 }

@@ -22,7 +22,7 @@
                     @endforeach
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="purchase_date" value="{{ old('purchase_date', $purchase->purchase_date) }}" id="purchase_date" :label="__('Purchase Date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('purchase_date')"/>
+                    <x-text-input name="purchase_date" value="{{ old('purchase_date', $purchase->purchase_date) }}" :label="__('Purchase Date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('purchase_date')" />
                     <div>
                         <label>Supplier:<span style="color: red">*</span></label>
                         <select class="form-input" name="supplier_id" id="supplier_id">
@@ -33,7 +33,7 @@
                         <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" /> 
                     </div>
                     <x-text-input name="invoice_no" value="{{ old('invoice_no', $purchase->invoice_no) }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')" :require="true" /> 
-                    <x-text-input name="invoice_date" value="{{ old('invoice_date', $purchase->invoice_date) }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')" :require="true" />
+                    <x-text-input name="invoice_date" value="{{ old('invoice_date', $purchase->invoice_date) }}" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
@@ -41,12 +41,16 @@
                         <input type="file" name="attachment" class="form-input">  
                         <br />
                         @if($purchase->getFirstMediaUrl('attachment'))
-                            <a href="{{ $purchase->getFirstMediaUrl('attachment')}}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{basename($purchase->getFirstMediaUrl('attachment'))}}</a>
+                            <a href="{{ $purchase->getFirstMediaUrl('attachment')}}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                </svg>
+                                {{basename($purchase->getFirstMediaUrl('attachment'))}}
+                            </a>                           
                         @endif
                     </div>
                 </div>  
-            </div>    
-            
+            </div>                
             <div class="panel table-responsive">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light"> Add Items</h5>
@@ -156,13 +160,6 @@ document.addEventListener("alpine:init", () => {
         init() {   
             this.amount = 0;    
             this.total_amount = 0;     
-            flatpickr(document.getElementById('purchase_date'), {
-                dateFormat: 'd/m/Y',
-            });
-
-            flatpickr(document.getElementById('invoice_date'), {
-                dateFormat: 'd/m/Y',
-            });
 
             @if($purchase->total_amount)                
                 this.total_amount = {{  $purchase->total_amount }};

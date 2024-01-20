@@ -87,8 +87,6 @@ class HotelsController extends Controller
             'city' => 'required',
             'owner_name' => 'required',
             'owner_contact_no' => 'required',
-            'email' => 'required',
-            'new_password' => 'required',
         ]);             
         $hotel->update($request->all());    
         $request->session()->flash('success', 'Hotel updated successfully!');

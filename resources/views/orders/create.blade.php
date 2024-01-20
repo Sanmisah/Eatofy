@@ -65,6 +65,7 @@ use Carbon\Carbon;
                                         <thead>
                                             <tr>
                                                 <th>&nbsp; #</th>
+                                                <th>Menu Categories</th>
                                                 <th>Menu Items</th>
                                                 <th>Rate</th>  
                                                 <th>Qty</th>                               
@@ -96,11 +97,20 @@ use Carbon\Carbon;
                                                         </button>
                                                     </td>
                                                     <td>
+                                                        <select class="form-input" x-model="orderDetail.menu_category_id" x-bind:name="`order_details[${orderDetail.id}][menu_category_id]`" x-on:change="categoryChange()">
+                                                            <option>Select Category</option>
+                                                                @foreach ($menu_categories as $id => $category)
+                                                                    <option value="{{$id}}"> {{$category}} </option>
+                                                                @endforeach
+                                                        </select>
+                                                        <x-input-error :messages="$errors->get('menu_category_id')" class="mt-2" /> 
+                                                    </td>
+                                                    <td>
                                                         <select class="form-input" x-model="orderDetail.menu_id" x-bind:name="`order_details[${orderDetail.id}][menu_id]`" x-on:change="menuChange()">
                                                             <option>Select Items</option>
-                                                                @foreach ($menus as $id => $menu)
-                                                                    <option value="{{$id}}"> {{$menu}} </option>
-                                                            @endforeach
+                                                            <template x-for="menu in orderDetail.menus">
+                                                                <option :value='menu.id' x-text="menu.item_name"></option>
+                                                            </template>
                                                         </select>
                                                         <x-input-error :messages="$errors->get('menu_id')" class="mt-2" /> 
                                                     </td>
@@ -126,7 +136,7 @@ use Carbon\Carbon;
                                         </tbody>           
                                         <tfoot  style="background-color: #FFFFF;">
                                             <tr>
-                                                <th colspan="5" style="text-align:right;">Total Amount: </th>
+                                                <th colspan="6" style="text-align:right;">Total Amount: </th>
                                                 <td>               
                                                     <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total_amount')" x-model="total_amount" name="total_amount"/>
                                                 </td>
@@ -154,7 +164,7 @@ use Carbon\Carbon;
 <script>
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({ 
-        menuData:'',            
+           
         init() {     
             this.amount = 0;  
             this.total_amount = 0;   
@@ -188,6 +198,18 @@ document.addEventListener("alpine:init", () => {
             this.calculateTotal();
            
         }, 
+
+        menuCategoryData:'',       
+        menus: '',  
+        async categoryChange() {                  
+            this.menuCategoryData = await (await fetch('/menu_categories/getMenuData/'+ this.orderDetail.menu_category_id, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json;',
+            },
+            })).json();
+           this.orderDetail.menus = this.menuCategoryData;
+        },
         
         async menuChange() {                  
             this.menuData = await (await fetch('/menus/'+ this.orderDetail.menu_id, {

@@ -41,10 +41,8 @@ class PurchasesController extends Controller
         $request->validate([
             'supplier_id' => 'required',
             'invoice_no' => 'required',
-            'invoice_date' => 'required',
         ]); 
-
-
+        
         $request->merge(['balance_amount' => $request->total_amount]);
         $input = $request->all();                
 
@@ -115,7 +113,6 @@ class PurchasesController extends Controller
         $request->validate([
             'supplier_id' => 'required',
             'invoice_no' => 'required',
-            'invoice_date' => 'required',
         ]); 
         $input = $request->all(); 
         $purchase->update($input);   

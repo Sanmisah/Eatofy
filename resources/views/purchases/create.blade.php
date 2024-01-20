@@ -36,7 +36,7 @@ use Carbon\Carbon;
                         <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" /> 
                     </div>
                     <x-text-input name="invoice_no" value="{{ old('invoice_no') }}" :label="__('Invoice No')"  :messages="$errors->get('invoice_no')" :require="true"  />  
-                    <x-text-input name="invoice_date" value="{{ old('invoice_date') }}" id="invoice_date" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')" :require="true" />
+                    <x-text-input name="invoice_date" value="{{ old('invoice_date', Carbon::now()->format('d/m/Y')) }}" :label="__('Invoice Date')" :messages="$errors->get('invoice_date')" class="bg-gray-100 dark:bg-gray-700" readonly="true" />
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
@@ -152,14 +152,7 @@ document.addEventListener("alpine:init", () => {
         init() {   
             console.log('hi');
             this.amount = 0;    
-            this.total_amount = 0;     
-            // flatpickr(document.getElementById('purchase_date'), {
-            //     dateFormat: 'd/m/Y',
-            // });
-
-            flatpickr(document.getElementById('invoice_date'), {
-                dateFormat: 'd/m/Y',
-            });
+            this.total_amount = 0; 
         },
       
         async purchaseChange() {                  

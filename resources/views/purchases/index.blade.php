@@ -5,11 +5,11 @@
             <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Purchase</h5>
             <table id="myTable" class="whitespace-nowrap">
                 @foreach ($purchases as $purchase)
-                <tr>              
-                    <td>{{ $purchase->purchase_date}}</td> 
-                    <td>{{ @$purchase->Supplier->supplier_name }}</td>
+                <tr>           
                     <td>{{ $purchase->invoice_no }}</td>
-                    <td>{{ $purchase->invoice_date}}</td>
+                    <td>{{ $purchase->invoice_date}}</td>   
+                    <td>{{ $purchase->purchase_date}}</td> 
+                    <td>{{ @$purchase->Supplier->supplier_name }}</td>                    
                     <td>{{ $purchase->total_amount}}</td>
                     <td>{{ $purchase->balance_amount}}</td>
                     <td class="float-right">
@@ -36,7 +36,7 @@
                     this.datatable = new simpleDatatables.DataTable('#myTable', {
                         data: {
                             headings: [
-                                "Purchase Date", "Supplier Name", "Invoice No", "Invoice Date", "Total Amount", "Balance Amount", "Action"
+                                "Invoice No", "Invoice Date", "Purchase Date", "Supplier Name", "Total Amount", "Balance Amount", "Action"
                             ],
                         },
                         searchable: true,
