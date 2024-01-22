@@ -229,6 +229,7 @@ document.addEventListener("alpine:init", () => {
             }
             this.orderDetails.push({
                 id: maxId + 1,
+                menu_category_id: '',
                 menu_id: '',
                 unit: '',
                 qty: '',

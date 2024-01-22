@@ -50,6 +50,7 @@ class OrdersController extends Controller
          
         $data = $request->collect('order_details');
         foreach($data as $record){
+            
             OrderDetail::create([
                 'order_id' => $order->id,
                 'menu_category_id' => $record['menu_category_id'],
@@ -58,7 +59,8 @@ class OrdersController extends Controller
                 'qty' => $record['qty'],
                 'instruction' => $record['instruction'],
                 'amount' => $record['amount'],
-            ]);            
+            ]); 
+                     
         }   
 
         $request->session()->flash('success', 'Orders saved successfully!');
