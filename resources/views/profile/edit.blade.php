@@ -15,7 +15,7 @@
             </div>
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Recent Orders</h5>
+                    <h5 class="font-semibold text-lg dark:text-white-light">User Data</h5>
                 </div>
                 <form class="space-y-5" action="{{ route('profile.update', ['user' => $user->id]) }}" method="POST">
                     @csrf
