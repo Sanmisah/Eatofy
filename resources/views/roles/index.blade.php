@@ -12,7 +12,7 @@
                 <tr>
                     <td>{{ $role->name }}</td>
                     <td>{{ $role->guard_name }}</td>                    
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('roles.edit', $role->id)" />                               

@@ -33,7 +33,7 @@ use Carbon\Carbon;
                     <div>
                         <label>Table :<span style="color: red">*</span></label>
                         <select class="form-input" name="table_id" id="table_id">
-                            <option value="">Select Table</option>
+                            <!-- <option value="">Select Table</option> -->
                             @foreach ($tables as $id=>$table)                                
                                 <option value="{{$id}}">{{$table}}</option>
                             @endforeach
@@ -43,7 +43,7 @@ use Carbon\Carbon;
                     <div>
                         <label>Server :<span style="color: red">*</span></label>
                         <select class="form-input" name="server_id" id="server_id">
-                            <option value="">Select Server</option>
+                            <!-- <option value="">Select Server</option> -->
                             @foreach ($servers as $id=>$server)                                
                                 <option value="{{$id}}">{{$server}}</option>
                             @endforeach
@@ -166,6 +166,11 @@ document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({ 
            
         init() {     
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("table_id"), options);
+            NiceSelect.bind(document.getElementById("server_id"), options);
             this.amount = 0;  
             this.total_amount = 0;   
             flatpickr(document.getElementById('bill_date'), {

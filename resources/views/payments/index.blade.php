@@ -11,7 +11,7 @@
                     <td>{{ $payment->voucher_date}}</td>
                     <td>{{ $payment->total}}</td>
                     <td>{{ $payment->payment_mode}}</td>
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('payments.edit', $payment->id)" />                               

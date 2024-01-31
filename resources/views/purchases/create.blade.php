@@ -28,7 +28,7 @@ use Carbon\Carbon;
                     <div>
                         <label>Supplier :<span style="color: red">*</span></label>
                         <select class="form-input" name="supplier_id" id="supplier_id">
-                            <option>Select Supplier</option>
+                            <!-- <option>Select Supplier</option> -->
                             @foreach ($suppliers as $id=>$supplier)                                
                                 <option value="{{$id}}">{{$supplier}}</option>
                             @endforeach
@@ -89,7 +89,7 @@ use Carbon\Carbon;
                                                         </button>
                                                     </td>
                                                     <td>
-                                                        <select class="form-input" x-model="purchaseDetail.item_id" x-bind:name="`purchase_details[${purchaseDetail.id}][item_id]`"  x-on:change="purchaseChange()">
+                                                        <select class="form-input" id="item_id" x-model="purchaseDetail.item_id" x-bind:name="`purchase_details[${purchaseDetail.id}][item_id]`"  x-on:change="purchaseChange()">
                                                             <option>Select Items</option>
                                                                 @foreach ($items as $id => $item)
                                                                     <option value="{{$id}}"> {{$item}} </option>
@@ -153,6 +153,12 @@ document.addEventListener("alpine:init", () => {
             console.log('hi');
             this.amount = 0;    
             this.total_amount = 0; 
+
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("supplier_id"), options);
+            
         },
       
         async purchaseChange() {                  

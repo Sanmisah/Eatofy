@@ -76,7 +76,7 @@ use Carbon\Carbon;
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
                         <label>Payment Mode:</label>
-                        <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
+                        <select class="form-select" name="payment_mode" id="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
                             <option value="">Select Payment mode</option>
                             <option value="Cash">Cash</option>
                             <option value="Bank">Bank</option>
@@ -126,6 +126,11 @@ document.addEventListener("alpine:init", () => {
             flatpickr(document.getElementById('payment_date'), {
                 dateFormat: 'd/m/Y',
             });
+
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("payment_mode"), options);
         },
         
         paymentMode: '',

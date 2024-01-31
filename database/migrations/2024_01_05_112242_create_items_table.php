@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name',100)->nullable();
             $table->string('unit',10)->nullable();
             $table->decimal('opening_qty',10,2)->nullable();
-            $table->decimal('closing_qty',10,2)->nullable();           
+            $table->decimal('closing_qty',10,2)->nullable();
+            $table->decimal('min_order_qty',10,2)->nullable();           
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

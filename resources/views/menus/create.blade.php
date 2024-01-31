@@ -23,8 +23,8 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                     
                     <div>
                         <label>Menu Categories:<span style="color: red">*</span></label>
-                        <select class="form-input" name="menu_category_id" required="true" x-model="menu_category_id" @change="menuCategoryChange()">
-                            <option>Select Category</option>
+                        <select class="form-input" name="menu_category_id" id="menu_category_id" required="true" x-model="menu_category_id" @change="menuCategoryChange()">
+                            <!-- <option>Select Category</option> -->
                             @foreach ($menu_categories as $id => $category)
                                 <option value="{{$id}}">{{ $category }}</option>
                             @endforeach
@@ -55,7 +55,13 @@
 </div> 
 <script>
 document.addEventListener("alpine:init", () => {
-    Alpine.data('data', () => ({             
+    Alpine.data('data', () => ({   
+        init(){
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("menu_category_id"), options);
+        },          
         menu_category_id: '',
         menuData:'',
         gst_rate: '',

@@ -11,7 +11,7 @@
                     <td>{{ $order->mobile_no }}</td>
                     <td>{{ $order->customer_name }}</td>
                     <td>{{ $order->total_amount}}</td>                    
-                    <td >
+                    <td>
                         <ul class="flex items-center gap-2" >   
                             @if($order->closed == 0)
                                 <li style="display: inline-block;vertical-align:top;">

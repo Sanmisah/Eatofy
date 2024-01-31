@@ -17,6 +17,7 @@ class Item extends Model
         'unit',
         'opening_qty',
         'closing_qty',        
+        'min_order_qty',
     ];
 
     public function getClosingQty($item_id)

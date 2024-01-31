@@ -11,7 +11,7 @@
                     <td>{{ $menu->item_name }}</td>
                     <td>{{ $menu->rate }}</td>
                     <td>{{ $menu->gst_rate }}%</td>
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('menus.edit', $menu->id)" />                               

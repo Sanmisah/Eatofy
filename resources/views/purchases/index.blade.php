@@ -12,7 +12,7 @@
                     <td>{{ @$purchase->Supplier->supplier_name }}</td>                    
                     <td>{{ $purchase->total_amount}}</td>
                     <td>{{ $purchase->balance_amount}}</td>
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('purchases.edit', $purchase->id)" />                               

@@ -8,7 +8,7 @@
             <span>Add</span>
         </li>
     </ul>
-    <div class="pt-5">        
+    <div class="pt-5" x-data="data">        
         <form class="space-y-5" action="{{ route('hotel_staffs.store') }}" method="POST">
             @csrf
             <div class="panel">
@@ -25,11 +25,12 @@
                     <x-text-input name="contact_no" value="{{ old('contact_no') }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" :require="true" /> 
                     <div>
                         <label>Role:<span style="color: red">*</span></label>
-                        <select class="form-input" name="role">
-                            <option value="">Select role</option>
+                        <select class="form-input" name="role" id="role">
+                            <!-- <option value="">Select role</option> -->
                             <option value='Store Manager'>Store Manager</option>
                             <option value='Cashier'>Cashier</option>
-                            <option value='Staff'>Staff</option>                      
+                            <option value='Captain'>Captain</option>     
+                            <option value='Waiter'>Waiter</option>                                             
                         </select>
                     </div> 
                     <x-text-input name="salary" value="{{ old('salary') }}" :label="__('Salary')" :messages="$errors->get('salary')"/>
@@ -59,4 +60,16 @@
         </form> 
     </div>
 </div> 
+<script>
+document.addEventListener("alpine:init", () => {
+    Alpine.data('data', () => ({  
+        init(){
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("role"), options);
+        }
+    }));
+});
+</script>
 </x-layout.default>

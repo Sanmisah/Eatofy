@@ -8,8 +8,8 @@
                 @foreach ($item_categories as $category)
                 <tr>                    
                     <td>{{ ($category->item_category_name) }}</td>
-                   
-                    <td class="float-right">
+                    <td>{{ $category->gst_rate }}%</td>
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('item_categories.edit', $category->id)" />                               
@@ -31,7 +31,7 @@
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ["Category Name", "Action"],
+                        headings: ["Category Name", "GST rate", "Action"],
                     },
                     searchable: true,
                     perPage: 30,

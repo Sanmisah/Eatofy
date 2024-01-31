@@ -28,8 +28,8 @@ use Carbon\Carbon;
                     <x-text-input name="voucher_date" value="{{ old('voucher_date', Carbon::now()->format('d/m/Y')) }}" class="bg-gray-100 dark:bg-gray-700" readonly="true" :label="__('Voucher Date')" :messages="$errors->get('voucher_date')"/>
                     <div>
                         <label>Supplier :<span style="color: red">*</span></label>
-                        <select class="form-input" name="supplier_id" x-model="supplier_id" x-on:change="supplierChange()">
-                            <option>Select Supplier</option>
+                        <select class="form-input" name="supplier_id" id="supplier_id" x-model="supplier_id" x-on:change="supplierChange()">
+                            <!-- <option>Select Supplier</option> -->
                             @foreach ($suppliers as $id=>$supplier)                                
                                 <option value="{{$id}}">{{$supplier}}</option>
                             @endforeach
@@ -88,8 +88,8 @@ use Carbon\Carbon;
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
                         <label>Payment Mode:<span style="color: red">*</span></label>
-                        <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
-                            <option value="">Select Payment mode</option>
+                        <select class="form-select" name="payment_mode" id="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
+                            <!-- <option value="">Select Payment mode</option> -->
                             <option value="Cash">Cash</option>
                             <option value="Bank">Bank</option>
                             <option value="UPI">UPI</option>
@@ -129,7 +129,12 @@ use Carbon\Carbon;
 <script>
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({ 
-        init() {       
+        init() {     
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("supplier_id"), options);
+            NiceSelect.bind(document.getElementById("payment_mode"), options);  
             this.refno_open = false;
             this.chqno_open = false;
             this.bkname_open = false; 

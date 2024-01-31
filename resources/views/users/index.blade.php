@@ -21,7 +21,7 @@
                     @else
                     <td><span class="badge badge-outline-danger">Inactive</span></td>
                     @endif
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('users.edit', $user->id)" />                               

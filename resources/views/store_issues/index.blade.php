@@ -9,7 +9,7 @@
                     <td>{{ $store_issue->issue_no}}</td> 
                     <!-- <td>{{ $store_issue->Hotel->owner_name }}</td> -->
                     <td>{{ $store_issue->issue_date}}</td>
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('store_issues.edit', $store_issue->id)" />                               

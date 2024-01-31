@@ -24,16 +24,14 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                    
                     <div>
                         <label>Item Categories:<span style="color: red">*</span></label>
-                        <select class="form-input" name="item_category_id" required="true">
-                            <option>Select Category</option>
+                        <select class="form-input" name="item_category_id" id="item_category_id" required="true">
+                            <!-- <option>Select Category</option> -->
                             @foreach ($item_categories as $id => $category)
                                 <option value="{{$id}}" {{ $item->item_category_id ? ($item->item_category_id == $id ? 'Selected' : '' ) : ''}}>{{ $category }}</option>
                             @endforeach
                         </select> 
                         <x-input-error :messages="$errors->get('category')" class="mt-2" /> 
                     </div>
-                </div>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="name" value="{{ old('name', $item->name) }}" :label="__('Name')" :require="true" :messages="$errors->get('name')"/>  
                     <div>
                         <label>Unit:<span style="color: red">*</span></label>
@@ -45,6 +43,9 @@
                             <option value='Dozen' @if ($item->unit == 'Dozen') {{ 'Selected' }} @endif>Dozen</option>  
                         </select>
                     </div>
+                </div>
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
+                    <x-text-input name="min_order_qty" value="{{ old('min_order_qty', $item->min_order_qty) }}" :label="__('Minimum Order Quantity')" :messages="$errors->get('min_order_qty')"/>                    
                     <x-text-input name="opening_qty" value="{{ old('opening_qty', $item->opening_qty) }}" :require="true" :label="__('Opening Quantity')" :messages="$errors->get('opening_qty')"/>
                     <x-text-input name="closing_qty" class="bg-gray-100 dark:bg-gray-700" readonly="true" value="{{ old('closing_qty', $item->closing_qty) }}" :label="__('Closing Quantity')" :messages="$errors->get('closing_qty')"/>
                 </div> 
@@ -69,6 +70,12 @@ document.addEventListener("alpine:init", () => {
         qtyChange(){  
             this.closing_qty = this.opening_qty;
         },
+        init(){
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("item_category_id"), options);
+        }
     }));
 });
 </script>  

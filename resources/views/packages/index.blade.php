@@ -10,7 +10,7 @@
                     <td>{{ $package->package_name }}</td>
                     <td>{{ $package->validity_in_days }}</td>
                     <td>{{ $package->cost }}</td>
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('packages.edit', $package->id)" />                               

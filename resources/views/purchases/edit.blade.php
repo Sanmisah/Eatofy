@@ -161,6 +161,11 @@ document.addEventListener("alpine:init", () => {
             this.amount = 0;    
             this.total_amount = 0;     
 
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("supplier_id"), options);
+
             @if($purchase->total_amount)                
                 this.total_amount = {{  $purchase->total_amount }};
             @endif

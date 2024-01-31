@@ -63,6 +63,11 @@ document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({  
         states: '',    
         init() {
+            // var options = {
+            //     searchable: true
+            // };
+            // NiceSelect.bind(document.getElementById("state"), options);
+
             this.states = [
                 { code: 'AN', name: 'Andaman and Nicobar Islands' },
                 { code: 'AP', name: 'Andhra Pradesh' },

@@ -8,7 +8,7 @@
                 <span>Edit</span>
             </li>
         </ul>
-        <div class="pt-5">                                   
+        <div class="pt-5" x-data="data">                                   
             <form method="POST" action="{{ route('hotel_staffs.update', ['hotel_staff'=>$hotel_staff->id]) }}">
             @csrf
             @method('PATCH')
@@ -26,11 +26,12 @@
                     <x-text-input name="contact_no" value="{{ old('contact_no', $hotel_staff->contact_no) }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" :require="true"/> 
                     <div>
                         <label>Role:<span style="color: red">*</span></label>
-                        <select class="form-input" name="role">
-                            <option selected disabled>Select Role</option>
+                        <select class="form-input" name="role" id="role">
+                            <!-- <option selected disabled>Select Role</option> -->
                             <option value="Store Manager" @if ($hotel_staff->role == 'Store Manager') {{ 'Selected' }} @endif>Store Manager</option>
-                            <option value="Cashier" @if ($hotel_staff->role == 'Cashier') {{ 'Selected' }} @endif>Cashier</option>
-                            <option value="Staff" @if ($hotel_staff->role == 'Staff') {{ 'Selected' }} @endif>Staff</option>    
+                            <option value="Cashier" @if ($hotel_staff->role == 'Cashier') {{ 'Selected' }} @endif>Cashier</option>  
+                            <option value='Captain' @if ($hotel_staff->role == 'Captain') {{ 'Selected' }} @endif>Captain</option>     
+                            <option value='Waiter' @if ($hotel_staff->role == 'Waiter') {{ 'Selected' }} @endif>Waiter</option>   
                         </select>
                     </div> 
                     <x-text-input name="salary" value="{{ old('salary', $hotel_staff->salary) }}" :label="__('Salary')" :messages="$errors->get('salary')"/>
@@ -59,5 +60,17 @@
             </div>
             </form>
         </div>
-    </div>  
+    </div> 
+<script>
+document.addEventListener("alpine:init", () => {
+    Alpine.data('data', () => ({  
+        init(){
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("role"), options);
+        }
+    }));
+});
+</script> 
 </x-layout.default>

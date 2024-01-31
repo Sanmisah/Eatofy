@@ -71,8 +71,8 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
                         <label>Payment Mode:<span style="color: red">*</span></label>
-                        <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
-                            <option>Select Payment mode</option>
+                        <select class="form-select" name="payment_mode" id="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
+                            <!-- <option>Select Payment mode</option> -->
                             <option value="Cash" @if ($payment->payment_mode == "Cash") {{ 'Selected' }} @endif>Cash</option>
                             <option value="Bank" @if ($payment->payment_mode == "Bank") {{ 'Selected' }} @endif>Bank</option>
                             <option value="UPI" @if ($payment->payment_mode == "UPI") {{ 'Selected' }} @endif>UPI</option>
@@ -114,6 +114,11 @@ document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
         paid_amount: [],
         init() {     
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("payment_mode"), options);
+
             this.total = 0; 
             this.refno_open = false;
             this.chqno_open = false;

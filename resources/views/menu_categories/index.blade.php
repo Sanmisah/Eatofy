@@ -9,7 +9,7 @@
                 <tr>                    
                     <td>{{ ($category->menu_category_name) }}</td>
                     <td>{{ $category->gst_rate }}%</td>
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('menu_categories.edit', $category->id)" />                               

@@ -1,3 +1,8 @@
+<?php
+// use Carbon\Carbon; 
+// $today_date = Carbon::now()->format('d/m/Y');
+// echo $today_date;
+?>
 <x-layout.default>
     <div x-data="multicolumn">        
         <x-add-button :link="route('hotels.create')" />
@@ -20,7 +25,15 @@
                     <td>{{ $hotel->owner_contact_no }}</td>
                     <td>{{ $hotel->city }}</td> 
                     <td>{{ $hotel->gstin }}</td>  
-                    <td>{{ $hotel->expiry_date }}</td>             
+                    <td>
+                        @if(!empty($hotel->expiry_date))
+                            @if($hotel->expiry_date > Carbon\Carbon::today())
+                                <span class="badge bg-danger/20 text-danger rounded-full hover:top-0">{{$hotel->expiry_date }}</span> 
+                            @else
+                                <span class="badge bg-info/20 text-info rounded-full hover:top-0">{{$hotel->expiry_date }}</span> 
+                            @endif
+                        @endif 
+                    </td>             
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">

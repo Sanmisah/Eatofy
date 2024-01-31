@@ -11,5 +11,6 @@ class ItemCategory extends Model
     protected $fillable = [
         'hotel_id',
         'item_category_name',
+        'gst_rate',
     ];
 }

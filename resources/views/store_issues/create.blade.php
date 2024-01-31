@@ -70,7 +70,7 @@ use Carbon\Carbon;
                                                         </button>
                                                     </td>
                                                     <td>
-                                                        <select class="form-input" x-model="issueDetail.item_id" x-bind:name="`store_issue_details[${issueDetail.id}][item_id]`" x-on:change="itemChange()">
+                                                        <select class="form-input" x-model="issueDetail.item_id" x-bind:name="`store_issue_details[${issueDetail.id}][item_id]`" id="issueDetail.item_id" x-on:change="itemChange()">
                                                             <option>Select Items</option>
                                                                 @foreach ($items as $id => $item)
                                                                     <option value="{{$id}}"> {{$item}} </option>
@@ -116,7 +116,13 @@ use Carbon\Carbon;
 document.addEventListener("alpine:init", () => {
     Alpine.data('data', () => ({     
         issueData:'',
-        
+        // init(){
+        //     var options = {
+        //         searchable: true
+        //     };
+        //     NiceSelect.bind(document.getElementById("issueDetail.item_id"), options);
+        // },
+
         async itemChange() {      
             this.issueData = await (await fetch('/items/'+ this.issueDetail.item_id, {
             method: 'GET',

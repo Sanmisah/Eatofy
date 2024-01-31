@@ -11,7 +11,7 @@
                     <td>{{ $staff->contact_no }}</td>
                     <td>{{ $staff->role }}</td>
                     <td>{{ $staff->salary }}</td>
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('hotel_staffs.edit', $staff->id)" />                               

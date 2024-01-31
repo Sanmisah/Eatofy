@@ -19,8 +19,8 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
                         <label>Package :<span style="color: red">*</span></label>
-                        <select class="form-input" name="package_id" x-model="package_id" x-on:change="packageChange()">
-                            <option value="">Select Package</option>
+                        <select class="form-input" name="package_id" id="package_id" x-model="package_id" x-on:change="packageChange()">
+                            <!-- <option value="">Select Package</option> -->
                             @foreach ($packages as $id=>$package)                                
                                 <option value="{{$id}}">{{$package}}</option>
                             @endforeach
@@ -45,8 +45,8 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <div>
                         <label>Payment Mode:<span style="color: red">*</span></label>
-                        <select class="form-select" name="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
-                            <option value="">Select Payment mode</option>
+                        <select class="form-select" name="payment_mode" id="payment_mode" x-model="paymentMode" @change="paymentModeChange()">
+                            <!-- <option value="">Select Payment mode</option> -->
                             <option value="Cash">Cash</option>
                             <option value="Bank">Bank</option>
                             <option value="UPI">UPI</option>
@@ -99,6 +99,12 @@ document.addEventListener("alpine:init", () => {
             this.chqno_open = false;
             this.bkname_open = false; 
             this.upino_open = false;  
+
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("payment_mode"), options);
+            NiceSelect.bind(document.getElementById("package_id"), options);
 
             @if(isset($subscription->subscription_date))                
                 this.subscription_date = '{{ $subscription->expiry_date }}';

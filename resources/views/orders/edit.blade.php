@@ -34,7 +34,7 @@ use Carbon\Carbon;
                     <div>
                         <label>Table :<span style="color: red">*</span></label>
                         <select class="form-input" name="table_id" id="table_id">
-                            <option value="">Select Table</option>
+                            <!-- <option value="">Select Table</option> -->
                             @foreach ($tables as $id=>$table)                                
                                 <option value="{{$id}}" {{$order->table_id ? ($order->table_id == $id ? 'Selected' : '' ) : ''}}>{{$table}}</option>
                             @endforeach
@@ -44,7 +44,7 @@ use Carbon\Carbon;
                     <div>
                         <label>Server :<span style="color: red">*</span></label>
                         <select class="form-input" name="server_id" id="server_id">
-                            <option value="">Select Server</option>
+                            <!-- <option value="">Select Server</option> -->
                             @foreach ($servers as $id=>$server)                                
                                 <option value="{{$id}}" {{$order->server_id ? ($order->server_id == $id ? 'Selected' : '' ) : ''}}>{{$server}}</option>
                             @endforeach
@@ -171,6 +171,11 @@ document.addEventListener("alpine:init", () => {
         init() {   
             this.amount = 0;    
             this.total_amount = 0;               
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("table_id"), options);
+            NiceSelect.bind(document.getElementById("server_id"), options);
 
             flatpickr(document.getElementById('bill_date'), {
                 dateFormat: 'd/m/Y',

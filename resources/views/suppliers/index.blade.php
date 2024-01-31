@@ -10,7 +10,7 @@
                     <td>{{ $supplier->supplier_name }}</td> 
                     <td>{{ $supplier->supplier_contact_no }}</td>  
                     <td>{{ $supplier->gstin }}</td>               
-                    <td class="float-right">
+                    <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
                                 <x-edit-button :link=" route('suppliers.edit', $supplier->id)" />                               
