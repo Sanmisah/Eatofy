@@ -112,7 +112,7 @@ use Carbon\Carbon;
                                                         <select class="form-input" x-model="orderDetail.menu_id" x-bind:name="`order_details[${orderDetail.id}][menu_id]`"  x-on:change="menuChange()">
                                                             <option>Select Items</option>
                                                             <template x-for="menu in orderDetail.menus" :key="menu.id">
-                                                                <option :value='menu.id' x-text="menu.item_name" :selected='menu.id == orderDetail.menu_id'></option>
+                                                                <option :value='menu.id' x-text="menu.item_name" :selected='menu.id == orderDetail.menus'></option>
                                                             </template>
                                                         </select>
                                                         <x-input-error :messages="$errors->get('menu_id')" class="mt-2" /> 
@@ -138,6 +138,18 @@ use Carbon\Carbon;
                                             </tr>
                                         </tbody>           
                                         <tfoot  style="background-color: #FFFFF;">
+                                            <tr>
+                                                <th colspan="6" style="text-align:right;">Total: </th>
+                                                <td>               
+                                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total')" x-model="total" name="total" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="6" style="text-align:right;">Discount: (%)</th>
+                                                <td>               
+                                                    <x-text-input :messages="$errors->get('discount_amount')" x-model="discount_amount" name="discount_amount" @change="calculateTotalAmount()"/>
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <th colspan="6" style="text-align:right;">Total Amount: </th>
                                                 <td>               
@@ -170,7 +182,9 @@ document.addEventListener("alpine:init", () => {
         purchaseData:'',
         init() {   
             this.amount = 0;    
-            this.total_amount = 0;               
+            this.total_amount = 0; 
+            this.discount_amount = 0; 
+            this.total = 0;               
             var options = {
                 searchable: true
             };
@@ -180,6 +194,14 @@ document.addEventListener("alpine:init", () => {
             flatpickr(document.getElementById('bill_date'), {
                 dateFormat: 'd/m/Y',
             });
+
+            @if($order->total)                
+                this.total = {{  $order->total }};
+            @endif
+
+            @if($order->discount_amount)                
+                this.discount_amount = {{  $order->discount_amount }};
+            @endif
 
             @if($order->total_amount)                
                 this.total_amount = {{  $order->total_amount }};
@@ -243,6 +265,7 @@ document.addEventListener("alpine:init", () => {
             });
             this.calculateAmount();
             this.calculateTotal();
+            this.calculateTotalAmount();
         }, 
         
         removeItem(orderDetail) {     
@@ -251,6 +274,7 @@ document.addEventListener("alpine:init", () => {
             
             this.calculateAmount();
             this.calculateTotal();
+            this.calculateTotalAmount();
         },    
         
         calculateAmount() {            
@@ -259,6 +283,7 @@ document.addEventListener("alpine:init", () => {
                 orderDetail.amount = total.toFixed(2);
             }); 
             this.calculateTotal();
+            this.calculateTotalAmount();
         },
 
         calculateTotal() {
@@ -269,6 +294,12 @@ document.addEventListener("alpine:init", () => {
             if(!isNaN(total_amount)){
                 this.total_amount = total_amount.toFixed(2);
             }     
+            this.calculateTotalAmount();
+        },
+
+        calculateTotalAmount() {             
+            disAmount = (this.total * this.discount_amount / 100);                             
+            this.total_amount = this.total - disAmount;            
         },
     }));
 });

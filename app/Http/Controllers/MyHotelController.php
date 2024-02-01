@@ -12,12 +12,17 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class HotelsController extends Controller
+class MyHotelController extends Controller
 {
     public function index()
     {
-        $hotels = Hotel::orderBy('id', 'DESC')->get();   
-        return view('hotels.index', ['hotels' => $hotels]);
+        $authUser = auth()->user()->roles->pluck('name')->first();
+        $conditions = [];
+        if($authUser == 'Owner'){                       
+            $conditions[] = ['id', auth()->user()->id];
+        }     
+        $hotel = Hotel::where($conditions)->orderBy('id', 'DESC')->get();   
+        return view('my_hotel.index', ['hotel' => $hotel]);
     }
 
     public function create()
@@ -60,23 +65,9 @@ class HotelsController extends Controller
         return redirect()->route('hotels.index');         
     }
     
-    public function show()
+    public function show(HotelStaff $hotel_staff)
     {
-        $authUser = auth()->user()->roles->pluck('name')->first();
-        $conditions = [];
-        if($authUser == 'Owner'){                       
-            $conditions[] = ['id', auth()->user()->id];
-        }     
-        $hotel = Hotel::where($conditions)->first();
-
-        $users = User::all();
-        $staff = HotelStaff::where('hotel_id', $hotel->id)->get();
-        $subscription = Subscription::join('packages', 'packages.id', '=', 'subscriptions.package_id')  
-            ->where('hotel_id', $hotel->id)       
-            ->select('packages.package_name', 'packages.cost', 'subscriptions.*')
-            ->orderBy('subscriptions.id', 'desc')
-            ->get();
-        return view('hotels.show', ['hotel' => $hotel, 'users' => $users, 'staff' => $staff, 'subscription' => $subscription]);
+       //
     }
   
     public function edit(Hotel $hotel)

@@ -69,14 +69,14 @@ class HotelStaffsController extends Controller
 
     public function update(HotelStaff $hotel_staff, Request $request) 
     {
+        
         $request->validate([
             'staff_name' => 'required',
             'contact_no' => 'required',
             'role' => 'required',            
             'address' => 'required',
             'email' => 'required',
-            'new_password' => 'required',
-        ]); 
+        ]);         
         $hotel_staff->update($request->all());
         $request->session()->flash('success', 'Staff updated successfully!');
         return redirect()->route('hotel_staffs.index');

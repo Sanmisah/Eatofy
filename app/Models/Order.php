@@ -23,6 +23,8 @@ class Order extends Model
         'customer_name',
         'table_id',
         'server_id',
+        'total',
+        'discount_amount',
         'total_amount',
         'payment_mode',
         'cheque_no',

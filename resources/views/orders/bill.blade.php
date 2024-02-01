@@ -63,8 +63,18 @@ use Carbon\Carbon;
                             @endforeach
                         </tbody>
                         <tfoot> 
-                            <th colspan="4" style="text-align:right;">Total Amount: </th>
-                            <td>{{ @$order->total_amount }}</td>
+                            <tr>
+                                <th colspan="4" style="text-align:right;">Total: </th>
+                                <td>{{ @$order->total }}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" style="text-align:right;">Discount : </th>
+                                <td>{{ @$order->discount_amount }}%</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" style="text-align:right;">Total Amount: </th>
+                                <td>{{ @$order->total_amount }}</td>
+                            </tr>                            
                         </tfoot>
                     </table>
                 </div>
@@ -127,10 +137,10 @@ document.addEventListener("alpine:init", () => {
                 dateFormat: 'd/m/Y',
             });
 
-            var options = {
-                searchable: true
-            };
-            NiceSelect.bind(document.getElementById("payment_mode"), options);
+            // var options = {
+            //     searchable: true
+            // };
+            // NiceSelect.bind(document.getElementById("payment_mode"), options);
         },
         
         paymentMode: '',

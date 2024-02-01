@@ -136,11 +136,23 @@ use Carbon\Carbon;
                                         </tbody>           
                                         <tfoot  style="background-color: #FFFFF;">
                                             <tr>
+                                                <th colspan="6" style="text-align:right;">Total: </th>
+                                                <td>               
+                                                    <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total')" x-model="total" name="total"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="6" style="text-align:right;">Discount: (%)</th>
+                                                <td>               
+                                                    <x-text-input :messages="$errors->get('discount_amount')" x-model="discount_amount" name="discount_amount" @change="calculateTotalAmount()"/>
+                                                </td>
+                                            </tr>
+                                            <tr>                                                
                                                 <th colspan="6" style="text-align:right;">Total Amount: </th>
                                                 <td>               
                                                     <x-text-input class="form-input bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('total_amount')" x-model="total_amount" name="total_amount"/>
                                                 </td>
-                                            </tr>
+                                            </tr>                                            
                                         </tfoot>                
                                     </table>
                                 </div>
@@ -173,6 +185,8 @@ document.addEventListener("alpine:init", () => {
             NiceSelect.bind(document.getElementById("server_id"), options);
             this.amount = 0;  
             this.total_amount = 0;   
+            this.total = 0;
+            this.discount_amount = 0;
             flatpickr(document.getElementById('bill_date'), {
                 dateFormat: 'd/m/Y',
             });
@@ -197,13 +211,14 @@ document.addEventListener("alpine:init", () => {
             console.log(this.orderDetails);
             this.calculateAmount();
             this.calculateTotal();
+            this.calculateTotalAmount();
         }, 
         
         removeItem(orderDetail) {
             this.orderDetails = this.orderDetails.filter((d) => d.id != orderDetail.id);
             this.calculateAmount();
             this.calculateTotal();
-           
+            this.calculateTotalAmount();
         }, 
 
         menuCategoryData:'',       
@@ -234,16 +249,23 @@ document.addEventListener("alpine:init", () => {
                 orderDetail.amount = total.toFixed(2);
             }); 
             this.calculateTotal();
+            this.calculateTotalAmount();
+        },
+        
+        calculateTotal() {
+            let total = 0;
+            this.orderDetails.forEach(orderDetail => {
+                total = parseFloat(total) + parseFloat(orderDetail.amount);
+            });                     
+            if(!isNaN(total)){
+                this.total = total.toFixed(2);
+            }    
+            this.calculateTotalAmount();          
         },
 
-        calculateTotal() {
-            let total_amount = 0;
-            this.orderDetails.forEach(orderDetail => {
-                total_amount = parseFloat(total_amount) + parseFloat(orderDetail.amount);
-            });                     
-            if(!isNaN(total_amount)){
-                this.total_amount = total_amount.toFixed(2);
-            }     
+        calculateTotalAmount() {             
+            disAmount = (this.total * this.discount_amount / 100);                             
+            this.total_amount = this.total - disAmount;            
         },
     }));
 });
