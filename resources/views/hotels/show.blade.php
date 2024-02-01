@@ -10,10 +10,12 @@
         </li>
     </ul>
     <div class="pt-5" x-data="data">  
-        <form class="space-y-5">
+        <form class="space-y-5" action="{{ route('hotels.updateTagLine', ['hotel' => $hotel->id]) }}" method="POST">
+            @csrf
+            @method('PATCH')
             <div class="panel">
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                       
-                    <x-text-input name="tagline" value="{{ old('tagline') }}" :label="__('Tagline')" :messages="$errors->get('tagline')"/>  
+                    <x-text-input name="tagline" value="{{ old('tagline', $hotel->tagline) }}" :label="__('Tagline')" :messages="$errors->get('tagline')"/>  
                 </div>
                 <div class="flex justify-end mt-4">
                     <x-cancel-button :link="route('dashboard')">

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,5 +15,6 @@ class Menu extends Model
         'item_description',
         'rate',
         'gst_rate',        
+        'additional_tax',
     ];
 }

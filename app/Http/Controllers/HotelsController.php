@@ -161,4 +161,12 @@ class HotelsController extends Controller
         $request->session()->flash('success', 'Subscription Done successfully!');
         return redirect()->route('hotels.index');
     }
+
+    public function updateTagLine(Hotel $hotel, Request $request) 
+    {          
+        $hotel->update($request->all());    
+        $request->session()->flash('success', 'Tagline updated successfully!');
+        return redirect()->route('dashboard');
+    }
+    
 }

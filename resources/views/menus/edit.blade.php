@@ -37,6 +37,7 @@
                     <x-text-input name="item_name" value="{{ old('item_name', $menu->item_name) }}" :label="__('Item Name')" :require="true" :messages="$errors->get('item_name')"/>   
                     <x-combo-input name="rate" value="{{ old('rate', $menu->rate) }}" :label="__('Rate')" :messages="$errors->get('rate')" :require="true"/>
                     <x-text-input name="gst_rate" value="{{ old('gst_rate', $menu->gst_rate) }}" :label="__('GST Rate')" :messages="$errors->get('gst_rate')" x-model="gst_rate"/>
+                    <x-text-input name="additional_tax" value="{{ old('additional_tax', $menu->additional_tax) }}" :label="__('Additional Tax')" :messages="$errors->get('additional_tax')"/>
                 </div> 
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1">
                     <x-text-input name="item_description" value="{{ old('item_description', $menu->item_description) }}" :label="__('Description')" :messages="$errors->get('item_description')"/>                       
