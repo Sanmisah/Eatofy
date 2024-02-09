@@ -46,6 +46,7 @@ class MenusController extends Controller
             'item_name' => 'required',
             'menu_category_id' => 'required',
             'rate' => 'required',
+            'type' => 'required'
         ],
         [
             'menu_category_id.required' => 'Please select Category',
@@ -79,6 +80,7 @@ class MenusController extends Controller
             'item_name' => 'required',
             'menu_category_id' => 'required',
             'rate' => 'required',
+            'type' => 'required'
         ],
         [
             'menu_category_id.required' => 'Please select Category',

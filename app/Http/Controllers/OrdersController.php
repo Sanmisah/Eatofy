@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Table;
 use App\Models\Menu;
 use App\Models\OrderDetail;
+use App\Models\OrderPaymentDetail;
 use App\Models\Server;
 use App\Models\MenuCategory;
 use Illuminate\Http\Request;
@@ -35,7 +36,8 @@ class OrdersController extends Controller
         $tables = Table::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
         $servers = Server::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
         $menu_categories = MenuCategory::where('hotel_id', auth()->user()->id)->pluck('menu_category_name', 'id'); 
-        return view('orders.create')->with(['hotels' => $hotels, 'tables' => $tables, 'servers' => $servers, 'menu_categories' => $menu_categories]);
+        $menus = Menu::where('hotel_id', auth()->user()->id)->pluck('item_name', 'id'); 
+        return view('orders.create')->with(['hotels' => $hotels, 'tables' => $tables, 'servers' => $servers, 'menu_categories' => $menu_categories, 'menus' => $menus]);
     }
 
     public function store(Order $order, Request $request) 
@@ -44,7 +46,7 @@ class OrdersController extends Controller
             'table_id' => 'required',
             'server_id' => 'required',
         ]);
-        
+        $request->merge(['balance_amount' => $request->total_amount]);
         $input = $request->all();
         $order = Order::create($input); 
          
@@ -83,7 +85,8 @@ class OrdersController extends Controller
         $tables = Table::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
         $servers = Server::where('hotel_id', auth()->user()->id)->pluck('name', 'id');
         $menu_categories = MenuCategory::where('hotel_id', auth()->user()->id)->pluck('menu_category_name', 'id'); 
-        return view('orders.edit', ['order' => $order, 'hotels' => $hotels, 'tables' => $tables, 'servers' => $servers, 'menu_categories' => $menu_categories]); 
+        $menus = Menu::where('hotel_id', auth()->user()->id)->pluck('item_name', 'id'); 
+        return view('orders.edit', ['order' => $order, 'hotels' => $hotels, 'tables' => $tables, 'servers' => $servers, 'menu_categories' => $menu_categories, 'menus' => $menus]); 
     }
 
     public function update(Order $order, Request $request) 
@@ -92,7 +95,8 @@ class OrdersController extends Controller
             'table_id' => 'required',
             'server_id' => 'required',
         ]);
-
+        
+        $request->merge(['balance_amount' => $request->total_amount]);
         $input = $request->all(); 
         $order->update($input);       
          
@@ -131,9 +135,17 @@ class OrdersController extends Controller
 
     public function updatePaymentData(Order $order, Request $request) 
     {
-        $input = $request->all();
-        $input['closed'] = "1";
-        $order->update($input);           
+        $input = $request->all();     
+        
+        $input['paid_amount'] = $request->input('paid_amount');
+        $input['order_id'] = $order->id;
+        OrderPaymentDetail::create($input);
+
+        if($order->total_amount == $order->balance_amount){
+            $input['closed'] = "1";
+            $order->update($input);
+        }          
+
         $request->session()->flash('success', 'Payment paid successfully!');
         return redirect()->route('orders.index');
     }

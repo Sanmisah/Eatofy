@@ -105,9 +105,9 @@
 
     <div class="main-container text-black dark:text-white-dark min-h-screen" :class="[$store.app.navbar]">
 
-        <x-common.sidebar />
+        
 
-        <div class="main-content">
+       
             <x-common.header />
             @if(Session::has('success'))
                 <x-common.alert :success='true'> {{ session('success') }} </x-common.alert> 
@@ -120,7 +120,7 @@
 
                 <x-common.footer />
             </div>
-        </div>
+        
     </div>
     <script src="/assets/js/alpine-collaspe.min.js"></script>
     <script src="/assets/js/alpine-persist.min.js"></script>

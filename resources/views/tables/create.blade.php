@@ -8,7 +8,7 @@
             <span>Add</span>
         </li>
     </ul>
-    <div class="pt-5">        
+    <div class="pt-5" x-data="data">        
         <form class="space-y-5" action="{{ route('tables.store') }}" method="POST">
             @csrf
             <div class="panel">
@@ -20,7 +20,16 @@
                     <input type="hidden" value="{{ $id }}" name="hotel_id"/>
                     @endforeach
                 </div>  
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                       
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">       
+                    <div>
+                        <label>Section :<span style="color: red">*</span></label>
+                        <select class="form-input" name="section_id" id="section_id">
+                            @foreach ($sections as $id=>$section)                                
+                                <option value="{{$id}}">{{$section}}</option>
+                            @endforeach
+                        </select> 
+                        <x-input-error :messages="$errors->get('section_id')" class="mt-2" /> 
+                    </div>                 
                     <x-text-input name="name" value="{{ old('name') }}" :label="__('Name')" :require="true" :messages="$errors->get('name')"/>  
                 </div>
                 <div class="flex justify-end mt-4">
@@ -36,4 +45,17 @@
         </form> 
     </div>
 </div> 
+<script>
+document.addEventListener("alpine:init", () => {
+    Alpine.data('data', () => ({         
+        init() {     
+            var options = {
+                searchable: true
+            };
+            NiceSelect.bind(document.getElementById("section_id"), options);
+        },   
+       
+    }));
+});
+</script> 
 </x-layout.default>

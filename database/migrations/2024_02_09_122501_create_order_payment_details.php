@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tables', function (Blueprint $table) {
+        Schema::create('order_payment_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('hotel_id',11)->nullable();
-            $table->foreignId('section_id',11)->nullable();
-            $table->string('name',100)->nullable();
+            $table->foreignId('order_id',11)->nullable();
+            $table->decimal('paid_amount',10,2)->nullable();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tables');
+        Schema::dropIfExists('order_payment_details');
     }
 };

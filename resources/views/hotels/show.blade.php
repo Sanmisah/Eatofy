@@ -3,7 +3,7 @@
 <div>
     <ul class="flex space-x-2 rtl:space-x-reverse">
         <li>
-            <a href="{{ route('hotels.index') }}" class="text-primary hover:underline">Hotels</a>
+            <a href="{{ route('dashboard') }}" class="text-primary hover:underline">Dashboard</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
             <span>Show</span>

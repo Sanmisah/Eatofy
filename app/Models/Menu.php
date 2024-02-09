@@ -11,6 +11,7 @@ class Menu extends Model
     protected $fillable = [
         'menu_category_id',
         'hotel_id',
+        'type',
         'item_name',
         'item_description',
         'rate',

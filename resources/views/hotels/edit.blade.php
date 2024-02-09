@@ -24,6 +24,7 @@
                     <x-text-input name="contact_no" value="{{ old('contact_no', $hotel->contact_no) }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" :require="true"/>                  
                     <x-text-input name="website_url" value="{{ old('website_url', $hotel->website_url) }}" :label="__('Website URL')" :messages="$errors->get('website_url')"/>
                     <x-text-input name="gstin" value="{{ old('gstin', $hotel->gstin) }}" :label="__('GSTIN')" :messages="$errors->get('gstin')" /> 
+                    <x-text-input name="fssai_no" value="{{ old('fssai_no', $hotel->fssai_no) }}" :label="__('FSSAI No')" :messages="$errors->get('fssai_no')" />
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1"> 
                     <x-text-input name="address" value="{{ old('address', $hotel->address) }}" :label="__('Address')" :messages="$errors->get('address')" :require="true"/> 
@@ -50,17 +51,7 @@
                         {{ __('Submit') }}
                     </x-success-button>
                 </div>
-            </div>
-            <div class="panel">
-                <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Owner Data</h5>
-                </div>
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
-                    <x-text-input name="owner_name" value="{{ old('owner_name', $hotel->owner_name) }}" :label="__('Owner Name')" :messages="$errors->get('owner_name')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>  
-                    <x-text-input name="owner_contact_no" value="{{ old('owner_contact_no', $hotel->owner_contact_no) }}" :label="__('Owner Contact No')" :messages="$errors->get('owner_contact_no')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/> 
-                    <x-text-input name="email" value="{{ old('email', $hotel->email) }}" :label="__('Email')" :messages="$errors->get('email')" class="bg-gray-100 dark:bg-gray-700" readonly="true"/>
-                </div>   
-            </div>
+            </div>            
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Staff Data</h5>

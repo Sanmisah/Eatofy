@@ -23,8 +23,12 @@ class Hotel extends Model
         'email',
         'owner_contact_no',
         'gstin',
+        'fssai_no',
         'expiry_date',
-        'tagline'
+        'tagline',
+        'partner_name',
+        'partner_contact_no',
+        'partner_email',
     ];
 
     public function User()

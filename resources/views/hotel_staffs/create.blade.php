@@ -27,10 +27,13 @@
                         <label>Role:<span style="color: red">*</span></label>
                         <select class="form-input" name="role" id="role">
                             <!-- <option value="">Select role</option> -->
-                            <option value='Store Manager'>Store Manager</option>
+                            <option value='Manager'>Manager</option>
                             <option value='Cashier'>Cashier</option>
                             <option value='Captain'>Captain</option>     
-                            <option value='Waiter'>Waiter</option>                                             
+                            <option value='Waiter'>Waiter</option>  
+                            <option value='Cleaner'>Cleaner</option>  
+                            <option value='Chef'>Chef</option>  
+                            <option value='Co-owner'>Co-owner</option>                                  
                         </select>
                     </div> 
                     <x-text-input name="salary" value="{{ old('salary') }}" :label="__('Salary')" :messages="$errors->get('salary')"/>

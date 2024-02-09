@@ -45,6 +45,23 @@
                     </div>
                     <x-text-input name="city" value="{{ old('city', $supplier->city) }}" :label="__('City')" :messages="$errors->get('city')" :require="true"/>
                     <x-text-input name="pincode" value="{{ old('pincode', $supplier->pincode) }}" :label="__('Pincode')" :messages="$errors->get('pincode')" :require="true"/>
+                </div>                
+            </div>
+            <div class="panel">
+                <div class="flex items-center justify-between mb-5">
+                    <h5 class="font-semibold text-lg dark:text-white-light">Add Items</h5>
+                </div>
+                <div>
+                    <ul>
+                        @foreach($items as $id => $item)
+                        <li style="width:10%;display: inline-block;">
+                            <label class="inline-flex">     
+                                <input type="checkbox" name="item_name[]" value="{{ $item }}" {{ in_array($item, explode(',', $supplier_details->item_name)) ? 'checked' : '' }} class="form-checkbox outline-info">
+                                {{ $item }}
+                            </label>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
                 <div class="flex justify-end mt-4">
                     <x-cancel-button :link="route('suppliers.index')">

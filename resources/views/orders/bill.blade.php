@@ -79,6 +79,35 @@ use Carbon\Carbon;
                     </table>
                 </div>
             </div> 
+            <div class="panel">
+                <div class="flex items-center justify-between mb-5">
+                    <h5 class="font-semibold text-lg dark:text-white-light">Payment detail</h5>
+                </div>               
+                <div class="table-responsive">
+                    <table class="table-hover">
+                        <thead>
+                            <tr>                                                            
+                                <th>Total</th>
+                                <th>Discount Amount</th>
+                                <th>Total Amount</th>
+                                <th>Balance Amount</th>
+                                <th>Paid Amount</th>
+                            </tr>
+                        </thead>                        
+                        <tbody>                             
+                            <tr>
+                                <td>{{ @$order->total }}</td>
+                                <td>{{ @$order->discount_amount }}%</td>                                
+                                <td>{{ @$order->total_amount }}</td>
+                                <td>{{ @$order->balance_amount }}</td>
+                                <td>            
+                                    <x-text-input class="form-input" name="paid_amount" value="{{ old('paid_amount') }}" :messages="$errors->get('paid_amount')"/>
+                                </td>
+                            </tr>                            
+                        </tbody>                           
+                    </table>
+                </div>
+            </div>
             <div class="panel" x-data="data">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Payment mode</h5>
@@ -108,7 +137,7 @@ use Carbon\Carbon;
                         <x-text-input class="form-input" :label="__('UPI No')" name="upi_no" value="{{ old('upi_no') }}" :messages="$errors->get('upi_no')"/>
                     </div>    
                     <div>
-                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date') }}" :messages="$errors->get('payment_date')"/>
+                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ Carbon::now()->format('d/m/Y') }}" :messages="$errors->get('payment_date')"/>
                     </div>             
                 </div> 
                 <div class="flex justify-end mt-4">

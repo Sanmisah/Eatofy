@@ -6,9 +6,9 @@
             </h5>
             <table id="myTable" class="whitespace-nowrap table-hover">
                 @foreach ($tables as $value)
-                <tr>                    
-                    <td>{{ ($value->name) }}</td>
-                   
+                <tr> 
+                    <td>{{ $value->section_name }}</td>                   
+                    <td>{{ $value->name }}</td>                   
                     <td >
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
@@ -31,7 +31,7 @@
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ["Name", "Action"],
+                        headings: ["Section", "Name", "Action"],
                     },
                     searchable: true,
                     perPage: 30,

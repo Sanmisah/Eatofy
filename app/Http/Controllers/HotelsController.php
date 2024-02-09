@@ -39,16 +39,16 @@ class HotelsController extends Controller
         ]);     
          
         $input = $request->all();    
-        
+        //user table
         $input['name'] = $request->owner_name;
         $input['email'] = $request->email;
         $input['password'] = Hash::make($request->new_password);
         $input['active'] = true;  
         $user = User::create($input);         
-        $user->syncRoles('Owner');      
-
+        $user->syncRoles('Owner');  
+        //hotel table
         $hotel = $user->Hotel()->create($input);    
-        
+        //staff table
         $input['staff_name'] = $request->owner_name;
         $input['contact_no'] = $request->contact_no;
         $input['address'] = $request->address;
@@ -56,6 +56,23 @@ class HotelsController extends Controller
         $input['role'] = 'Owner';
         $input['email'] = $request['email'];
         $hotelStaff = HotelStaff::create($input);
+        // if partner detail add
+        if(!empty($request->partner_name) && !empty($request->partner_email) && !empty($request->partner_password)){
+            $input['name'] = $request->partner_name;
+            $input['email'] = $request->partner_email;
+            $input['password'] = Hash::make($request->partner_password);
+            $input['active'] = true;  
+            $user = User::create($input);         
+            $user->syncRoles('Co-owner'); 
+
+            $input['staff_name'] = $request->partner_name;
+            $input['contact_no'] = $request->partner_contact_no;
+            $input['hotel_id'] = $hotel->id;
+            $input['role'] = 'Co-owner';
+            $input['email'] = $request['partner_email'];
+            $hotelStaff = HotelStaff::create($input);
+        }
+
         $request->session()->flash('success', 'Form saved successfully!');
         return redirect()->route('hotels.index');         
     }

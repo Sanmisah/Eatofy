@@ -10,6 +10,7 @@ use App\Models\OrderDetail;
 use App\Models\Table;
 use App\Models\Server;
 use App\Models\Hotel;
+use App\Models\OrderPaymentDetail;
 use Illuminate\Support\Str;
 
 class Order extends Model
@@ -19,6 +20,7 @@ class Order extends Model
         'hotel_id',
         'bill_date',
         'bill_no',
+        'order_type',
         'mobile_no',
         'customer_name',
         'table_id',
@@ -26,6 +28,7 @@ class Order extends Model
         'total',
         'discount_amount',
         'total_amount',
+        'balance_amount',
         'payment_mode',
         'cheque_no',
         'bank_name',
@@ -60,6 +63,11 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class, 'order_id');
     }
 
+    public function OrderPaymentDetails() 
+    {
+        return $this->hasMany(OrderPaymentDetail::class, 'order_id');
+    }
+
     public function Table() 
     {
         return $this->belongsTo(Table::class);
@@ -79,4 +87,9 @@ class Order extends Model
         });
     }
     
+    public function getTotalPaidAmount($order_id)
+    {
+        $orderPaymentDetail = OrderPaymentDetail::where('order_id', $order_id);
+        return $orderPaymentDetail->sum('paid_amount');
+    }
 }

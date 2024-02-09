@@ -114,6 +114,7 @@ class PurchasesController extends Controller
             'supplier_id' => 'required',
             'invoice_no' => 'required',
         ]); 
+        $request->merge(['balance_amount' => $request->total_amount]);
         $input = $request->all(); 
         $purchase->update($input);   
         $data = $request->collect('purchase_details');  

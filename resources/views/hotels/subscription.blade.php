@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon; 
+?>
 <x-layout.default>   
 <div>
     <ul class="flex space-x-2 rtl:space-x-reverse">
@@ -67,7 +70,7 @@
                         <x-text-input class="form-input" :label="__('UPI No')" name="upi_no" value="{{ old('upi_no') }}" :messages="$errors->get('upi_no')"/>
                     </div>    
                     <div>
-                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ old('payment_date') }}" :messages="$errors->get('payment_date')" :require="true" />
+                        <x-text-input class="form-input" :label="__('Payment Date')" id="payment_date" name="payment_date" value="{{ Carbon::now()->format('d/m/Y') }}" :messages="$errors->get('payment_date')" :require="true" />
                     </div>             
                 </div> 
                 <div class="flex justify-end mt-4">

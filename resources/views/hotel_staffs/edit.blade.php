@@ -28,10 +28,13 @@
                         <label>Role:<span style="color: red">*</span></label>
                         <select class="form-input" name="role" id="role">
                             <!-- <option selected disabled>Select Role</option> -->
-                            <option value="Store Manager" @if ($hotel_staff->role == 'Store Manager') {{ 'Selected' }} @endif>Store Manager</option>
-                            <option value="Cashier" @if ($hotel_staff->role == 'Cashier') {{ 'Selected' }} @endif>Cashier</option>  
+                            <option value='Manager' @if ($hotel_staff->role == 'Manager') {{ 'Selected' }} @endif>Manager</option>
+                            <option value='Cashier' @if ($hotel_staff->role == 'Cashier') {{ 'Selected' }} @endif>Cashier</option>
                             <option value='Captain' @if ($hotel_staff->role == 'Captain') {{ 'Selected' }} @endif>Captain</option>     
-                            <option value='Waiter' @if ($hotel_staff->role == 'Waiter') {{ 'Selected' }} @endif>Waiter</option>   
+                            <option value='Waiter' @if ($hotel_staff->role == 'Waiter') {{ 'Selected' }} @endif>Waiter</option>  
+                            <option value='Cleaner' @if ($hotel_staff->role == 'Cleaner') {{ 'Selected' }} @endif>Cleaner</option>  
+                            <option value='Chef' @if ($hotel_staff->role == 'Chef') {{ 'Selected' }} @endif>Chef</option>  
+                            <option value='Co-owner' @if ($hotel_staff->role == 'Co-owner') {{ 'Selected' }} @endif>Co-owner</option>
                         </select>
                     </div> 
                     <x-text-input name="salary" value="{{ old('salary', $hotel_staff->salary) }}" :label="__('Salary')" :messages="$errors->get('salary')"/>

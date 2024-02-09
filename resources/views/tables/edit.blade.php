@@ -21,7 +21,16 @@
                     <input type="hidden" value="{{ $id }}" name="hotel_id"/>
                     @endforeach
                 </div> 
-                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">                    
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">   
+                    <div>
+                        <label>Section:<span style="color: red">*</span></label>
+                        <select class="form-input" name="section_id" required="true" id="section_id">
+                            @foreach ($sections as $id => $section)
+                                <option value="{{$id}}" {{ $table->section_id ? ($table->section_id == $id ? 'Selected' : '' ) : ''}}>{{ $section }}</option>
+                            @endforeach
+                        </select> 
+                        <x-input-error :messages="$errors->get('section_id')" class="mt-2" /> 
+                    </div>                 
                     <x-text-input name="name" value="{{ old('name', $table->name) }}" :label="__('Name')" :require="true" :messages="$errors->get('name')"/> 
                 </div>
                 <div class="flex justify-end mt-4">
@@ -36,5 +45,18 @@
             </div>
             </form>
         </div>
-    </div>    
+    </div>   
+    <script>
+        document.addEventListener("alpine:init", () => {
+            Alpine.data('data', () => ({         
+                init() {     
+                    var options = {
+                        searchable: true
+                    };
+                    NiceSelect.bind(document.getElementById("section_id"), options);
+                },   
+            
+            }));
+        });
+    </script>  
 </x-layout.default>

@@ -5,6 +5,7 @@ use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Purchase;
+use App\Models\SupplierDetail;
 
 class Supplier extends Model
 {
@@ -24,5 +25,10 @@ class Supplier extends Model
     public function Purchase() 
     {
         return $this->belongsTo(Purchase::class);
+    }
+
+    public function SupplierDetails() 
+    {
+        return $this->hasMany(SupplierDetail::class, 'supplier_id');
     }
 }

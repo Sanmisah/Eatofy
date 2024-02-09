@@ -75,7 +75,7 @@ class HotelStaffsController extends Controller
             'contact_no' => 'required',
             'role' => 'required',            
             'address' => 'required',
-            'email' => 'required',
+           
         ]);         
         $hotel_staff->update($request->all());
         $request->session()->flash('success', 'Staff updated successfully!');

@@ -7,7 +7,7 @@
                 @foreach ($store_issues as $store_issue)
                 <tr>              
                     <td>{{ $store_issue->issue_no}}</td> 
-                    <!-- <td>{{ $store_issue->Hotel->owner_name }}</td> -->
+                   
                     <td>{{ $store_issue->issue_date}}</td>
                     <td>
                         <ul class="flex items-center gap-2" >

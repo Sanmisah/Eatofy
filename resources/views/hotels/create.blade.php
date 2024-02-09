@@ -23,6 +23,7 @@
                     <x-text-input name="contact_no" value="{{ old('contact_no') }}" :label="__('Contact No')" :messages="$errors->get('contact_no')" :require="true"/>                  
                     <x-text-input name="website_url" value="{{ old('website_url') }}" :label="__('Website URL')" :messages="$errors->get('website_url')"/>
                     <x-text-input name="gstin" value="{{ old('gstin') }}" :label="__('GSTIN')" :messages="$errors->get('gstin')" /> 
+                    <x-text-input name="fssai_no" value="{{ old('fssai_no') }}" :label="__('FSSAI No')" :messages="$errors->get('fssai_no')" />
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1"> 
                     <x-text-input name="address" value="{{ old('address') }}" :label="__('Address')" :messages="$errors->get('address')" :require="true"/> 
@@ -50,6 +51,17 @@
                     <x-text-input name="owner_contact_no" value="{{ old('owner_contact_no') }}" :label="__('Owner Contact No')" :messages="$errors->get('owner_contact_no')" :require="true"/> 
                     <x-text-input name="email" :email="true" :label="__('Email')" :messages="$errors->get('email')" :require="true"/>
                     <x-text-input name="new_password" type="password" :label="__('Password')" :messages="$errors->get('new_password')" :require="true"/>
+                </div> 
+            </div> 
+            <div class="panel">
+                <div class="flex items-center justify-between mb-5">
+                    <h5 class="font-semibold text-lg dark:text-white-light">Add Partner Data</h5>
+                </div>
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
+                    <x-text-input name="partner_name" value="{{ old('partner_name') }}" :label="__('Partner Name')" :messages="$errors->get('partner_name')"/>          
+                    <x-text-input name="partner_contact_no" value="{{ old('partner_contact_no') }}" :label="__('Partner Contact No')" :messages="$errors->get('partner_contact_no')"/> 
+                    <x-text-input name="partner_email" :email="true" :label="__('Partner Email')" :messages="$errors->get('partner_email')" />
+                    <x-text-input name="partner_password" type="password" :label="__('Partner Password')" :messages="$errors->get('partner_password')"/>
                 </div>         
                 <div class="flex justify-end mt-4">
                     <x-success-button>

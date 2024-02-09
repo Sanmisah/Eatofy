@@ -31,6 +31,15 @@
                         </select> 
                         <x-input-error :messages="$errors->get('category')" class="mt-2" /> 
                     </div>
+                    <div>
+                        <label>Food Type:<span style="color: red">*</span></label>
+                        <select class="form-input" name="type" id="type">
+                            <option value='Veg'>Veg</option>
+                            <option value='Non-Veg'>Non-Veg</option>
+                            <option value='Jain Food'>Jain Food</option>
+                        </select>
+                        <x-input-error :messages="$errors->get('type')" class="mt-2" /> 
+                    </div> 
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="item_name" value="{{ old('item_name') }}" :label="__('Item Name')" :require="true" :messages="$errors->get('item_name')"/>   
@@ -62,6 +71,7 @@ document.addEventListener("alpine:init", () => {
                 searchable: true
             };
             NiceSelect.bind(document.getElementById("menu_category_id"), options);
+            NiceSelect.bind(document.getElementById("type"), options);
         },          
         menu_category_id: '',
         menuData:'',

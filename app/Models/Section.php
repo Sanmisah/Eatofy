@@ -5,12 +5,11 @@ use App\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Table extends Model
+class Section extends Model
 {
     use HasFactory, CreatedUpdatedBy;
     protected $fillable = [
         'hotel_id',
-        'section_id',
-        'name',
+        'section_name',
     ];
 }

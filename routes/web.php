@@ -16,6 +16,7 @@ use App\Http\Controllers\TablesController;
 use App\Http\Controllers\ServersController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\SectionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +87,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/{hotel}/subscription', 'HotelsController@subscription')->name('hotels.subscription');
         Route::patch('hotels/storeSubscription/{hotel}', 'HotelsController@storeSubscription')->name('hotels.storeSubscription');
         Route::patch('hotels/updateTagLine/{hotel}', 'HotelsController@updateTagLine')->name('hotels.updateTagLine');
+        Route::resource('sections', SectionsController::class);
     });
 
     Route::group(['middleware' => ['auth']], function() {  

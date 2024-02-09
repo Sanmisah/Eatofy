@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use App\Models\SupplierDetail;
 use App\Models\Hotel;
+use App\Models\Item;
 
 class SuppliersController extends Controller
 {
@@ -26,8 +28,9 @@ class SuppliersController extends Controller
         if($authUser == 'Owner'){                       
             $conditions[] = ['id', auth()->user()->id];
         } 
-        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id');  
-        return view('suppliers.create')->with(['hotels' => $hotels]);
+        $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id'); 
+        $items = Item::where('hotel_id', auth()->user()->id)->pluck('name', 'id'); 
+        return view('suppliers.create')->with(['hotels' => $hotels, 'items' => $items]);
     }
 
     public function store(Request $request) 
@@ -42,7 +45,12 @@ class SuppliersController extends Controller
             'pincode' => 'required',
         ]);         
         $input = $request->all();
-        Supplier::create($input);
+        $supplier = Supplier::create($input);
+
+        $input['item_name'] = implode(',', $request->input('item_name'));
+        $input['supplier_id'] = $supplier->id;
+        SupplierDetail::create($input);
+
         $request->session()->flash('success', 'Supplier saved successfully!');
         return redirect()->route('suppliers.index');         
     }
@@ -55,7 +63,9 @@ class SuppliersController extends Controller
             $conditions[] = ['id', auth()->user()->id];
         } 
         $hotels = Hotel::where($conditions)->pluck('hotel_name', 'id');
-        return view('suppliers.edit', ['hotels' => $hotels, 'supplier' => $supplier]);
+        $items = Item::where('hotel_id', auth()->user()->id)->pluck('name', 'id');        
+        $supplier_details = SupplierDetail::where('supplier_id', $supplier->id)->first();
+        return view('suppliers.edit', ['hotels' => $hotels, 'supplier' => $supplier, 'items' => $items, 'supplier_details' => $supplier_details]);
     }
 
     public function update(Supplier $supplier, Request $request) 
@@ -69,7 +79,13 @@ class SuppliersController extends Controller
             'city' => 'required',
             'pincode' => 'required',
         ]); 
-        $supplier->update($request->all());    
+        $input = $request->all();
+        $supplier->update($input);    
+
+        $input['item_name'] = implode(',', $request->input('item_name'));
+        $supplier_details = SupplierDetail::where('supplier_id', $supplier->id)->first();
+        $supplier_details->update($input);    
+        
         $request->session()->flash('success', 'Supplier updated successfully!');
         return redirect()->route('suppliers.index');
     }

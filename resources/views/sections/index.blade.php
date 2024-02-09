@@ -1,32 +1,21 @@
 <x-layout.default>
     <div x-data="multicolumn">        
-        <x-add-button :link="route('menus.create')" />
+        <x-add-button :link="route('sections.create')" />
         <div class="panel mt-6 table-responsive">
-            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Menus
+            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Sections
             </h5>
             <table id="myTable" class="whitespace-nowrap table-hover">
-                @foreach ($menus as $menu)
+                @foreach ($sections as $value)
                 <tr>                    
-                    <td>{{ $menu->menu_category_name }}</td>
-                    <td>{{ $menu->type }}</td>
-                    <td>
-                        @if($menu->type == 'Veg')
-                            <span class="badge rounded-full badge-outline-success">{{ $menu->item_name }}</span>
-                        @elseif($menu->type == 'Non-Veg')
-                            <span class="badge rounded-full badge-outline-danger">{{ $menu->item_name }}</span>
-                        @elseif($menu->type == 'Jain Food')
-                            <span class="badge rounded-full badge-outline-warning">{{ $menu->item_name }}</span>
-                        @endif
-                    </td>
-                    <td>{{ $menu->rate }}</td>
-                    <td>{{ $menu->gst_rate }}%</td>
-                    <td>
+                    <td>{{ ($value->section_name) }}</td>
+                   
+                    <td >
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-edit-button :link=" route('menus.edit', $menu->id)" />                               
+                                <x-edit-button :link=" route('sections.edit', $value->id)" />                               
                             </li>
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-delete-button :link=" route('menus.destroy',$menu->id)" />  
+                                <x-delete-button :link=" route('sections.destroy',$value->id)" />  
                             </li>   
                         </ul>
                     </td>
@@ -42,7 +31,7 @@
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ["Category", "Type", "Menu Name", "Rate", "GST Rate", "Action"],
+                        headings: ["Name", "Action"],
                     },
                     searchable: true,
                     perPage: 30,

@@ -27,6 +27,13 @@ use Carbon\Carbon;
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="bill_date" value="{{ old('bill_date', Carbon::now()->format('d/m/Y')) }}" :label="__('Bill Date')" id="bill_date" class="bg-gray-100 dark:bg-gray-700" readonly="true" :messages="$errors->get('bill_date')"/>                    
                     <x-text-input name="bill_no" value="{{ old('bill_no', $order->bill_no) }}" :label="__('Bill No')"  :messages="$errors->get('bill_no')" class="bg-gray-100 dark:bg-gray-700" readonly="true" />  
+                    <div>
+                        <label>Order Type:<span style="color: red">*</span></label>
+                        <select class="form-input" name="order_type" id="order_type">
+                            <option value='Dine-In' @if ($order->order_type == 'Dine-In') {{ 'Selected' }} @endif>Dine-In</option>
+                            <option value='Delivery' @if ($order->order_type == 'Delivery') {{ 'Selected' }} @endif>Delivery</option>
+                        </select>
+                    </div> 
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">
                     <x-text-input name="customer_name" value="{{ old('customer_name', $order->customer_name) }}" :label="__('Customer Name')" :messages="$errors->get('customer_name')"/>
@@ -42,7 +49,7 @@ use Carbon\Carbon;
                         <x-input-error :messages="$errors->get('table_id')" class="mt-2" /> 
                     </div> 
                     <div>
-                        <label>Server :<span style="color: red">*</span></label>
+                        <label>Waiter :<span style="color: red">*</span></label>
                         <select class="form-input" name="server_id" id="server_id">
                             <!-- <option value="">Select Server</option> -->
                             @foreach ($servers as $id=>$server)                                
@@ -190,6 +197,7 @@ document.addEventListener("alpine:init", () => {
             };
             NiceSelect.bind(document.getElementById("table_id"), options);
             NiceSelect.bind(document.getElementById("server_id"), options);
+            NiceSelect.bind(document.getElementById("order_type"), options);
 
             flatpickr(document.getElementById('bill_date'), {
                 dateFormat: 'd/m/Y',
@@ -245,6 +253,7 @@ document.addEventListener("alpine:init", () => {
             },
             })).json();
             this.orderDetail.rate = this.menuData.rate;
+            console.log(this.orderDetail.rate);
         },
 
         orderDetails: [],
