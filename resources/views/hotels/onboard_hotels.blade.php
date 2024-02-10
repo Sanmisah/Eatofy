@@ -1,4 +1,8 @@
-
+<?php
+// use Carbon\Carbon; 
+// $today_date = Carbon::now()->format('d/m/Y');
+// echo $today_date;
+?>
 <x-layout.default>
     <div x-data="multicolumn">        
         <x-add-button :link="route('hotels.create')" />
@@ -27,7 +31,7 @@
                             @else
                                 <span class="badge bg-info/20 text-info rounded-full hover:top-0">{{$hotel->expiry_date }}</span>                            
                         @endif 
-                    </td>  
+                    </td> 
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">

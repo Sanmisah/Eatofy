@@ -2,7 +2,7 @@
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
             <li>
-                <a href="{{ route('servers.index') }}" class="text-primary hover:underline">Server</a>
+                <a href="{{ route('servers.index') }}" class="text-primary hover:underline">Waiter</a>
             </li>
             <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
                 <span>Edit</span>
@@ -14,7 +14,7 @@
             @method('PATCH')
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Edit Server</h5>
+                    <h5 class="font-semibold text-lg dark:text-white-light">Edit Waiter</h5>
                 </div>   
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                     @foreach ($hotels as $id => $hotel)

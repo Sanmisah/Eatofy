@@ -1,4 +1,3 @@
-
 <x-layout.default>
     <div x-data="multicolumn">        
         <x-add-button :link="route('hotels.create')" />
@@ -20,14 +19,7 @@
                     <td>{{ $hotel->owner_name }}</td>
                     <td>{{ $hotel->owner_contact_no }}</td>
                     <td>{{ $hotel->city }}</td> 
-                    <td>{{ $hotel->gstin }}</td>  
-                    <td>
-                        @if($hotel->expiry_date <  Carbon\Carbon::today()->format('d/m/Y'))                           
-                                <span class="badge bg-danger/20 text-danger rounded-full hover:top-0">{{$hotel->expiry_date }}</span> 
-                            @else
-                                <span class="badge bg-info/20 text-info rounded-full hover:top-0">{{$hotel->expiry_date }}</span>                            
-                        @endif 
-                    </td>  
+                    <td>{{ $hotel->gstin }}</td>                          
                     <td class="float-right">
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
@@ -53,7 +45,7 @@
                 init() {
                     this.datatable = new simpleDatatables.DataTable('#myTable', {
                         data: {
-                            headings: ["Hotel Name", "Hotel Contact No", "Owner Name", "Owner Contact No", "City", "GSTIN", "Expiry Date", "Action"],
+                            headings: ["Hotel Name", "Hotel Contact No", "Owner Name", "Owner Contact No", "City", "GSTIN", "Action"],
                         },
                         searchable: true,
                         perPage: 30,

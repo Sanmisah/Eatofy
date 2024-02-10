@@ -17,6 +17,7 @@ use App\Http\Controllers\ServersController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\SectionsController;
+use App\Http\Controllers\TeamsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +65,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('profile', 'ProfileController@index')->name('profile.change');    
         Route::get('purchases/getPurchaseData/{id}', 'PurchasesController@getPurchaseData')->name('purchases.getPurchaseData');
         Route::get('menu_categories/getMenuData/{id}/', 'MenuCategoriesController@getMenuData')->name('menu_categories.getMenuData');
+        Route::get('hotels/onboard_hotels', 'HotelsController@onboardHotels')->name('hotels.onboard_hotels');
+        Route::get('hotels/register_hotels', 'HotelsController@registerHotels')->name('hotels.register_hotels');
         /**
          * Masters Route
          */   
@@ -87,7 +90,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/{hotel}/subscription', 'HotelsController@subscription')->name('hotels.subscription');
         Route::patch('hotels/storeSubscription/{hotel}', 'HotelsController@storeSubscription')->name('hotels.storeSubscription');
         Route::patch('hotels/updateTagLine/{hotel}', 'HotelsController@updateTagLine')->name('hotels.updateTagLine');
-        Route::resource('sections', SectionsController::class);
+        Route::resource('sections', SectionsController::class);   
+        Route::resource('teams', TeamsController::class);   
     });
 
     Route::group(['middleware' => ['auth']], function() {  

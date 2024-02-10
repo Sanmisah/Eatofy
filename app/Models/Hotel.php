@@ -29,6 +29,7 @@ class Hotel extends Model
         'partner_name',
         'partner_contact_no',
         'partner_email',
+        'status',
     ];
 
     public function User()

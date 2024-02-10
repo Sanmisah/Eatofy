@@ -13,6 +13,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use App\Models\Hotel;
 use App\Models\HotelStaff;
+use App\Models\Team;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,11 @@ class User extends Authenticatable
     public function Hotel()
     {
         return $this->hasOne(Hotel::class, 'id');
+    }
+
+    public function Team()
+    {
+        return $this->hasOne(Team::class, 'id');
     }
 
     public function HotelStaff()

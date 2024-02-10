@@ -1,21 +1,23 @@
 <x-layout.default>
     <div x-data="multicolumn">        
-        <x-add-button :link="route('servers.create')" />
+        <x-add-button :link="route('teams.create')" />
         <div class="panel mt-6 table-responsive">
-            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Waiter
+            <h5 class="md:absolute md:top-[25px] md:mb-0 mb-5 font-semibold text-lg dark:text-white-light">Teams
             </h5>
             <table id="myTable" class="whitespace-nowrap table-hover">
-                @foreach ($servers as $value)
+                @foreach ($teams as $team)
                 <tr>                    
-                    <td>{{ ($value->name) }}</td>
-                   
+                    <td>{{ $team->name }}</td>
+                    <td>{{ $team->email }}</td>
+                    <td>{{ $team->contact_no }}</td>
+                    <td>{{ $team->role }}</td>
                     <td>
                         <ul class="flex items-center gap-2" >
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-edit-button :link=" route('servers.edit', $value->id)" />                               
+                                <x-edit-button :link=" route('teams.edit', $team->id)" />                               
                             </li>
                             <li style="display: inline-block;vertical-align:top;">
-                                <x-delete-button :link=" route('servers.destroy',$value->id)" />  
+                                <x-delete-button :link=" route('teams.destroy',$team->id)" />  
                             </li>   
                         </ul>
                     </td>
@@ -31,7 +33,7 @@
             init() {
                 this.datatable = new simpleDatatables.DataTable('#myTable', {
                     data: {
-                        headings: ["Name", "Action"],
+                        headings: ["Name", "Email", "Contact No", "Role", "Action"],
                     },
                     searchable: true,
                     perPage: 30,

@@ -140,8 +140,10 @@ class OrdersController extends Controller
         $input['paid_amount'] = $request->input('paid_amount');
         $input['order_id'] = $order->id;
         OrderPaymentDetail::create($input);
-
-        if($order->total_amount == $order->balance_amount){
+        
+        $sum = OrderPaymentDetail::where('order_id', $order->id)->sum('paid_amount');
+        
+        if( $sum == $order->total_amount){
             $input['closed'] = "1";
             $order->update($input);
         }          

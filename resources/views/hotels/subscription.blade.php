@@ -135,7 +135,9 @@ document.addEventListener("alpine:init", () => {
             })).json();
             this.validity_in_days = this.packageData.validity_in_days;
             this.cost = this.packageData.cost;
-            this.dateChange();
+            @if(isset($subscription->subscription_date)) 
+                this.dateChange();
+            @endif
         },    
         
         paymentMode: '',

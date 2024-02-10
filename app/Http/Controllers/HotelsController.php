@@ -16,7 +16,7 @@ class HotelsController extends Controller
 {
     public function index()
     {
-        $hotels = Hotel::orderBy('id', 'DESC')->get();   
+        $hotels = Hotel::orderBy('id', 'DESC')->get();           
         return view('hotels.index', ['hotels' => $hotels]);
     }
 
@@ -173,6 +173,8 @@ class HotelsController extends Controller
         Subscription::create($input); 
 
         $input['expiry_date'] = $request->expiry_date;
+        $input['status'] = 'Onboard';
+        // dd($input);
         $hotel->update($input);
 
         $request->session()->flash('success', 'Subscription Done successfully!');
@@ -184,6 +186,18 @@ class HotelsController extends Controller
         $hotel->update($request->all());    
         $request->session()->flash('success', 'Tagline updated successfully!');
         return redirect()->route('dashboard');
+    }
+
+    public function registerHotels()
+    {             
+        $hotels = Hotel::where('status', 'Register')->orderBy('id', 'DESC')->get();    
+        return view('hotels.register_hotels', ['hotels' => $hotels]);         
+    }
+
+    public function onboardHotels()
+    {
+        $hotels = Hotel::where('status', 'Onboard')->orderBy('id', 'DESC')->get();
+        return view('hotels.onboard_hotels', ['hotels' => $hotels]);            
     }
     
 }
