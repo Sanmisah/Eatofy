@@ -5,8 +5,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/css/app.css',
-                'resources/js/app.js',
+                'resources/css/app.css', 'resources/js/app.js',
                 'resources/css/highlight.min.css',
                 'resources/css/easymde.min.css',
                 'resources/css/fancybox.css',
@@ -20,7 +19,7 @@ export default defineConfig({
                 'resources/css/nouislider.min.css',
                 'resources/css/quill.snow.css',
                 'resources/css/swiper-bundle.min.css',
-                'resources/css/tippy.css'                
+                'resources/css/tippy.css'
             ],
             refresh: true,
         }),

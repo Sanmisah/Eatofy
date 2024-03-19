@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
 
-    
+
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/flatpickr.min.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/highlight.min.css') }}">
     <link rel='stylesheet' type='text/css' href="{{ Vite::asset('resources/css/nice-select2.css') }}">
@@ -110,9 +110,9 @@
         <div class="main-content">
             <x-common.header />
             @if(Session::has('success'))
-                <x-common.alert :success='true'> {{ session('success') }} </x-common.alert> 
+                <x-common.alert :success='true'> {{ session('success') }} </x-common.alert>
             @elseif(Session::has('error'))
-                <x-common.alert > {{ session('error') }} </x-common.alert > 
+                <x-common.alert > {{ session('error') }} </x-common.alert >
             @endif
 
             <div class="p-6 animate__animated" :class="[$store.app.animation]">

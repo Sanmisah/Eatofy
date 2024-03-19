@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('hotel_id',11)->nullable();
             $table->date('bill_date')->nullable();
             $table->string('bill_no',50)->nullable();
-            $table->string('order_type',20)->nullable();
             $table->string('mobile_no',50)->nullable();
             $table->string('customer_name', 100)->nullable();
             $table->foreignId('table_id',11)->nullable();

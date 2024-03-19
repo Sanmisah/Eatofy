@@ -28,7 +28,7 @@
                     <a href="/dashboard">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'dashboard' }"
                         @click="activeDropdown === 'dashboard' ? activeDropdown = null : activeDropdown = 'dashboard'">
-                        
+
                         <div class="flex items-center">
                             <svg class="group-hover:!text-primary shrink-0" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,11 +41,11 @@
                             </svg>
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Dashboard</span>
-                        </div>                                    
+                        </div>
                     </button>
-                    </a>  
+                    </a>
                 </li>
-                @endrole  
+                @endrole
                 @role(['Owner'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'my_hotel' }"
@@ -73,12 +73,12 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'my_hotel'" x-collapse class="sub-menu text-gray-500">                    
+                    <ul x-cloak x-show="activeDropdown === 'my_hotel'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/hotels/show">My Hotel</a></li>
                     </ul>
-                </li> 
-                @endrole  
-                @role(['Admin', 'Root']) 
+                </li>
+                @endrole
+                @role(['Admin', 'Root'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'restaurants' }"
                         @click="activeDropdown === 'restaurants' ? activeDropdown = null : activeDropdown = 'restaurants'">
@@ -97,7 +97,7 @@
                             </svg>
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Restaurant </span>
-                        </div>                   
+                        </div>
                         <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -106,15 +106,15 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'restaurants'" x-collapse class="sub-menu text-gray-500">                   
+                    <ul x-cloak x-show="activeDropdown === 'restaurants'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/hotels">Hotels</a></li>
-                        <li><a href="/hotels/register_hotels">Register Restaurants</a></li>    
-                        <li><a href="/hotels/onboard_hotels">OnBoard Restaurants</a></li> 
-                        <li><a href="/teams">Teams</a></li>                                  
+                        <li><a href="/hotels/register_hotels">Register Restaurants</a></li>
+                        <li><a href="/hotels/onboard_hotels">OnBoard Restaurants</a></li>
+                        <li><a href="/teams">Teams</a></li>
                     </ul>
-                </li>     
-                @endrole  
-                @role(['Admin', 'Root']) 
+                </li>
+                @endrole
+                @role(['Admin', 'Root'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'packages' }"
                         @click="activeDropdown === 'packages' ? activeDropdown = null : activeDropdown = 'packages'">
@@ -133,7 +133,7 @@
                             </svg>
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Package</span>
-                        </div>                   
+                        </div>
                         <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,12 +142,12 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'packages'" x-collapse class="sub-menu text-gray-500">                   
-                        <li><a href="/packages">Packages</a></li>                            
+                    <ul x-cloak x-show="activeDropdown === 'packages'" x-collapse class="sub-menu text-gray-500">
+                        <li><a href="/packages">Packages</a></li>
                     </ul>
-                </li>     
-                @endrole      
-                @role(['Owner'])       
+                </li>
+                @endrole
+                @role(['Owner'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'master' }"
                         @click="activeDropdown === 'master' ? activeDropdown = null : activeDropdown = 'master'">
@@ -166,7 +166,7 @@
                             </svg>
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Master  </span>
-                        </div>                   
+                        </div>
                         <div class="right_arrow">
                             <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -175,12 +175,12 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500"> 
+                    <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/sections">Sections</a></li>
                         <li><a href="/tables">Tables</a></li>
-                        <li><a href="/servers">Waiters</a></li>                   
+                        <li><a href="/servers">Waiters</a></li>
                     </ul>
-                </li>  
+                </li>
                 @endrole
                 @role(['Owner'])
                 <li class="menu nav-item relative">
@@ -205,12 +205,12 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'menus'" x-collapse class="sub-menu text-gray-500">                    
+                    <ul x-cloak x-show="activeDropdown === 'menus'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/menu_categories">Menu Category</a></li>
-                        <li><a href="/menus">Menus</a></li>                   
+                        <li><a href="/menus">Menus</a></li>
                     </ul>
-                </li> 
-                @endrole     
+                </li>
+                @endrole
                 @role(['Owner'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'items' }"
@@ -227,7 +227,7 @@
                                 <path
                                     d="M8 3.5C8 2.67157 8.67157 2 9.5 2H14.5C15.3284 2 16 2.67157 16 3.5V4.5C16 5.32843 15.3284 6 14.5 6H9.5C8.67157 6 8 5.32843 8 4.5V3.5Z"
                                     stroke="currentColor" stroke-width="1.5" />
-                            </svg>        
+                            </svg>
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Item </span>
                         </div>
@@ -239,12 +239,12 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'items'" x-collapse class="sub-menu text-gray-500">                    
+                    <ul x-cloak x-show="activeDropdown === 'items'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/item_categories">Item Category</a></li>
-                        <li><a href="/items">Items</a></li>                     
+                        <li><a href="/items">Items</a></li>
                     </ul>
-                </li> 
-                @endrole  
+                </li>
+                @endrole
                 @role(['Owner'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'peoples' }"
@@ -257,7 +257,7 @@
                                 <path
                                     d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18"
                                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                            </svg>            
+                            </svg>
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">People </span>
                         </div>
@@ -269,12 +269,12 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'peoples'" x-collapse class="sub-menu text-gray-500">                    
+                    <ul x-cloak x-show="activeDropdown === 'peoples'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/hotel_staffs">Staffs</a></li>
-                        <li><a href="/suppliers">Suppliers</a></li>                   
+                        <li><a href="/suppliers">Suppliers</a></li>
                     </ul>
-                </li> 
-                @endrole  
+                </li>
+                @endrole
                 @role(['Owner'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'transactions' }"
@@ -302,13 +302,13 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'transactions'" x-collapse class="sub-menu text-gray-500">                    
+                    <ul x-cloak x-show="activeDropdown === 'transactions'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/purchases">Purchases</a></li>
-                        <li><a href="/store_issues">Store Issues</a></li> 
-                        <li><a href="/payments">Payments</a></li>                   
+                        <li><a href="/store_issues">Store Issues</a></li>
+                        <li><a href="/payments">Payments</a></li>
                     </ul>
-                </li> 
-                @endrole    
+                </li>
+                @endrole
                 @role(['Owner'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'order_management' }"
@@ -340,11 +340,47 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'order_management'" x-collapse class="sub-menu text-gray-500"> 
-                        <li><a href="/orders">Orders</a></li>             
+                    <ul x-cloak x-show="activeDropdown === 'order_management'" x-collapse class="sub-menu text-gray-500">
+                        <li><a href="/orders">Orders</a></li>
                     </ul>
-                </li> 
-                @endrole   
+                </li>
+                <li class="menu nav-item relative">
+                    <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'order_management' }"
+                        @click="activeDropdown === 'order_management' ? activeDropdown = null : activeDropdown = 'order_management'">
+                        <div class="flex items-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="shrink-0">
+                                <path opacity="0.5"
+                                    d="M3 10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H13C16.7712 2 18.6569 2 19.8284 3.17157C21 4.34315 21 6.22876 21 10V14C21 17.7712 21 19.6569 19.8284 20.8284C18.6569 22 16.7712 22 13 22H11C7.22876 22 5.34315 22 4.17157 20.8284C3 19.6569 3 17.7712 3 14V10Z"
+                                    fill="currentColor" />
+                                <path
+                                    d="M16.5189 16.5013C16.6939 16.3648 16.8526 16.2061 17.1701 15.8886L21.1275 11.9312C21.2231 11.8356 21.1793 11.6708 21.0515 11.6264C20.5844 11.4644 19.9767 11.1601 19.4083 10.5917C18.8399 10.0233 18.5356 9.41561 18.3736 8.94849C18.3292 8.82066 18.1644 8.77687 18.0688 8.87254L14.1114 12.8299C13.7939 13.1474 13.6352 13.3061 13.4987 13.4811C13.3377 13.6876 13.1996 13.9109 13.087 14.1473C12.9915 14.3476 12.9205 14.5606 12.7786 14.9865L12.5951 15.5368L12.3034 16.4118L12.0299 17.2323C11.9601 17.4419 12.0146 17.6729 12.1708 17.8292C12.3271 17.9854 12.5581 18.0399 12.7677 17.9701L13.5882 17.6966L14.4632 17.4049L15.0135 17.2214L15.0136 17.2214C15.4394 17.0795 15.6524 17.0085 15.8527 16.913C16.0891 16.8004 16.3124 16.6623 16.5189 16.5013Z"
+                                    fill="currentColor" />
+                                <path
+                                    d="M22.3665 10.6922C23.2112 9.84754 23.2112 8.47812 22.3665 7.63348C21.5219 6.78884 20.1525 6.78884 19.3078 7.63348L19.1806 7.76071C19.0578 7.88348 19.0022 8.05496 19.0329 8.22586C19.0522 8.33336 19.0879 8.49053 19.153 8.67807C19.2831 9.05314 19.5288 9.54549 19.9917 10.0083C20.4545 10.4712 20.9469 10.7169 21.3219 10.847C21.5095 10.9121 21.6666 10.9478 21.7741 10.9671C21.945 10.9978 22.1165 10.9422 22.2393 10.8194L22.3665 10.6922Z"
+                                    fill="currentColor" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M7.25 9C7.25 8.58579 7.58579 8.25 8 8.25H14.5C14.9142 8.25 15.25 8.58579 15.25 9C15.25 9.41421 14.9142 9.75 14.5 9.75H8C7.58579 9.75 7.25 9.41421 7.25 9ZM7.25 13C7.25 12.5858 7.58579 12.25 8 12.25H11C11.4142 12.25 11.75 12.5858 11.75 13C11.75 13.4142 11.4142 13.75 11 13.75H8C7.58579 13.75 7.25 13.4142 7.25 13ZM7.25 17C7.25 16.5858 7.58579 16.25 8 16.25H9.5C9.91421 16.25 10.25 16.5858 10.25 17C10.25 17.4142 9.91421 17.75 9.5 17.75H8C7.58579 17.75 7.25 17.4142 7.25 17Z"
+                                    fill="currentColor" />
+                            </svg>
+                            <span
+                                class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Reports</span>
+                        </div>
+                        <div class="right_arrow">
+                            <svg class="w-4 h-4 rotate-90" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </button>
+                    <ul x-cloak x-show="activeDropdown === 'order_management'" x-collapse class="sub-menu text-gray-500">
+                        <li><a href="/">Daily Sales</a></li>
+                        <li><a href="/">Eatocoins Balance</a></li>
+                    </ul>
+                </li>
+
+                @endrole
                 @role(['Admin', 'Root'])
                 <li class="menu nav-item relative">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'users' }"
@@ -372,12 +408,12 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'users'" x-collapse class="sub-menu text-gray-500">                    
+                    <ul x-cloak x-show="activeDropdown === 'users'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/permissions">Permissions</a></li>
                         <li><a href="/roles">Roles</a></li>
                         <li><a href="/users">Users</a></li>
                     </ul>
-                </li> 
+                </li>
                 @endrole
             </ul>
         </div>

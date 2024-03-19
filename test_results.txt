@@ -1,0 +1,453 @@
+
+   FAIL  Tests\Feature\Auth\AuthenticationTest
+  ⨯ login screen can be rendered
+  ⨯ users can authenticate using the login screen
+  ⨯ users can not authenticate with invalid password
+
+   FAIL  Tests\Feature\Auth\EmailVerificationTest
+  ⨯ email verification screen can be rendered
+  ⨯ email can be verified
+  ⨯ email is not verified with invalid hash
+
+   FAIL  Tests\Feature\Auth\PasswordConfirmationTest
+  ⨯ confirm password screen can be rendered
+  ⨯ password can be confirmed
+  ⨯ password is not confirmed with invalid password
+
+   FAIL  Tests\Feature\Auth\PasswordResetTest
+  ⨯ reset password link screen can be rendered
+  ⨯ reset password link can be requested
+  ⨯ reset password screen can be rendered
+  ⨯ password can be reset with valid token
+
+   FAIL  Tests\Feature\Auth\PasswordUpdateTest
+  ⨯ password can be updated
+  ⨯ correct password must be provided to update password
+
+   FAIL  Tests\Feature\Auth\RegistrationTest
+  ⨯ registration screen can be rendered
+  ⨯ new users can register
+
+   FAIL  Tests\Feature\ExampleTest
+  ⨯ the application returns a successful response                        0.26s
+
+   FAIL  Tests\Feature\ProfileTest
+  ⨯ profile page is displayed
+  ⨯ profile information can be updated
+  ⨯ email verification status is unchanged when the email address is unchanged
+  ⨯ user can delete their account
+  ⨯ correct password must be provided to delete account
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\AuthenticationTest > login scr…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\AuthenticationTest > users can…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\AuthenticationTest > users can…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\EmailVerificationTest > email…   QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\EmailVerificationTest > email…   QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\EmailVerificationTest > email…   QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordConfirmationTest > con…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordConfirmationTest > pas…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordConfirmationTest > pas…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordResetTest > reset pass…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordResetTest > reset pass…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordResetTest > reset pass…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordResetTest > password c…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordUpdateTest > password…   QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\PasswordUpdateTest > correct p…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\RegistrationTest > registratio…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\Auth\RegistrationTest > new users c…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\ExampleTest > the application returns a successful…
+  Expected response status code [200] but received 500.
+
+  at tests/Feature/ExampleTest.php:17
+     13▕     public function test_the_application_returns_a_successful_response(): void
+     14▕     {
+     15▕         $response = $this->get('/');
+     16▕
+  ➜  17▕         $response->assertStatus(200);
+     18▕     }
+     19▕ }
+     20▕
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\ProfileTest > profile page is displ…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\ProfileTest > profile information c…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\ProfileTest > email verification st…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\ProfileTest > user can delete their…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+  ────────────────────────────────────────────────────────────────────────────
+   FAILED  Tests\Feature\ProfileTest > correct password must…  QueryException
+  SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tagline' in 'hotels' (Connection: mysql, SQL: alter table `hotels` add `status` enum('Register', 'Onboard') null default 'Register' after `tagline`)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:580
+    576▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    577▕
+    578▕             $this->recordsHaveBeenModified();
+    579▕
+  ➜ 580▕             return $statement->execute();
+    581▕         });
+    582▕     }
+    583▕
+    584▕     /**
+
+      [2m+8 vendor frames [22m
+  9   database/migrations/2024_02_10_052428_add_status_hotels_table.php:14
+
+
+  Tests:    23 failed (1 assertions)
+  Duration: 90.20s
+

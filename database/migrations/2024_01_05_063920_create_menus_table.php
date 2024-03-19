@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('menu_category_id',11)->nullable();
             $table->foreignId('hotel_id',11)->nullable();
-            $table->string('type',10)->nullable();
             $table->string('item_name',100)->nullable();
             $table->string('item_description',255)->nullable();
             $table->string('contact_no',20)->nullable();
