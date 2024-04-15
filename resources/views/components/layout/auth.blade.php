@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -89,15 +90,15 @@
         });
     </script>
 
-    <div class="main-container text-black dark:text-white-dark min-h-screen">
-        {{ $slot }}
-    </div>
-    <script src="/assets/js/alpine-collaspe.min.js"></script>
-    <script src="/assets/js/alpine-persist.min.js"></script>
-    <script defer src="/assets/js/alpine-ui.min.js"></script>
-    <script defer src="/assets/js/alpine-focus.min.js"></script>
-    <script defer src="/assets/js/alpine.min.js"></script>
-    <script src="/assets/js/custom.js"></script>
+        <div class="main-container text-black dark:text-white-dark min-h-screen">
+            {{ $slot }}
+        </div>
+        <script src="/assets/js/alpine-collaspe.min.js"></script>
+        <script src="/assets/js/alpine-persist.min.js"></script>
+        <script defer src="/assets/js/alpine-ui.min.js"></script>
+        <script defer src="/assets/js/alpine-focus.min.js"></script>
+        <script defer src="/assets/js/alpine.min.js"></script>
+        <script src="/assets/js/custom.js"></script>
     </body>
 
     </html>

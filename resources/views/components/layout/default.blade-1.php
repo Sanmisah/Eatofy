@@ -3,6 +3,7 @@
 
 <head>
     <meta charset='utf-8' />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -15,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
 
-    
+
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/flatpickr.min.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/highlight.min.css') }}">
     <link rel='stylesheet' type='text/css' href="{{ Vite::asset('resources/css/nice-select2.css') }}">
@@ -105,14 +106,14 @@
 
     <div class="main-container text-black dark:text-white-dark min-h-screen" :class="[$store.app.navbar]">
 
-        
 
-       
+
+
             <x-common.header />
             @if(Session::has('success'))
-                <x-common.alert :success='true'> {{ session('success') }} </x-common.alert> 
+                <x-common.alert :success='true'> {{ session('success') }} </x-common.alert>
             @elseif(Session::has('error'))
-                <x-common.alert > {{ session('error') }} </x-common.alert > 
+                <x-common.alert > {{ session('error') }} </x-common.alert >
             @endif
 
             <div class="p-6 animate__animated" :class="[$store.app.animation]">
@@ -120,7 +121,7 @@
 
                 <x-common.footer />
             </div>
-        
+
     </div>
     <script src="/assets/js/alpine-collaspe.min.js"></script>
     <script src="/assets/js/alpine-persist.min.js"></script>

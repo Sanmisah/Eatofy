@@ -7,12 +7,8 @@
     "file": "assets/map-7d4b8c5c.svg",
     "src": "assets/images/map.svg"
   },
-  "assets/images/menu-heade.jpg": {
-    "file": "assets/menu-heade-771f04b4.jpg",
-    "src": "assets/images/menu-heade.jpg"
-  },
   "resources/css/app.css": {
-    "file": "assets/app-dcab4798.css",
+    "file": "assets/app-8d8fcc0b.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -82,7 +78,7 @@
     "src": "resources/css/tippy.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-9fb8c7a2.js",
+    "file": "assets/app-cd8c6ba3.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
