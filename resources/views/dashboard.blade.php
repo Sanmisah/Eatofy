@@ -11,7 +11,9 @@
                 <div class="p-6 text-gray-900">
                     <div class="grid grid-cols-4 gap-4">
                         <?php for($i=1;$i<=10;$i++) { ?>
-                            <div class="bg-sky-500 px-8 py-8 rounded-md">Table <?php echo $i; ?></div>
+                            <a href="/table">
+                                <div class="bg-sky-500 px-8 py-8 rounded-md">Table <?php echo $i; ?></div>
+                            </a>
                         <?php } ?>
                         <!-- ... -->
                     </div>

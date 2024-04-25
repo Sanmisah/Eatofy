@@ -59,7 +59,10 @@
                                     <td>
                                         <div class="flex items-center w-max">
                                             <div x-show="contact.path" class="w-max">
-                                                <img :src="`/assets/images/${contact.path}`"
+                                                <!-- <img :src="`/assets/images/${contact.path}`"
+                                                    class="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2"
+                                                    alt="avatar" /> -->
+                                                <img :src="{{ Vite::asset('/assets/images/${contact.path}`') }}"
                                                     class="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2"
                                                     alt="avatar" />
                                             </div>

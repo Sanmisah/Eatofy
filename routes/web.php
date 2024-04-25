@@ -18,6 +18,7 @@ use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\TeamsController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,6 +93,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::patch('hotels/updateTagLine/{hotel}', 'HotelsController@updateTagLine')->name('hotels.updateTagLine');
         Route::resource('sections', SectionsController::class);   
         Route::resource('teams', TeamsController::class);   
+        Route::resource('/table', DashboardController::class);
     });
 
     Route::group(['middleware' => ['auth']], function() {  
