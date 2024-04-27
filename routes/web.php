@@ -68,6 +68,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('menu_categories/getMenuData/{id}/', 'MenuCategoriesController@getMenuData')->name('menu_categories.getMenuData');
         Route::get('hotels/onboard_hotels', 'HotelsController@onboardHotels')->name('hotels.onboard_hotels');
         Route::get('hotels/register_hotels', 'HotelsController@registerHotels')->name('hotels.register_hotels');
+        Route::get('/dashboard', 'DashboardController@show')->name('dashboard');
         /**
          * Masters Route
          */   
