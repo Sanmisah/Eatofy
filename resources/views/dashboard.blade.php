@@ -17,14 +17,20 @@
                         <?php //} ?>
                     </div>
                 </div> -->
-                <?php foreach($tables as $value){?>
-                <h3 class="text-lg font-semibold ltr:ml-3 rtl:mr-3"><?php echo $value['section_name']; ?></h3>                  
-                <div class="h-px border-b border-[#e0e6ed] dark:border-[#1b2e4b] mb-1"></div>
+                <?php
+                    $section = "";
+                    foreach($tables as $value){
+                        if($value->section_name != $section) {
+                            $section = $value->section_name;
+                            echo "<h3 class='text-lg font-semibold ltr:ml-3 rtl:mr-3'>{$section}</h3>";
+                            echo "<div class='h-px border-b border-[#e0e6ed] dark:border-[#1b2e4b] mb-1'></div>";
+                        }
+                ?>
                 <div class="p-6 text-gray-900">
                     <div class="grid grid-cols-4 gap-4">
-                            <a href="/table">
-                                <div class="bg-sky-500 px-8 py-8 rounded-md"><?php echo $value['name']; ?></div>
-                            </a>
+                        <a href="/table">
+                            <div class="bg-sky-500 px-8 py-8 rounded-md"><?php echo $value['name']; ?></div>
+                        </a>
                     </div>
                 </div>
                 <?php }?>
